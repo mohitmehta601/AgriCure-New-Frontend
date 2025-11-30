@@ -233,13 +233,13 @@ export const fetchThingSpeakHistoricalData = async (results: number = 24): Promi
 
 // Mock data for Soil Readings
 export const getMockSoilData = (): SoilReadingData => ({
-  nitrogen: 45.2,
-  phosphorus: 23.8,
-  potassium: 156.4,
-  pH: 6.5,
-  electricalConductivity: 0.8,
-  soilMoisture: 68.5,
-  soilTemperature: 24.3,
+  nitrogen: 190.0,      // mg/kg - close to ideal 182.5
+  phosphorus: 9.5,      // mg/kg - close to ideal 9.25
+  potassium: 115.0,     // mg/kg - close to ideal 110
+  pH: 7.1,              // close to ideal 7.0
+  electricalConductivity: 0.5,  // dS/m - good range
+  soilMoisture: 32.0,   // % - close to ideal 30
+  soilTemperature: 26.0, // °C - close to ideal 25
   timestamp: new Date().toISOString()
 });
 
@@ -257,13 +257,13 @@ export const getMockSoilHistoricalData = (results: number = 24): SoilReadingData
   return Array.from({ length: results }, (_, i) => {
     const timestamp = new Date(now.getTime() - (results - 1 - i) * 60 * 60 * 1000);
     return {
-      nitrogen: 40 + Math.random() * 20,
-      phosphorus: 20 + Math.random() * 15,
-      potassium: 140 + Math.random() * 40,
-      pH: 6.0 + Math.random() * 1.5,
-      electricalConductivity: 0.5 + Math.random() * 0.8,
-      soilMoisture: 60 + Math.random() * 20,
-      soilTemperature: 20 + Math.random() * 10,
+      nitrogen: 160 + Math.random() * 50,         // 160-210 mg/kg range
+      phosphorus: 7 + Math.random() * 5,          // 7-12 mg/kg range
+      potassium: 90 + Math.random() * 50,         // 90-140 mg/kg range
+      pH: 6.5 + Math.random() * 1.0,              // 6.5-7.5 range
+      electricalConductivity: 0.3 + Math.random() * 0.7,  // 0.3-1.0 dS/m
+      soilMoisture: 25 + Math.random() * 15,      // 25-40% range
+      soilTemperature: 22 + Math.random() * 8,    // 22-30°C range
       timestamp: timestamp.toISOString()
     };
   });
@@ -285,13 +285,13 @@ export const getMockEnvironmentHistoricalData = (results: number = 24): Environm
 
 // Legacy mock data function
 export const getMockThingSpeakData = (): ThingSpeakData => ({
-  nitrogen: 45.2,
-  phosphorus: 23.8,
-  potassium: 156.4, // Now consistently in mg/kg
-  soilMoisture: 68.5,
-  soilPH: 6.5, // constant value as requested
-  temperature: 24.3,
-  humidity: 72.1,
+  nitrogen: 190.0,
+  phosphorus: 9.5,
+  potassium: 115.0,
+  soilMoisture: 32.0,
+  soilPH: 7.1,
+  temperature: 26.0,
+  humidity: 65.0,
   timestamp: new Date().toISOString()
 });
 
@@ -301,13 +301,13 @@ export const getMockHistoricalData = (results: number = 24): ThingSpeakData[] =>
   return Array.from({ length: results }, (_, i) => {
     const timestamp = new Date(now.getTime() - (results - 1 - i) * 60 * 60 * 1000); // Hourly intervals
     return {
-      nitrogen: 40 + Math.random() * 20,
-      phosphorus: 20 + Math.random() * 15,
-      potassium: 140 + Math.random() * 40,
-      soilMoisture: 60 + Math.random() * 20,
-      soilPH: 6.5, // constant value as requested
-      temperature: 20 + Math.random() * 10,
-      humidity: 65 + Math.random() * 20,
+      nitrogen: 160 + Math.random() * 50,
+      phosphorus: 7 + Math.random() * 5,
+      potassium: 90 + Math.random() * 50,
+      soilMoisture: 25 + Math.random() * 15,
+      soilPH: 6.5 + Math.random() * 1.0,
+      temperature: 22 + Math.random() * 8,
+      humidity: 60 + Math.random() * 15,
       timestamp: timestamp.toISOString()
     };
   });

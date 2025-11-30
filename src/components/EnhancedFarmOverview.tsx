@@ -25,11 +25,16 @@ import {
   fetchThingSpeakData,
   getMockThingSpeakData,
   ThingSpeakData,
+  fetchSoilData,
+  fetchEnvironmentData,
+  SoilReadingData,
+  EnvironmentReadingData,
 } from "@/services/thingSpeakService";
 import { recommendationService } from "@/services/recommendationService";
 import { FertilizerRecommendation } from "@/types/database";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useNavigate } from "react-router-dom";
+import { calculateSoilHealth } from "@/utils/soilHealthCalculator";
 import {
   Dialog,
   DialogContent,
@@ -81,6 +86,9 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [realTimeData, setRealTimeData] = useState<ThingSpeakData | null>(null);
+  const [soilData, setSoilData] = useState<SoilReadingData | null>(null);
+  const [environmentData, setEnvironmentData] =
+    useState<EnvironmentReadingData | null>(null);
   const [recommendations, setRecommendations] = useState<
     FertilizerRecommendation[]
   >([]);
@@ -110,9 +118,17 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
     const loadData = async () => {
       setLoading(true);
       try {
-        const data = await fetchThingSpeakData();
-        if (data) {
-          setRealTimeData(data);
+        // Fetch both soil and environment data
+        const [soil, environment, legacy] = await Promise.all([
+          fetchSoilData(),
+          fetchEnvironmentData(),
+          fetchThingSpeakData(),
+        ]);
+
+        if (soil) setSoilData(soil);
+        if (environment) setEnvironmentData(environment);
+        if (legacy) {
+          setRealTimeData(legacy);
         } else {
           setRealTimeData(getMockThingSpeakData());
         }
@@ -465,206 +481,197 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
   if (loading) {
     return (
       <div className="space-y-4 sm:space-y-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-          {[...Array(4)].map((_, i) => (
-            <Card key={i} className="animate-pulse border-0 shadow-md">
-              <CardContent className="p-3 sm:p-6">
-                <div className="h-3 sm:h-4 bg-gradient-to-r from-gray-200 to-gray-300 rounded mb-2"></div>
-                <div className="h-6 sm:h-8 bg-gradient-to-r from-gray-200 to-gray-300 rounded"></div>
-              </CardContent>
-            </Card>
-          ))}
+        <div className="animate-pulse">
+          <Card className="border-0 shadow-md">
+            <CardContent className="p-6">
+              <div className="h-6 bg-gradient-to-r from-gray-200 to-gray-300 rounded mb-4"></div>
+              <div className="space-y-3">
+                {[...Array(10)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-4 bg-gradient-to-r from-gray-200 to-gray-300 rounded"
+                  ></div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     );
   }
 
-  const shiPercent = realTimeData ? computeSoilHealthIndex(realTimeData) : 0;
+  // Calculate soil health if we have soil data
+  const soilHealthResult = soilData
+    ? calculateSoilHealth({
+        nitrogen: soilData.nitrogen,
+        phosphorus: soilData.phosphorus,
+        potassium: soilData.potassium,
+        pH: soilData.pH,
+        electricalConductivity: soilData.electricalConductivity,
+        soilMoisture: soilData.soilMoisture,
+        soilTemperature: soilData.soilTemperature,
+      })
+    : null;
 
   return (
-    <div className="space-y-4 sm:space-y-6">
-      {/* Real-time Metrics */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-        <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-grass-50 to-green-50">
-          <CardHeader className="pb-2 px-3 sm:px-6 pt-3 sm:pt-6">
-            <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">
-              {t("dashboard.overallSoilHealth")}
+    <div className="space-y-4">
+      {/* Current Soil Report Card */}
+      <Card className="border-0 shadow-sm bg-white rounded-xl overflow-hidden">
+        <CardHeader className="px-5 py-4 border-b border-gray-100">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-sm font-semibold text-gray-800 flex items-center gap-2">
+              <Activity className="h-4 w-4 text-grass-600" />
+              Current Soil Report
             </CardTitle>
-          </CardHeader>
-          <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
-            <div className="flex items-center space-x-2">
-              <Activity className="h-4 w-4 sm:h-5 sm:w-5 text-grass-600 animate-pulse" />
-              <span className="text-lg sm:text-2xl font-bold text-grass-700">
-                {Math.round(shiPercent)}%
-              </span>
-              {(() => {
-                const c = classifySHI(shiPercent);
-                return (
-                  <span
-                    className={`ml-2 text-xs px-2 py-0.5 rounded border ${c.color}`}
-                  >
-                    {c.label}
-                  </span>
-                );
-              })()}
-            </div>
-            <Progress value={shiPercent} className="mt-2 h-2 bg-grass-100" />
-          </CardContent>
-        </Card>
-
-        <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-blue-50 to-cyan-50">
-          <CardHeader className="pb-2 px-3 sm:px-6 pt-3 sm:pt-6">
-            <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">
-              {t("dashboard.soilMoisture")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
-            <div className="flex items-center space-x-2">
-              <Droplets className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 animate-bounce" />
-              <span className="text-lg sm:text-2xl font-bold text-blue-700">
-                {realTimeData?.soilMoisture.toFixed(1)}%
-              </span>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-orange-50 to-red-50">
-          <CardHeader className="pb-2 px-3 sm:px-6 pt-3 sm:pt-6">
-            <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">
-              {t("dashboard.temperature")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
-            <div className="flex items-center space-x-2">
-              <Thermometer className="h-4 w-4 sm:h-5 sm:w-5 text-orange-600" />
-              <span className="text-lg sm:text-2xl font-bold text-orange-700">
-                {realTimeData?.temperature.toFixed(1)}°C
-              </span>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-cyan-50 to-blue-50">
-          <CardHeader className="pb-2 px-3 sm:px-6 pt-3 sm:pt-6">
-            <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">
-              {t("dashboard.humidity")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
-            <div className="flex items-center space-x-2">
-              <Droplets className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-600" />
-              <span className="text-lg sm:text-2xl font-bold text-cyan-700">
-                {realTimeData?.humidity.toFixed(1)}%
-              </span>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* NPK Levels */}
-      <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-        <CardHeader className="px-4 sm:px-6">
-          <CardTitle className="text-lg sm:text-xl flex items-center space-x-2">
-            <Leaf className="h-5 w-5 text-grass-600" />
-            <span>{t("dashboard.npkLevels")}</span>
-          </CardTitle>
-          <CardDescription className="text-sm sm:text-base">
-            {t("dashboard.npkDescription")}
-          </CardDescription>
+            {soilHealthResult && (
+              <Badge
+                className={`${soilHealthResult.categoryColor} text-xs px-2.5 py-0.5 font-medium`}
+              >
+                {soilHealthResult.category}
+              </Badge>
+            )}
+          </div>
+          {soilData && (
+            <p className="text-xs text-gray-400 flex items-center gap-1 mt-1.5">
+              <Clock className="h-3 w-3" />
+              {new Date(soilData.timestamp).toLocaleString()}
+            </p>
+          )}
         </CardHeader>
-        <CardContent className="px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-            <div className="space-y-2 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
-              <div className="flex justify-between">
-                <span className="text-sm font-medium text-green-800">
-                  {t("dashboard.nitrogen")}
+        <CardContent className="p-5 space-y-4">
+          {/* Overall Soil Health */}
+          {soilHealthResult && (
+            <div className="bg-gradient-to-br from-grass-50 to-emerald-50 rounded-lg p-3 border border-grass-100">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-medium text-grass-700">
+                  Overall Soil Health
                 </span>
-                <span className="text-sm text-green-600 font-semibold">
-                  {realTimeData?.nitrogen.toFixed(1)} mg/kg
-                </span>
-              </div>
-              <Progress
-                value={clampPercent(
-                  ((realTimeData?.nitrogen ?? 0) / 240) * 100
-                )}
-                className="h-2 bg-green-100"
-              />
-              {(() => {
-                const s = getNutrientStatus(
-                  "nitrogen",
-                  realTimeData?.nitrogen ?? 0
-                );
-                return (
-                  <div className={`text-xs ${s.color}`}>
-                    {s.status.toUpperCase()}
-                  </div>
-                );
-              })()}
-            </div>
-            <div className="space-y-2 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
-              <div className="flex justify-between">
-                <span className="text-sm font-medium text-blue-800">
-                  {t("dashboard.phosphorus")}
-                </span>
-                <span className="text-sm text-blue-600 font-semibold">
-                  {realTimeData?.phosphorus.toFixed(1)} mg/kg
+                <span className="text-2xl font-bold text-grass-800">
+                  {soilHealthResult.overallScore}%
                 </span>
               </div>
               <Progress
-                value={clampPercent(
-                  ((realTimeData?.phosphorus ?? 0) / 400) * 100
-                )}
-                className="h-2 bg-blue-100"
+                value={soilHealthResult.overallScore}
+                className="h-2 bg-white/50"
               />
-              {(() => {
-                const s = getNutrientStatus(
-                  "phosphorus",
-                  realTimeData?.phosphorus ?? 0
-                );
-                return (
-                  <div className={`text-xs ${s.color}`}>
-                    {s.status.toUpperCase()}
-                  </div>
-                );
-              })()}
+              <p className="text-xs text-grass-600 mt-2 leading-relaxed">
+                {soilHealthResult.recommendations}
+              </p>
             </div>
-            <div className="space-y-2 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg border border-yellow-200">
-              <div className="flex justify-between">
-                <span className="text-sm font-medium text-yellow-800">
-                  {t("dashboard.potassium")}
-                </span>
-                <span className="text-sm text-yellow-600 font-semibold">
-                  {realTimeData?.potassium.toFixed(1)} mg/kg
-                </span>
+          )}
+
+          {/* Soil Data */}
+          {soilData && (
+            <div>
+              <div className="flex items-center gap-1.5 mb-3">
+                <Leaf className="h-3.5 w-3.5 text-grass-600" />
+                <h3 className="text-xs font-semibold text-gray-700">
+                  Soil Data
+                </h3>
               </div>
-              <Progress
-                value={clampPercent(
-                  ((realTimeData?.potassium ?? 0) / 400) * 100
-                )}
-                className="h-2 bg-yellow-100"
-              />
-              {(() => {
-                const s = getNutrientStatus(
-                  "potassium",
-                  realTimeData?.potassium ?? 0
-                );
-                return (
-                  <div className={`text-xs ${s.color}`}>
-                    {s.status.toUpperCase()}
-                  </div>
-                );
-              })()}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                <div className="bg-green-50/50 rounded-lg p-2.5 border border-green-100">
+                  <p className="text-xs text-green-600 mb-1">Nitrogen (N)</p>
+                  <p className="text-base font-bold text-green-900">
+                    {soilData.nitrogen.toFixed(1)}
+                  </p>
+                  <p className="text-xs text-green-500 mt-0.5">
+                    Score: {soilHealthResult?.scores.nitrogen.toFixed(0)}%
+                  </p>
+                </div>
+                <div className="bg-blue-50/50 rounded-lg p-2.5 border border-blue-100">
+                  <p className="text-xs text-blue-600 mb-1">Phosphorus (P)</p>
+                  <p className="text-base font-bold text-blue-900">
+                    {soilData.phosphorus.toFixed(1)}
+                  </p>
+                  <p className="text-xs text-blue-500 mt-0.5">
+                    Score: {soilHealthResult?.scores.phosphorus.toFixed(0)}%
+                  </p>
+                </div>
+                <div className="bg-amber-50/50 rounded-lg p-2.5 border border-amber-100">
+                  <p className="text-xs text-amber-600 mb-1">Potassium (K)</p>
+                  <p className="text-base font-bold text-amber-900">
+                    {soilData.potassium.toFixed(1)}
+                  </p>
+                  <p className="text-xs text-amber-500 mt-0.5">
+                    Score: {soilHealthResult?.scores.potassium.toFixed(0)}%
+                  </p>
+                </div>
+                <div className="bg-purple-50/50 rounded-lg p-2.5 border border-purple-100">
+                  <p className="text-xs text-purple-600 mb-1">pH Level</p>
+                  <p className="text-base font-bold text-purple-900">
+                    {soilData.pH.toFixed(2)}
+                  </p>
+                  <p className="text-xs text-purple-500 mt-0.5">
+                    Score: {soilHealthResult?.scores.pH.toFixed(0)}%
+                  </p>
+                </div>
+                <div className="bg-cyan-50/50 rounded-lg p-2.5 border border-cyan-100">
+                  <p className="text-xs text-cyan-600 mb-1">
+                    Electrical Conductivity
+                  </p>
+                  <p className="text-base font-bold text-cyan-900">
+                    {soilData.electricalConductivity.toFixed(2)} dS/m
+                  </p>
+                  <p className="text-xs text-cyan-500 mt-0.5">
+                    Score: {soilHealthResult?.scores.ec.toFixed(0)}%
+                  </p>
+                </div>
+                <div className="bg-sky-50/50 rounded-lg p-2.5 border border-sky-100">
+                  <p className="text-xs text-sky-600 mb-1">Soil Moisture</p>
+                  <p className="text-base font-bold text-sky-900">
+                    {soilData.soilMoisture.toFixed(1)}%
+                  </p>
+                  <p className="text-xs text-sky-500 mt-0.5">
+                    Score: {soilHealthResult?.scores.moisture.toFixed(0)}%
+                  </p>
+                </div>
+                <div className="bg-orange-50/50 rounded-lg p-2.5 border border-orange-100">
+                  <p className="text-xs text-orange-600 mb-1">
+                    Soil Temperature
+                  </p>
+                  <p className="text-base font-bold text-orange-900">
+                    {soilData.soilTemperature.toFixed(1)}°C
+                  </p>
+                  <p className="text-xs text-orange-500 mt-0.5">
+                    Score: {soilHealthResult?.scores.temperature.toFixed(0)}%
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="mt-4 text-xs text-gray-500 flex items-center space-x-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span>
-              {t("dashboard.lastUpdated")}:{" "}
-              {realTimeData
-                ? new Date(realTimeData.timestamp).toLocaleString()
-                : "N/A"}
-            </span>
-          </div>
+          )}
+
+          {/* Environment Readings */}
+          {environmentData && (
+            <div>
+              <div className="flex items-center gap-1.5 mb-3">
+                <Thermometer className="h-3.5 w-3.5 text-orange-600" />
+                <h3 className="text-xs font-semibold text-gray-700">
+                  Environment Readings
+                </h3>
+              </div>
+              <div className="grid grid-cols-3 gap-2.5">
+                <div className="bg-yellow-50/50 rounded-lg p-2.5 border border-yellow-100">
+                  <p className="text-xs text-yellow-600 mb-1">Sunlight</p>
+                  <p className="text-base font-bold text-yellow-900">
+                    {environmentData.sunlightIntensity.toFixed(0)} lux
+                  </p>
+                </div>
+                <div className="bg-red-50/50 rounded-lg p-2.5 border border-red-100">
+                  <p className="text-xs text-red-600 mb-1">Temperature</p>
+                  <p className="text-base font-bold text-red-900">
+                    {environmentData.temperature.toFixed(1)}°C
+                  </p>
+                </div>
+                <div className="bg-teal-50/50 rounded-lg p-2.5 border border-teal-100">
+                  <p className="text-xs text-teal-600 mb-1">Humidity</p>
+                  <p className="text-base font-bold text-teal-900">
+                    {environmentData.humidity.toFixed(1)}%
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
 

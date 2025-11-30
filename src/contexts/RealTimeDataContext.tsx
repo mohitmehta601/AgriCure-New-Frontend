@@ -1,19 +1,35 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { fetchThingSpeakData, ThingSpeakData } from '@/services/thingSpeakService';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import {
+  fetchSoilData,
+  fetchEnvironmentData,
+  SoilReadingData,
+  EnvironmentReadingData,
+} from "@/services/thingSpeakService";
 
 interface RealTimeDataContextType {
-  realTimeData: ThingSpeakData | null;
+  soilData: SoilReadingData | null;
+  environmentData: EnvironmentReadingData | null;
   isLoading: boolean;
   isConnected: boolean;
   refreshData: () => Promise<void>;
 }
 
-const RealTimeDataContext = createContext<RealTimeDataContextType | undefined>(undefined);
+const RealTimeDataContext = createContext<RealTimeDataContextType | undefined>(
+  undefined
+);
 
 export const useRealTimeData = () => {
   const context = useContext(RealTimeDataContext);
   if (context === undefined) {
-    throw new Error('useRealTimeData must be used within a RealTimeDataProvider');
+    throw new Error(
+      "useRealTimeData must be used within a RealTimeDataProvider"
+    );
   }
   return context;
 };
@@ -22,23 +38,32 @@ interface RealTimeDataProviderProps {
   children: ReactNode;
 }
 
-export const RealTimeDataProvider: React.FC<RealTimeDataProviderProps> = ({ children }) => {
-  const [realTimeData, setRealTimeData] = useState<ThingSpeakData | null>(null);
+export const RealTimeDataProvider: React.FC<RealTimeDataProviderProps> = ({
+  children,
+}) => {
+  const [soilData, setSoilData] = useState<SoilReadingData | null>(null);
+  const [environmentData, setEnvironmentData] =
+    useState<EnvironmentReadingData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
 
   const loadData = async () => {
     setIsLoading(true);
     try {
-      const data = await fetchThingSpeakData();
-      if (data) {
-        setRealTimeData(data);
+      const [soil, environment] = await Promise.all([
+        fetchSoilData(),
+        fetchEnvironmentData(),
+      ]);
+
+      if (soil && environment) {
+        setSoilData(soil);
+        setEnvironmentData(environment);
         setIsConnected(true);
       } else {
         setIsConnected(false);
       }
     } catch (error) {
-      console.error('Error loading real-time data:', error);
+      console.error("Error loading real-time data:", error);
       setIsConnected(false);
     } finally {
       setIsLoading(false);
@@ -51,16 +76,17 @@ export const RealTimeDataProvider: React.FC<RealTimeDataProviderProps> = ({ chil
 
   useEffect(() => {
     loadData();
-    
+
     const interval = setInterval(loadData, 2 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
 
   const value: RealTimeDataContextType = {
-    realTimeData,
+    soilData,
+    environmentData,
     isLoading,
     isConnected,
-    refreshData
+    refreshData,
   };
 
   return (
@@ -68,4 +94,4 @@ export const RealTimeDataProvider: React.FC<RealTimeDataProviderProps> = ({ chil
       {children}
     </RealTimeDataContext.Provider>
   );
-}; 
+};

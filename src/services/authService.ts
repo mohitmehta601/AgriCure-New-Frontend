@@ -6,6 +6,7 @@ export interface User {
   email: string;
   fullName: string;
   phoneNumber: string;
+  productId?: string;
   createdAt: string;
   updatedAt: string;
 }

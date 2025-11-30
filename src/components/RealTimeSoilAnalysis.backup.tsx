@@ -133,8 +133,8 @@ const RealTimeSoilAnalysis = () => {
 
   if (loading) {
     return (
-      <div className="space-y-3 sm:space-y-4 md:space-y-6 p-2 sm:p-4 md:p-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {[...Array(8)].map((_, i) => (
             <Card key={i} className="animate-pulse">
               <CardContent className="p-3 sm:p-6">
@@ -149,21 +149,21 @@ const RealTimeSoilAnalysis = () => {
   }
 
   return (
-    <div className="space-y-3 sm:space-y-4 md:space-y-6 p-2 sm:p-4 md:p-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Connection Status and Refresh */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 md:gap-4 bg-gradient-to-r from-gray-50 to-gray-100 p-3 sm:p-4 md:p-5 rounded-lg border shadow-sm">
-        <div className="flex items-center gap-2 w-full sm:w-auto">
+      <div className="flex flex-col xs:flex-row items-start xs:items-center justify-between space-y-2 xs:space-y-0 bg-gray-50 p-3 xs:p-4 rounded-lg border">
+        <div className="flex items-center space-x-2">
           {isConnected ? (
             <>
-              <Wifi className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 flex-shrink-0" />
-              <span className="text-xs sm:text-sm md:text-base font-medium text-green-600 break-all">
+              <Wifi className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
+              <span className="text-xs xs:text-sm font-medium text-green-600">
                 Connected To Device (Product ID: {productId})
               </span>
             </>
           ) : (
             <>
-              <WifiOff className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 flex-shrink-0" />
-              <span className="text-xs sm:text-sm md:text-base font-medium text-red-600">
+              <WifiOff className="h-4 w-4 sm:h-5 sm:w-5 text-red-600" />
+              <span className="text-xs xs:text-sm font-medium text-red-600">
                 {t("dashboard.usingDemoData")}
               </span>
             </>
@@ -177,7 +177,7 @@ const RealTimeSoilAnalysis = () => {
           variant="outline"
           size="sm"
           disabled={loading}
-          className="text-xs sm:text-sm w-full sm:w-auto flex-shrink-0"
+          className="text-xs xs:text-sm w-full xs:w-auto"
         >
           <RefreshCw
             className={`h-3 w-3 xs:h-4 xs:w-4 mr-2 ${
@@ -189,16 +189,16 @@ const RealTimeSoilAnalysis = () => {
       </div>
 
       {/* Soil Readings Section */}
-      <div className="space-y-3 sm:space-y-4">
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 px-1">
+      <div className="space-y-4">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
           Soil Readings
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 xs:gap-4 sm:gap-6">
           {/* Nitrogen */}
-          <Card className="hover:shadow-lg transition-all duration-200 bg-white">
-            <CardHeader className="pb-2 px-3 sm:px-4 md:px-6 pt-3 sm:pt-4 md:pt-6">
-              <CardTitle className="text-xs sm:text-sm md:text-base font-medium text-gray-700">
+          <Card className="hover:shadow-md transition-shadow duration-200 bg-white">
+            <CardHeader className="pb-2 px-3 xs:px-4 sm:px-6 pt-3 xs:pt-4 sm:pt-6">
+              <CardTitle className="text-xs xs:text-sm font-medium text-gray-700">
                 Nitrogen
               </CardTitle>
             </CardHeader>
@@ -651,14 +651,14 @@ const RealTimeSoilAnalysis = () => {
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Soil NPK Levels Chart */}
-        <Card className="overflow-hidden">
-          <CardHeader className="px-3 sm:px-4 md:px-6 py-3 sm:py-4">
-            <CardTitle className="text-base sm:text-lg md:text-xl">
+        <Card>
+          <CardHeader className="px-4 sm:px-6">
+            <CardTitle className="text-lg sm:text-xl">
               Soil NPK Levels Trend
             </CardTitle>
-            <CardDescription className="text-xs sm:text-sm md:text-base">
+            <CardDescription className="text-sm sm:text-base">
               Historical Nutrient Levels (Last 24 Hours)
             </CardDescription>
           </CardHeader>

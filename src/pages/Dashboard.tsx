@@ -308,28 +308,28 @@ const Dashboard = () => {
         // Use LLM-enhanced recommendations
         if (user) {
           const recommendationData = {
-            user_id: user.id,
-            field_name: data.farm.name,
-            field_size: data.farm.size,
-            field_size_unit: data.farm.unit,
-            crop_type: data.farm.crop_type,
-            soil_type: data.farm.soil_type,
-            soil_ph: parseFloat(data.soilPH),
+            userId: user.id,
+            fieldName: data.farm.name,
+            fieldSize: data.farm.size,
+            fieldSizeUnit: data.farm.unit,
+            cropType: data.farm.crop_type,
+            soilType: data.farm.soil_type,
+            soilPh: parseFloat(data.soilPH),
             nitrogen: parseFloat(data.nitrogen),
             phosphorus: parseFloat(data.phosphorus),
             potassium: parseFloat(data.potassium),
             temperature: parseFloat(data.temperature),
             humidity: parseFloat(data.humidity),
-            soil_moisture: parseFloat(data.soilMoisture),
-            primary_fertilizer:
+            soilMoisture: parseFloat(data.soilMoisture),
+            primaryFertilizer:
               data.llmEnhancedResult.primary_fertilizer?.name ||
               data.mlPrediction ||
               "Unknown",
-            secondary_fertilizer:
+            secondaryFertilizer:
               data.llmEnhancedResult.secondary_fertilizer?.name || "None",
-            ml_prediction: data.mlPrediction || "Unknown",
-            confidence_score: 92,
-            cost_estimate: data.llmEnhancedResult.cost_estimate?.total || "₹0",
+            mlPrediction: data.mlPrediction || "Unknown",
+            confidenceScore: 92,
+            costEstimate: data.llmEnhancedResult.cost_estimate?.total || "₹0",
             status: "pending" as const,
           };
 
@@ -378,25 +378,25 @@ const Dashboard = () => {
 
         if (user) {
           const recommendationData = {
-            user_id: user.id,
-            field_name: data.farm.name,
-            field_size: data.farm.size,
-            field_size_unit: data.farm.unit,
-            crop_type: data.farm.crop_type,
-            soil_type: data.farm.soil_type,
-            soil_ph: parseFloat(data.soilPH),
+            userId: user.id,
+            fieldName: data.farm.name,
+            fieldSize: data.farm.size,
+            fieldSizeUnit: data.farm.unit,
+            cropType: data.farm.crop_type,
+            soilType: data.farm.soil_type,
+            soilPh: parseFloat(data.soilPH),
             nitrogen: parseFloat(data.nitrogen),
             phosphorus: parseFloat(data.phosphorus),
             potassium: parseFloat(data.potassium),
             temperature: parseFloat(data.temperature),
             humidity: parseFloat(data.humidity),
-            soil_moisture: parseFloat(data.soilMoisture),
-            primary_fertilizer: enhancedRecommendations.primaryFertilizer.name,
-            secondary_fertilizer:
+            soilMoisture: parseFloat(data.soilMoisture),
+            primaryFertilizer: enhancedRecommendations.primaryFertilizer.name,
+            secondaryFertilizer:
               enhancedRecommendations.secondaryFertilizer.name,
-            ml_prediction: enhancedRecommendations.mlPrediction.fertilizer,
-            confidence_score: 92,
-            cost_estimate: enhancedRecommendations.costEstimate.total,
+            mlPrediction: enhancedRecommendations.mlPrediction.fertilizer,
+            confidenceScore: 92,
+            costEstimate: enhancedRecommendations.costEstimate.total,
             status: "pending" as const,
           };
 
@@ -489,15 +489,6 @@ const Dashboard = () => {
               <span className="xs:hidden">Overview</span>
             </TabsTrigger>
             <TabsTrigger
-              value="soil-analysis"
-              className="text-xs xs:text-sm sm:text-base px-1 xs:px-2 sm:px-3 md:px-4 py-2.5 xs:py-3 sm:py-3 font-medium whitespace-nowrap data-[state=active]:bg-grass-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-md transition-all duration-200 hover:bg-grass-50"
-            >
-              <span className="hidden sm:inline">
-                {t("dashboard.soilAnalysis")}
-              </span>
-              <span className="sm:hidden">Soil Analysis</span>
-            </TabsTrigger>
-            <TabsTrigger
               value="recommendations"
               className="text-xs xs:text-sm sm:text-base px-1 xs:px-2 sm:px-3 md:px-4 py-2.5 xs:py-3 sm:py-3 font-medium whitespace-nowrap data-[state=active]:bg-grass-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-md transition-all duration-200 hover:bg-grass-50"
             >
@@ -505,6 +496,13 @@ const Dashboard = () => {
                 {t("dashboard.recommendations")}
               </span>
               <span className="xs:hidden">Recs</span>
+            </TabsTrigger>
+            <TabsTrigger
+              value="soil-analysis"
+              className="text-xs xs:text-sm sm:text-base px-1 xs:px-2 sm:px-3 md:px-4 py-2.5 xs:py-3 sm:py-3 font-medium whitespace-nowrap data-[state=active]:bg-grass-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-md transition-all duration-200 hover:bg-grass-50"
+            >
+              <span className="hidden sm:inline">Real Time Sensor Data</span>
+              <span className="sm:hidden">Sensor Data</span>
             </TabsTrigger>
           </TabsList>
 

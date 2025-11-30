@@ -73,17 +73,22 @@ export interface LLMEnhancedMLResult {
 }
 
 export const CROP_TYPES = {
-  'Tea': 0,
-  'Cotton': 1,
+  'Rice': 0,
+  'Wheat': 1,
   'Maize': 2,
-  'Groundnut': 3,
-  'Pulses': 4,
-  'Millets': 5,
-  'Rice': 6,
-  'Soybean': 7,
-  'Sugarcane': 8,
-  'Wheat': 9,
-  'Coffee': 10
+  'Barley': 3,
+  'Jowar': 4,
+  'Bajra': 5,
+  'Ragi': 6,
+  'Groundnut': 7,
+  'Mustard': 8,
+  'Soyabean': 9,
+  'Sugarcane': 10,
+  'Cotton': 11,
+  'Chickpea': 12,
+  'Moong': 13,
+  'Garlic': 14,
+  'Onion': 15
 };
 
 export const SOIL_TYPES = {

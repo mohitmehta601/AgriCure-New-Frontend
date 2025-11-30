@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import Recommendations from "./pages/Recommendations";
 import RecommendationDetails from "./pages/RecommendationDetails";
 import DetailedRecommendationsPage from "./pages/DetailedRecommendationsPage";
+import FertilizerRecommendation from "./pages/FertilizerRecommendation";
 import NotFound from "./pages/NotFound";
 import Video from "./pages/Video";
 import { EnhancedMLDemo } from "./components/EnhancedMLDemo";
@@ -32,6 +33,10 @@ const App = () => (
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route
+                path="/fertilizer-recommendation"
+                element={<FertilizerRecommendation />}
+              />
               <Route path="/recommendations" element={<Recommendations />} />
               <Route
                 path="/recommendations/detailed"

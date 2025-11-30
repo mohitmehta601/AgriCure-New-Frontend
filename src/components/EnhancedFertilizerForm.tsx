@@ -51,13 +51,14 @@ import {
 
 interface FormData {
   selectedFarmId: string;
-  soilPH: string;
   nitrogen: string;
   phosphorus: string;
   potassium: string;
+  soilPH: string;
+  soilMoisture: string;
+  electricalConductivity: string;
   temperature: string;
   humidity: string;
-  soilMoisture: string;
   mlPrediction?: string;
   llmEnhancedResult?: any; // LLM enhanced prediction result
 }
@@ -73,13 +74,14 @@ const EnhancedFertilizerForm = ({
 }: EnhancedFertilizerFormProps) => {
   const [formData, setFormData] = useState<FormData>({
     selectedFarmId: "",
-    soilPH: "",
     nitrogen: "",
     phosphorus: "",
     potassium: "",
+    soilPH: "",
+    soilMoisture: "",
+    electricalConductivity: "",
     temperature: "",
     humidity: "",
-    soilMoisture: "",
   });
   const [farms, setFarms] = useState<Farm[]>([]);
   const [selectedFarm, setSelectedFarm] = useState<Farm | null>(null);
@@ -101,7 +103,7 @@ const EnhancedFertilizerForm = ({
   const [fetchingLocation, setFetchingLocation] = useState(false);
   const { toast } = useToast();
   const { t } = useLanguage();
-  const { realTimeData, isConnected } = useRealTimeData();
+  const { soilData, environmentData, isConnected } = useRealTimeData();
 
   useEffect(() => {
     if (user?.id) {
@@ -109,20 +111,22 @@ const EnhancedFertilizerForm = ({
     }
   }, [user]);
 
+  // Auto-fill form with real-time sensor data
   useEffect(() => {
-    if (realTimeData) {
+    if (soilData && environmentData) {
       setFormData((prev) => ({
         ...prev,
-        soilPH: realTimeData.soilPH.toString(),
-        nitrogen: realTimeData.nitrogen.toString(),
-        phosphorus: realTimeData.phosphorus.toString(),
-        potassium: realTimeData.potassium.toString(),
-        temperature: realTimeData.temperature.toString(),
-        humidity: realTimeData.humidity.toString(),
-        soilMoisture: realTimeData.soilMoisture.toString(),
+        nitrogen: soilData.nitrogen.toString(),
+        phosphorus: soilData.phosphorus.toString(),
+        potassium: soilData.potassium.toString(),
+        soilPH: soilData.pH.toString(),
+        soilMoisture: soilData.soilMoisture.toString(),
+        electricalConductivity: soilData.electricalConductivity.toString(),
+        temperature: environmentData.temperature.toString(),
+        humidity: environmentData.humidity.toString(),
       }));
     }
-  }, [realTimeData]);
+  }, [soilData, environmentData]);
 
   const loadFarms = async () => {
     if (!user?.id) return;
@@ -163,16 +167,17 @@ const EnhancedFertilizerForm = ({
   };
 
   const handleAutoFill = () => {
-    if (realTimeData) {
+    if (soilData && environmentData) {
       setFormData((prev) => ({
         ...prev,
-        soilPH: realTimeData.soilPH.toString(),
-        nitrogen: realTimeData.nitrogen.toString(),
-        phosphorus: realTimeData.phosphorus.toString(),
-        potassium: realTimeData.potassium.toString(),
-        temperature: realTimeData.temperature.toString(),
-        humidity: realTimeData.humidity.toString(),
-        soilMoisture: realTimeData.soilMoisture.toString(),
+        nitrogen: soilData.nitrogen.toString(),
+        phosphorus: soilData.phosphorus.toString(),
+        potassium: soilData.potassium.toString(),
+        soilPH: soilData.pH.toString(),
+        soilMoisture: soilData.soilMoisture.toString(),
+        electricalConductivity: soilData.electricalConductivity.toString(),
+        temperature: environmentData.temperature.toString(),
+        humidity: environmentData.humidity.toString(),
       }));
 
       toast({
@@ -433,7 +438,7 @@ const EnhancedFertilizerForm = ({
               onClick={handleAutoFill}
               variant="outline"
               size="sm"
-              disabled={!isConnected || !realTimeData}
+              disabled={!isConnected || !soilData || !environmentData}
               className="w-full xs:w-auto bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200 hover:from-blue-100 hover:to-indigo-100 text-blue-700 hover:text-blue-800 transition-all duration-300 text-xs xs:text-sm"
             >
               <Zap className="h-3 xs:h-4 w-3 xs:w-4 mr-2" />
@@ -549,7 +554,61 @@ const EnhancedFertilizerForm = ({
               <h3 className="text-base sm:text-lg font-semibold text-blue-800">
                 Soil Chemistry
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="nitrogen"
+                    className="text-sm sm:text-base font-medium text-blue-700"
+                  >
+                    Nitrogen (mg/kg) *
+                  </Label>
+                  <Input
+                    id="nitrogen"
+                    type="number"
+                    step="0.1"
+                    placeholder="e.g., 0"
+                    value={formData.nitrogen}
+                    onChange={(e) => handleChange("nitrogen", e.target.value)}
+                    required
+                    className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="phosphorus"
+                    className="text-sm sm:text-base font-medium text-blue-700"
+                  >
+                    Phosphorus (mg/kg) *
+                  </Label>
+                  <Input
+                    id="phosphorus"
+                    type="number"
+                    step="0.1"
+                    placeholder="e.g., 23"
+                    value={formData.phosphorus}
+                    onChange={(e) => handleChange("phosphorus", e.target.value)}
+                    required
+                    className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="potassium"
+                    className="text-sm sm:text-base font-medium text-blue-700"
+                  >
+                    Potassium (mg/kg) *
+                  </Label>
+                  <Input
+                    id="potassium"
+                    type="number"
+                    step="0.1"
+                    placeholder="e.g., 15"
+                    value={formData.potassium}
+                    onChange={(e) => handleChange("potassium", e.target.value)}
+                    required
+                    className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300"
+                  />
+                </div>
                 <div className="space-y-2">
                   <Label
                     htmlFor="soilPH"
@@ -572,54 +631,42 @@ const EnhancedFertilizerForm = ({
                 </div>
                 <div className="space-y-2">
                   <Label
-                    htmlFor="nitrogen"
+                    htmlFor="soilMoisture"
                     className="text-sm sm:text-base font-medium text-blue-700"
                   >
-                    Nitrogen (mg/kg) *
+                    Soil Moisture (%) *
                   </Label>
                   <Input
-                    id="nitrogen"
+                    id="soilMoisture"
                     type="number"
                     step="0.1"
-                    placeholder="e.g., 45.2"
-                    value={formData.nitrogen}
-                    onChange={(e) => handleChange("nitrogen", e.target.value)}
+                    min="0"
+                    max="100"
+                    placeholder="e.g., 0"
+                    value={formData.soilMoisture}
+                    onChange={(e) =>
+                      handleChange("soilMoisture", e.target.value)
+                    }
                     required
                     className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300"
                   />
                 </div>
                 <div className="space-y-2">
                   <Label
-                    htmlFor="phosphorus"
+                    htmlFor="electricalConductivity"
                     className="text-sm sm:text-base font-medium text-blue-700"
                   >
-                    Phosphorus (mg/kg) *
+                    Electrical Conductivity (mmhos/cm²) *
                   </Label>
                   <Input
-                    id="phosphorus"
+                    id="electricalConductivity"
                     type="number"
-                    step="0.1"
-                    placeholder="e.g., 23.8"
-                    value={formData.phosphorus}
-                    onChange={(e) => handleChange("phosphorus", e.target.value)}
-                    required
-                    className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="potassium"
-                    className="text-sm sm:text-base font-medium text-blue-700"
-                  >
-                    Potassium (mg/kg) *
-                  </Label>
-                  <Input
-                    id="potassium"
-                    type="number"
-                    step="0.1"
-                    placeholder="e.g., 156.4"
-                    value={formData.potassium}
-                    onChange={(e) => handleChange("potassium", e.target.value)}
+                    step="0.01"
+                    placeholder="e.g., 0.5"
+                    value={formData.electricalConductivity}
+                    onChange={(e) =>
+                      handleChange("electricalConductivity", e.target.value)
+                    }
                     required
                     className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300"
                   />
@@ -630,21 +677,21 @@ const EnhancedFertilizerForm = ({
             {/* Environmental Conditions */}
             <div className="space-y-4 p-4 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg border border-orange-200">
               <h3 className="text-base sm:text-lg font-semibold text-orange-800">
-                {t("form.environmentalConditions")}
+                Environmental Conditions
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label
                     htmlFor="temperature"
                     className="text-sm sm:text-base font-medium text-orange-700"
                   >
-                    {t("form.temperature")} (°C) *
+                    Temperature (°C) *
                   </Label>
                   <Input
                     id="temperature"
                     type="number"
                     step="0.1"
-                    placeholder="e.g., 24.3"
+                    placeholder="e.g., 21.3"
                     value={formData.temperature}
                     onChange={(e) =>
                       handleChange("temperature", e.target.value)
@@ -658,7 +705,7 @@ const EnhancedFertilizerForm = ({
                     htmlFor="humidity"
                     className="text-sm sm:text-base font-medium text-orange-700"
                   >
-                    {t("form.humidity")} (%) *
+                    Humidity (%) *
                   </Label>
                   <Input
                     id="humidity"
@@ -666,31 +713,9 @@ const EnhancedFertilizerForm = ({
                     step="0.1"
                     min="0"
                     max="100"
-                    placeholder="e.g., 72.1"
+                    placeholder="e.g., 63.9"
                     value={formData.humidity}
                     onChange={(e) => handleChange("humidity", e.target.value)}
-                    required
-                    className="transition-all duration-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 hover:border-orange-300"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="soilMoisture"
-                    className="text-sm sm:text-base font-medium text-orange-700"
-                  >
-                    {t("form.soilMoisture")} (%) *
-                  </Label>
-                  <Input
-                    id="soilMoisture"
-                    type="number"
-                    step="0.1"
-                    min="0"
-                    max="100"
-                    placeholder="e.g., 68.5"
-                    value={formData.soilMoisture}
-                    onChange={(e) =>
-                      handleChange("soilMoisture", e.target.value)
-                    }
                     required
                     className="transition-all duration-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 hover:border-orange-300"
                   />
@@ -723,13 +748,14 @@ const EnhancedFertilizerForm = ({
                 onClick={() =>
                   setFormData({
                     selectedFarmId: "",
-                    soilPH: "",
                     nitrogen: "",
                     phosphorus: "",
                     potassium: "",
+                    soilPH: "",
+                    soilMoisture: "",
+                    electricalConductivity: "",
                     temperature: "",
                     humidity: "",
-                    soilMoisture: "",
                   })
                 }
               >

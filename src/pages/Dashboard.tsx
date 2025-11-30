@@ -522,17 +522,218 @@ const Dashboard = () => {
 
           <TabsContent
             value="recommendations"
-            className="space-y-3 xs:space-y-4 sm:space-y-6"
+            className="space-y-2 sm:space-y-3 md:space-y-4"
           >
-            <EnhancedFertilizerForm onSubmit={handleFormSubmit} user={user} />
-            {isGenerating && (
-              <div className="flex items-center justify-center py-6 xs:py-8">
-                <div className="animate-spin rounded-full h-6 xs:h-7 sm:h-8 w-6 xs:w-7 sm:w-8 border-b-2 border-grass-600"></div>
-                <span className="ml-2 xs:ml-3 text-xs xs:text-sm sm:text-base font-medium">
-                  {t("form.generating")}
-                </span>
+            <div className="relative bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 shadow-lg overflow-hidden">
+              {/* Background Decorative Elements */}
+              <div className="absolute top-0 right-0 w-32 h-32 md:w-64 md:h-64 bg-grass-200/20 rounded-full blur-3xl -z-0"></div>
+              <div className="absolute bottom-0 left-0 w-32 h-32 md:w-64 md:h-64 bg-blue-200/20 rounded-full blur-3xl -z-0"></div>
+
+              {/* Header Section */}
+              <div className="relative z-10 mb-3 sm:mb-4 md:mb-6">
+                <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-gradient-to-br from-grass-600 to-green-700 flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300">
+                    <svg
+                      className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-grass-700 via-green-600 to-blue-600 bg-clip-text text-transparent mb-0.5 sm:mb-1">
+                      Explore Smart Agriculture Tools
+                    </h2>
+                    <p className="text-[10px] sm:text-xs md:text-sm text-gray-600 font-medium hidden sm:block">
+                      Select a feature to continue with AI-powered farming
+                      solutions
+                    </p>
+                  </div>
+                </div>
               </div>
-            )}
+
+              <div className="relative z-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
+                {/* Fertilizer Recommendation */}
+                <button
+                  onClick={() => navigate("/fertilizer-recommendation")}
+                  className="group relative bg-white rounded-lg md:rounded-xl p-3 sm:p-4 md:p-5 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-green-400 text-left overflow-hidden min-h-[120px] sm:min-h-[140px]"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="relative z-10">
+                    <div className="mb-2 sm:mb-2.5">
+                      <div className="inline-block px-2 py-0.5 sm:px-2 sm:py-1 bg-green-100 text-green-700 text-[10px] sm:text-xs font-semibold rounded-full mb-2">
+                        ML-BASED
+                      </div>
+                    </div>
+                    <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-green-700 transition-colors leading-tight">
+                      Fertilizer Recommendation
+                    </h3>
+                    <p className="text-[9px] sm:text-xs md:text-sm text-gray-600 leading-relaxed">
+                      Get ML-powered fertilizer recommendations for optimal crop
+                      growth
+                    </p>
+                  </div>
+                </button>
+
+                {/* Irrigation Prediction */}
+                <button
+                  onClick={() => navigate("/irrigation-prediction")}
+                  className="group relative bg-white rounded-lg md:rounded-xl p-3 sm:p-4 md:p-5 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-blue-400 text-left overflow-hidden min-h-[120px] sm:min-h-[140px]"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="relative z-10">
+                    <div className="mb-2 sm:mb-2.5">
+                      <div className="inline-block px-2 py-0.5 sm:px-2 sm:py-1 bg-blue-100 text-blue-700 text-[10px] sm:text-xs font-semibold rounded-full mb-2">
+                        ML-BASED
+                      </div>
+                    </div>
+                    <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-blue-700 transition-colors leading-tight">
+                      Irrigation Prediction
+                    </h3>
+                    <p className="text-[9px] sm:text-xs md:text-sm text-gray-600 leading-relaxed">
+                      Smart water management with AI-based irrigation
+                      predictions
+                    </p>
+                  </div>
+                </button>
+
+                {/* Crop Prediction */}
+                <button
+                  onClick={() => navigate("/crop-prediction")}
+                  className="group relative bg-white rounded-lg md:rounded-xl p-3 sm:p-4 md:p-5 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-yellow-400 text-left overflow-hidden min-h-[120px] sm:min-h-[140px]"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="relative z-10">
+                    <div className="mb-2 sm:mb-2.5">
+                      <div className="inline-block px-2 py-0.5 sm:px-2 sm:py-1 bg-yellow-100 text-yellow-700 text-[10px] sm:text-xs font-semibold rounded-full mb-2">
+                        ML-BASED
+                      </div>
+                    </div>
+                    <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-yellow-700 transition-colors leading-tight">
+                      Crop Prediction
+                    </h3>
+                    <p className="text-[9px] sm:text-xs md:text-sm text-gray-600 leading-relaxed">
+                      Discover the best crops to grow based on soil and climate
+                    </p>
+                  </div>
+                </button>
+
+                {/* Pesticide & Insecticide */}
+                <button
+                  onClick={() => navigate("/pesticide-guide")}
+                  className="group relative bg-white rounded-lg md:rounded-xl p-3 sm:p-4 md:p-5 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-red-400 text-left overflow-hidden min-h-[120px] sm:min-h-[140px]"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="relative z-10">
+                    <div className="mb-2 sm:mb-2.5">
+                      <div className="inline-block px-2 py-0.5 sm:px-2 sm:py-1 bg-red-100 text-red-700 text-[10px] sm:text-xs font-semibold rounded-full mb-2">
+                        GUIDE
+                      </div>
+                    </div>
+                    <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-red-700 transition-colors leading-tight">
+                      Pesticide & Insecticide
+                    </h3>
+                    <p className="text-[9px] sm:text-xs md:text-sm text-gray-600 leading-relaxed">
+                      Comprehensive protection guide for pest and disease
+                      control
+                    </p>
+                  </div>
+                </button>
+
+                {/* Crop Price Prediction */}
+                <button
+                  onClick={() => navigate("/crop-price-prediction")}
+                  className="group relative bg-white rounded-lg md:rounded-xl p-3 sm:p-4 md:p-5 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-purple-400 text-left overflow-hidden min-h-[120px] sm:min-h-[140px]"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="relative z-10">
+                    <div className="mb-2 sm:mb-2.5">
+                      <div className="inline-flex items-center gap-2">
+                        <div className="px-2 py-0.5 sm:px-2 sm:py-1 bg-purple-100 text-purple-700 text-[10px] sm:text-xs font-semibold rounded-full">
+                          LIVE
+                        </div>
+                      </div>
+                    </div>
+                    <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-purple-700 transition-colors leading-tight">
+                      Crop Price Prediction
+                    </h3>
+                    <p className="text-[9px] sm:text-xs md:text-sm text-gray-600 leading-relaxed">
+                      Real-time market insights and price predictions
+                    </p>
+                  </div>
+                </button>
+
+                {/* Seed Variety Recommendation */}
+                <button
+                  onClick={() => navigate("/seed-variety-recommendation")}
+                  className="group relative bg-white rounded-lg md:rounded-xl p-3 sm:p-4 md:p-5 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-emerald-400 text-left overflow-hidden min-h-[120px] sm:min-h-[140px]"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="relative z-10">
+                    <div className="mb-2 sm:mb-2.5">
+                      <div className="inline-block px-2 py-0.5 sm:px-2 sm:py-1 bg-emerald-100 text-emerald-700 text-[10px] sm:text-xs font-semibold rounded-full mb-2">
+                        ML-BASED
+                      </div>
+                    </div>
+                    <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-emerald-700 transition-colors leading-tight">
+                      Seed Variety Recommendation
+                    </h3>
+                    <p className="text-[9px] sm:text-xs md:text-sm text-gray-600 leading-relaxed">
+                      Choose the best seed varieties for maximum yield
+                    </p>
+                  </div>
+                </button>
+
+                {/* Govt Schemes */}
+                <button
+                  onClick={() => navigate("/govt-schemes")}
+                  className="group relative bg-white rounded-lg md:rounded-xl p-3 sm:p-4 md:p-5 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-indigo-400 text-left overflow-hidden min-h-[120px] sm:min-h-[140px]"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="relative z-10">
+                    <div className="mb-2 sm:mb-2.5">
+                      <div className="inline-block px-2 py-0.5 sm:px-2 sm:py-1 bg-indigo-100 text-indigo-700 text-[10px] sm:text-xs font-semibold rounded-full mb-2">
+                        INFO
+                      </div>
+                    </div>
+                    <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-indigo-700 transition-colors leading-tight">
+                      Govt Schemes
+                    </h3>
+                    <p className="text-[9px] sm:text-xs md:text-sm text-gray-600 leading-relaxed">
+                      Latest government schemes and subsidies for farmers
+                    </p>
+                  </div>
+                </button>
+
+                {/* Illegal Fertilizers Check */}
+                <button
+                  onClick={() => navigate("/illegal-fertilizers-check")}
+                  className="group relative bg-white rounded-lg md:rounded-xl p-3 sm:p-4 md:p-5 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-orange-400 text-left overflow-hidden min-h-[120px] sm:min-h-[140px]"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="relative z-10">
+                    <div className="mb-2 sm:mb-2.5">
+                      <div className="inline-block px-2 py-0.5 sm:px-2 sm:py-1 bg-orange-100 text-orange-700 text-[10px] sm:text-xs font-semibold rounded-full mb-2">
+                        VERIFY
+                      </div>
+                    </div>
+                    <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-orange-700 transition-colors leading-tight">
+                      Illegal Fertilizers Check
+                    </h3>
+                    <p className="text-[9px] sm:text-xs md:text-sm text-gray-600 leading-relaxed">
+                      Verify and check for counterfeit fertilizer products
+                    </p>
+                  </div>
+                </button>
+              </div>
+            </div>
           </TabsContent>
         </Tabs>
       </div>

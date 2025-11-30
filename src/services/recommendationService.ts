@@ -94,16 +94,18 @@ export const recommendationService = {
   // Get recent recommendations (for overview)
   async getRecentRecommendations(userId: string, limit: number = 5) {
     try {
-      const { data, error } = await supabase
-        .from('fertilizer_recommendations')
-        .select('*')
-        .eq('user_id', userId)
-        .order('created_at', { ascending: false })
-        .limit(limit);
-
-      return { data, error };
-    } catch (error) {
-      return { data: null, error };
+      if (!userId) {
+        throw new Error('userId is required');
+      }
+      const response = await apiClient.get<FertilizerRecommendation[]>(
+        `/recommendations/user/${userId}?limit=${limit}`
+      );
+      return { data: response.data, error: null };
+    } catch (error: any) {
+      return { 
+        data: null, 
+        error: error.response?.data?.message || error.message 
+      };
     }
   }
 };

@@ -95,17 +95,21 @@ const Dashboard = () => {
     try {
       const { user: currentUser, error } = await authService.getCurrentUser();
 
-      if (error || !currentUser) {
+      if (error || !currentUser || !currentUser.id) {
+        console.error("No valid user found, redirecting to login");
         navigate("/login");
         return;
       }
 
       setUser(currentUser);
 
+      // Fetch fresh profile data from server
       const { data: profile, error: profileError } =
         await authService.getUserProfile(currentUser.id);
       if (!profileError && profile) {
         setUserProfile(profile);
+      } else if (profileError) {
+        console.error("Error fetching profile:", profileError);
       }
     } catch (error) {
       console.error("Auth check error:", error);

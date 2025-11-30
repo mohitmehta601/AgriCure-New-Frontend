@@ -97,7 +97,7 @@ class MLApiService {
   private baseUrl: string;
 
   constructor() {
-    this.baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+    this.baseUrl = import.meta.env.VITE_PYTHON_API_URL || 'http://localhost:8000';
   }
 
   async getPrediction(input: FertilizerPredictionInput): Promise<FertilizerPredictionOutput> {
@@ -216,13 +216,13 @@ class MLApiService {
 
   async healthCheck(): Promise<{status: string; model_loaded: boolean; model_type: string; timestamp: string}> {
     try {
-      const response = await fetch(`${this.baseUrl}/status`);
+      const response = await fetch(`${this.baseUrl}/health`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
       return {
-        status: data.status,
+        status: data.status || 'healthy',
         model_loaded: data.model_loaded || false,
         model_type: data.model_type || 'Unknown',
         timestamp: data.timestamp || new Date().toISOString()

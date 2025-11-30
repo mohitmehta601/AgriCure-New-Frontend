@@ -41,7 +41,7 @@ const FertilizerRecommendation = () => {
       // Get current user from localStorage/token
       const { user: currentUser, error } = authService.getCurrentUser();
 
-      if (error || !currentUser) {
+      if (error || !currentUser || !currentUser.id) {
         navigate("/login");
         return;
       }
@@ -76,16 +76,16 @@ const FertilizerRecommendation = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+        <div className="max-w-[1920px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3.5">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-3 sm:gap-6 lg:gap-8">
               {/* Back Button */}
               <button
                 onClick={() => navigate("/dashboard")}
-                className="flex items-center gap-2.5 text-gray-700 hover:text-gray-900 transition-colors group"
+                className="flex items-center gap-1.5 sm:gap-2.5 text-gray-700 hover:text-gray-900 transition-colors group"
               >
                 <svg
-                  className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform duration-200"
+                  className="w-4 h-4 sm:w-5 sm:h-5 group-hover:-translate-x-0.5 transition-transform duration-200"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -97,30 +97,31 @@ const FertilizerRecommendation = () => {
                     d="M10 19l-7-7m0 0l7-7m-7 7h18"
                   />
                 </svg>
-                <span className="text-[15px] font-medium">
+                <span className="hidden sm:inline text-sm sm:text-[15px] font-medium">
                   Back to Dashboard
                 </span>
+                <span className="sm:hidden text-sm font-medium">Back</span>
               </button>
 
               {/* Vertical Divider */}
-              <div className="hidden sm:block h-6 w-px bg-gray-300"></div>
+              <div className="hidden md:block h-6 w-px bg-gray-300"></div>
 
               {/* Logo */}
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-1.5 sm:gap-2.5">
                 <img
                   src="/logo.png"
                   alt="AgriCure Logo"
-                  className="h-9 w-9 object-contain"
+                  className="h-7 w-7 sm:h-9 sm:w-9 object-contain"
                 />
-                <span className="text-[22px] font-bold text-gray-800">
+                <span className="text-lg sm:text-[22px] font-bold text-gray-800">
                   AgriCure
                 </span>
               </div>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <LanguageSwitcher />
-              <div className="flex items-center gap-2 text-gray-700">
+              <div className="hidden md:flex items-center gap-2 text-gray-700">
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -134,7 +135,7 @@ const FertilizerRecommendation = () => {
                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                   />
                 </svg>
-                <span className="text-[15px] font-medium">
+                <span className="text-sm lg:text-[15px] font-medium">
                   {isLoading ? (
                     <span className="text-gray-400">Loading...</span>
                   ) : (
@@ -145,37 +146,62 @@ const FertilizerRecommendation = () => {
                   )}
                 </span>
               </div>
+              {/* Mobile user icon */}
+              <div className="md:hidden flex items-center">
+                <svg
+                  className="w-5 h-5 text-gray-700"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
       </nav>
 
       {/* Main Content */}
-      <div className="mx-auto px-6 py-8">
-        <div className="max-w-[1400px] mx-auto">
+      <div className="mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+        <div className="max-w-7xl mx-auto">
           <EnhancedFertilizerForm onSubmit={handleFormSubmit} user={user} />
         </div>
 
         {/* Results Section - Only show when there's data */}
         {fertilizerData && (
-          <div className="max-w-[1400px] mx-auto mt-8">
+          <div className="max-w-7xl mx-auto mt-4 sm:mt-6 md:mt-8">
             {fertilizerData.llmEnhancedResult ? (
               <LLMEnhancedFertilizerRecommendations
                 data={fertilizerData.llmEnhancedResult}
               />
             ) : fertilizerData.mlPrediction ? (
               <EnhancedFertilizerRecommendations
-                prediction={fertilizerData.mlPrediction}
-                inputData={{
-                  Temperature: parseFloat(fertilizerData.temperature),
-                  Humidity: parseFloat(fertilizerData.humidity),
-                  Moisture: parseFloat(fertilizerData.soilMoisture),
-                  Soil_Type: fertilizerData.farm?.soil_type || "",
-                  Crop_Type: fertilizerData.farm?.crop_type || "",
-                  Nitrogen: parseFloat(fertilizerData.nitrogen),
-                  Potassium: parseFloat(fertilizerData.potassium),
-                  Phosphorous: parseFloat(fertilizerData.phosphorus),
-                }}
+                recommendations={
+                  {
+                    primaryFertilizer: fertilizerData.mlPrediction,
+                    confidenceScore: 0,
+                    applicationRate: 0,
+                    applicationRateUnit: "kg/ha",
+                  } as any
+                }
+                formData={
+                  {
+                    temperature: fertilizerData.temperature,
+                    humidity: fertilizerData.humidity,
+                    soilMoisture: fertilizerData.soilMoisture,
+                    soilType: fertilizerData.farm?.soil_type || "",
+                    cropType: fertilizerData.farm?.crop_type || "",
+                    nitrogen: fertilizerData.nitrogen,
+                    potassium: fertilizerData.potassium,
+                    phosphorus: fertilizerData.phosphorus,
+                  } as any
+                }
               />
             ) : null}
           </div>

@@ -77,7 +77,7 @@ const RecommendationDetails = () => {
               {t("recommendations.title")}
             </h1>
             <p className="text-sm sm:text-base text-gray-600">
-              {t("recommendations.subtitle")} - {rec.field_name}
+              {t("recommendations.subtitle")} - {rec.fieldName}
             </p>
           </div>
         </div>
@@ -92,9 +92,7 @@ const RecommendationDetails = () => {
             <div className="text-sm text-gray-600">
               {t("dashboard.currentStatus")}
             </div>
-            <div className="text-xs px-2 py-1 rounded border">
-              {rec.status.charAt(0).toUpperCase() + rec.status.slice(1)}
-            </div>
+            <div className="text-xs px-2 py-1 rounded border">Active</div>
           </div>
           <div className="mt-3">
             <div className="text-sm font-medium mb-2">

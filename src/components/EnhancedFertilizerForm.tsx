@@ -33,7 +33,7 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useRealTimeData } from "@/contexts/RealTimeDataContext";
-import { farmService, Farm } from "@/services/farmService";
+import { farmService, Farm, CreateFarmData } from "@/services/farmService";
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
@@ -245,15 +245,16 @@ const EnhancedFertilizerForm = ({
 
     setSaving(true);
     try {
-      const farmData = {
-        user_id: user.id,
+      const farmData: CreateFarmData = {
         name: newFarm.name,
         size: sizeNum,
-        unit: newFarm.unit as any,
-        crop_type: newFarm.cropType,
-        soil_type: newFarm.soilType,
-        location: newFarm.location || undefined,
-        sowing_date: newFarm.sowingDate || undefined,
+        unit: newFarm.unit as "hectares" | "acres" | "bigha",
+        cropType: newFarm.cropType,
+        soilType: newFarm.soilType,
+        soilData: newFarm.soilData,
+        location: newFarm.location || "",
+        sowingDate:
+          newFarm.sowingDate || new Date().toISOString().split("T")[0],
       };
 
       const { data, error } = await farmService.createFarm(farmData);

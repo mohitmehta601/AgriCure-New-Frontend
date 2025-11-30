@@ -27,7 +27,7 @@ export async function fetchSoilType(lat: number, lon: number): Promise<SoilDataR
 }
 
 export interface CreateFarmData {
-  userId: string;
+  // Note: userId is set by backend from auth token, not from request body
   name: string;
   size: number;
   unit: 'hectares' | 'acres' | 'bigha';
@@ -70,6 +70,9 @@ export const farmService = {
   // Get farms by user
   async getFarmsByUser(userId: string): Promise<{ data: Farm[] | null; error: any }> {
     try {
+      if (!userId) {
+        throw new Error('userId is required');
+      }
       const response = await apiClient.get<Farm[]>(`/farms/user/${userId}`);
       return { data: response.data, error: null };
     } catch (error: any) {

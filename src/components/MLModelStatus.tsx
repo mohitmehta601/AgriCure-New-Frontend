@@ -70,10 +70,15 @@ const MLModelStatus = () => {
           setModelInfo(info);
         } catch (modelInfoError) {
           console.warn(
-            "Failed to get model info, but model is loaded:",
-            modelInfoError
+            "Model info endpoint not available, using basic status only"
           );
-          setModelInfo(null);
+          // Set basic model info from health check
+          setModelInfo({
+            model_type: health.model_type || "ML Model",
+            features: [],
+            targets: [],
+            label_encoders: {},
+          } as ModelInfo);
         }
       } else {
         setModelInfo(null);
@@ -84,11 +89,7 @@ const MLModelStatus = () => {
       console.error("Failed to check ML model status:", error);
       setIsConnected(false);
       setModelInfo(null);
-      toast({
-        title: t("mlModel.title"),
-        description: t("mlModel.fallbackDescription"),
-        variant: "destructive",
-      });
+      // Don't show error toast, just update status silently
     } finally {
       setIsLoading(false);
     }
@@ -123,7 +124,9 @@ const MLModelStatus = () => {
                 <XCircle className="h-5 w-5 text-red-600" />
               )}
               <span className="font-medium">
-                {isConnected ? t("mlModel.connected") : t("mlModel.disconnected")}
+                {isConnected
+                  ? t("mlModel.connected")
+                  : t("mlModel.disconnected")}
               </span>
             </div>
             <Button
@@ -202,7 +205,9 @@ const MLModelStatus = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">{t("mlModel.modelType")}:</span>
+                      <span className="text-sm text-gray-600">
+                        {t("mlModel.modelType")}:
+                      </span>
                       <Badge variant="secondary">
                         {modelInfo.model_type || t("mlModel.unknown")}
                       </Badge>
@@ -222,7 +227,9 @@ const MLModelStatus = () => {
 
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">{t("mlModel.targets")}:</span>
+                      <span className="text-sm text-gray-600">
+                        {t("mlModel.targets")}:
+                      </span>
                       <span className="text-sm font-medium">
                         {modelInfo.targets?.length || 0}
                       </span>
@@ -260,7 +267,9 @@ const MLModelStatus = () => {
           {lastChecked && (
             <div className="text-xs text-gray-500 flex items-center space-x-2">
               <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-              <span>{t("mlModel.lastChecked")}: {lastChecked.toLocaleTimeString()}</span>
+              <span>
+                {t("mlModel.lastChecked")}: {lastChecked.toLocaleTimeString()}
+              </span>
             </div>
           )}
         </div>

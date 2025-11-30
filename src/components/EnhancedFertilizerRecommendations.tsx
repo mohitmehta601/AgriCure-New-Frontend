@@ -324,9 +324,12 @@ const EnhancedFertilizerRecommendations = ({
           </CardDescription>
         </CardHeader>
         <CardContent className="px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {recommendations.organicOptions.map((option, index) => (
-              <div key={index} className="p-4 border rounded-lg bg-green-50">
+              <div
+                key={index}
+                className="p-3 sm:p-4 border rounded-lg bg-green-50"
+              >
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="font-semibold text-sm sm:text-base">
                     {option.name}
@@ -396,7 +399,7 @@ const EnhancedFertilizerRecommendations = ({
           </CardHeader>
           <CardContent className="px-4 sm:px-6">
             <div className="space-y-3">
-              <div className="flex justify-between">
+              <div className="flex flex-col xs:flex-row justify-between gap-1">
                 <span className="text-xs sm:text-sm">
                   {t("dashboard.primaryFertilizer")}:
                 </span>
@@ -404,7 +407,7 @@ const EnhancedFertilizerRecommendations = ({
                   {recommendations.costEstimate.primary}
                 </span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex flex-col xs:flex-row justify-between gap-1">
                 <span className="text-xs sm:text-sm">
                   {t("dashboard.secondaryFertilizer")}:
                 </span>
@@ -412,7 +415,7 @@ const EnhancedFertilizerRecommendations = ({
                   {recommendations.costEstimate.secondary}
                 </span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex flex-col xs:flex-row justify-between gap-1">
                 <span className="text-xs sm:text-sm">
                   {t("dashboard.organicOptions")}:
                 </span>
@@ -421,11 +424,11 @@ const EnhancedFertilizerRecommendations = ({
                 </span>
               </div>
               <hr />
-              <div className="flex justify-between">
+              <div className="flex flex-col xs:flex-row justify-between gap-1">
                 <span className="font-semibold text-sm sm:text-base">
                   {t("dashboard.totalEstimate")}:
                 </span>
-                <span className="font-bold text-grass-600 text-sm sm:text-base">
+                <span className="font-bold text-grass-600 text-base sm:text-lg">
                   {recommendations.costEstimate.total}
                 </span>
               </div>

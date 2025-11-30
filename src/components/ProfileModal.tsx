@@ -53,6 +53,11 @@ const ProfileModal = ({
   }, [isOpen, user]);
 
   const loadUserProfile = async () => {
+    if (!user?.id) {
+      console.warn("Cannot load profile: user.id is undefined");
+      return;
+    }
+
     setIsLoading(true);
     try {
       const { data, error } = await authService.getUserProfile(user.id);
@@ -74,7 +79,10 @@ const ProfileModal = ({
   };
 
   const handleSave = async () => {
-    if (!user) return;
+    if (!user?.id) {
+      console.warn("Cannot save profile: user.id is undefined");
+      return;
+    }
 
     setIsSaving(true);
     try {

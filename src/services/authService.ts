@@ -3,6 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 
 export interface User {
   id: string;
+  _id?: string; // MongoDB compatibility
   email: string;
   fullName: string;
   phoneNumber: string;
@@ -40,7 +41,12 @@ export const authService = {
   async signUp(data: SignUpData) {
     try {
       const response = await apiClient.post<AuthResponse>('/auth/signup', data);
-      const { token, user } = response.data;
+      let { token, user } = response.data;
+      
+      // Normalize _id to id (MongoDB compatibility)
+      if (user && user._id && !user.id) {
+        user = { ...user, id: user._id };
+      }
       
       // Store token and user data
       localStorage.setItem('auth_token', token);
@@ -59,7 +65,12 @@ export const authService = {
   async signIn(data: SignInData) {
     try {
       const response = await apiClient.post<AuthResponse>('/auth/login', data);
-      const { token, user } = response.data;
+      let { token, user } = response.data;
+      
+      // Normalize _id to id (MongoDB compatibility)
+      if (user && user._id && !user.id) {
+        user = { ...user, id: user._id };
+      }
       
       // Store token and user data
       localStorage.setItem('auth_token', token);
@@ -102,9 +113,25 @@ export const authService = {
         return { user: null, error: 'Token expired' };
       }
 
-      const user = JSON.parse(userStr);
+      let user = JSON.parse(userStr);
+      
+      // Normalize _id to id (MongoDB compatibility)
+      if (user && user._id && !user.id) {
+        user.id = user._id;
+        // Update localStorage with normalized data
+        localStorage.setItem('user', JSON.stringify(user));
+      }
+      
+      // Validate user has required id field
+      if (!user || !user.id) {
+        console.error('User object missing id field:', user);
+        this.signOut();
+        return { user: null, error: 'Invalid user data' };
+      }
+      
       return { user, error: null };
     } catch (error) {
+      console.error('Error in getCurrentUser:', error);
       return { user: null, error };
     }
   },
@@ -112,8 +139,18 @@ export const authService = {
   // Get user profile from server
   async getUserProfile(userId: string): Promise<{ data: User | null; error: any }> {
     try {
+      if (!userId) {
+        throw new Error('userId is required');
+      }
       const response = await apiClient.get<User>(`/users/${userId}`);
-      return { data: response.data, error: null };
+      let user = response.data;
+      
+      // Normalize _id to id (MongoDB compatibility)
+      if (user && user._id && !user.id) {
+        user = { ...user, id: user._id };
+      }
+      
+      return { data: user, error: null };
     } catch (error: any) {
       return { 
         data: null, 

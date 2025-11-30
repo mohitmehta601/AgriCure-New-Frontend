@@ -158,7 +158,10 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
   }, [user]);
 
   const loadFarms = async () => {
-    if (!user?.id) return;
+    if (!user?.id) {
+      console.warn("Cannot load farms: user.id is undefined");
+      return;
+    }
 
     setFarmsLoading(true);
     try {
@@ -178,7 +181,10 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
   };
 
   const loadRecommendations = async () => {
-    if (!user) return;
+    if (!user || !user.id) {
+      console.warn("Cannot load recommendations: user or user.id is undefined");
+      return;
+    }
 
     setRecommendationsLoading(true);
     try {
@@ -222,10 +228,10 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
           name: newFarm.name,
           size: sizeNum,
           unit: newFarm.unit as "hectares" | "acres" | "bigha",
-          crop_type: newFarm.cropType,
-          soil_type: newFarm.soilType,
+          cropType: newFarm.cropType,
+          soilType: newFarm.soilType,
           location: newFarm.location || undefined,
-          sowing_date: newFarm.sowingDate || undefined,
+          sowingDate: newFarm.sowingDate || undefined,
         };
 
         const { data, error } = await farmService.updateFarm(
@@ -241,17 +247,16 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
       } else {
         // Create new farm
         const farmData: CreateFarmData = {
-          user_id: user.id,
           name: newFarm.name,
           size: sizeNum,
           unit: newFarm.unit as "hectares" | "acres" | "bigha",
-          crop_type: newFarm.cropType,
-          soil_type: newFarm.soilType,
+          cropType: newFarm.cropType,
+          soilType: newFarm.soilType,
           location: newFarm.location,
           latitude: newFarm.coordinates?.latitude,
           longitude: newFarm.coordinates?.longitude,
-          soil_data: newFarm.soilData,
-          sowing_date: newFarm.sowingDate,
+          soilData: newFarm.soilData,
+          sowingDate: newFarm.sowingDate,
         };
 
         const { data, error } = await farmService.createFarm(farmData);
@@ -307,12 +312,12 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
       name: farm.name,
       size: String(farm.size),
       unit: farm.unit,
-      cropType: farm.crop_type,
-      soilType: farm.soil_type,
+      cropType: farm.cropType,
+      soilType: farm.soilType,
       location: farm.location || "",
       coordinates: null,
       soilData: null,
-      sowingDate: farm.sowing_date || "",
+      sowingDate: farm.sowingDate || "",
     });
     setIsAddOpen(true);
   };
@@ -749,10 +754,10 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                   </div>
                   <div className="flex items-center justify-between mb-2">
                     <Badge variant="secondary" className="text-xs border">
-                      {farm.crop_type}
+                      {farm.cropType}
                     </Badge>
                     <Badge variant="outline" className="text-xs">
-                      {farm.soil_type}
+                      {farm.soilType}
                     </Badge>
                   </div>
                   <p className="text-xs sm:text-sm text-gray-600 mb-1">
@@ -763,13 +768,13 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                       📍 {farm.location}
                     </p>
                   )}
-                  {farm.sowing_date && (
+                  {farm.sowingDate && (
                     <p className="text-xs text-gray-500 mb-2">
-                      🌱 Sown: {new Date(farm.sowing_date).toLocaleDateString()}
+                      🌱 Sown: {new Date(farm.sowingDate).toLocaleDateString()}
                     </p>
                   )}
                   <p className="text-xs text-gray-400">
-                    Added: {new Date(farm.created_at).toLocaleDateString()}
+                    Added: {new Date(farm.createdAt).toLocaleDateString()}
                   </p>
                 </div>
               ))}

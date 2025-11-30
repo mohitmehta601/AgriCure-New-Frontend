@@ -93,21 +93,21 @@ const LLMEnhancedFertilizerRecommendations = ({
           </CardDescription>
         </CardHeader>
         <CardContent className="px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             <div className="text-center p-3 bg-white rounded-lg border border-purple-200">
-              <div className="text-lg font-semibold text-gray-800">
+              <div className="text-base sm:text-lg font-semibold text-gray-800">
                 {farm.size} {farm.unit}
               </div>
               <div className="text-xs text-gray-500">Field Size</div>
             </div>
             <div className="text-center p-3 bg-white rounded-lg border border-purple-200">
-              <div className="text-lg font-semibold text-gray-800">
+              <div className="text-base sm:text-lg font-semibold text-gray-800">
                 {farm.crop_type}
               </div>
               <div className="text-xs text-gray-500">Crop Type</div>
             </div>
             <div className="text-center p-3 bg-white rounded-lg border border-purple-200">
-              <div className="text-lg font-semibold text-gray-800">
+              <div className="text-base sm:text-lg font-semibold text-gray-800">
                 {farm.soil_type}
               </div>
               <div className="text-xs text-gray-500">Soil Type</div>
@@ -128,7 +128,7 @@ const LLMEnhancedFertilizerRecommendations = ({
           </CardDescription>
         </CardHeader>
         <CardContent className="px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <div>
               <h4 className="font-semibold mb-3 text-sm sm:text-base">
                 Current Status
@@ -269,16 +269,16 @@ const LLMEnhancedFertilizerRecommendations = ({
           <CardContent className="px-4 sm:px-6 py-4">
             <div className="space-y-4">
               <div>
-                <h3 className="font-bold text-xl text-green-800">
+                <h3 className="font-bold text-lg sm:text-xl text-green-800">
                   {result.primary_fertilizer?.name || "Not specified"}
                 </h3>
-                <p className="text-green-600 font-medium text-lg">
+                <p className="text-green-600 font-medium text-base sm:text-lg">
                   {result.primary_fertilizer?.amount_kg || 0} kg for {farm.size}{" "}
                   {farm.unit}
                 </p>
               </div>
               <div>
-                <h4 className="font-medium text-sm text-gray-600">
+                <h4 className="font-medium text-xs sm:text-sm text-gray-600">
                   Why this fertilizer:
                 </h4>
                 <p className="text-sm">
@@ -309,16 +309,16 @@ const LLMEnhancedFertilizerRecommendations = ({
           <CardContent className="px-4 sm:px-6 py-4">
             <div className="space-y-4">
               <div>
-                <h3 className="font-bold text-xl text-blue-800">
+                <h3 className="font-bold text-lg sm:text-xl text-blue-800">
                   {result.secondary_fertilizer?.name || "Not specified"}
                 </h3>
-                <p className="text-blue-600 font-medium text-lg">
+                <p className="text-blue-600 font-medium text-base sm:text-lg">
                   {result.secondary_fertilizer?.amount_kg || 0} kg for{" "}
                   {farm.size} {farm.unit}
                 </p>
               </div>
               <div>
-                <h4 className="font-medium text-sm text-gray-600">
+                <h4 className="font-medium text-xs sm:text-sm text-gray-600">
                   Why this fertilizer:
                 </h4>
                 <p className="text-sm">
@@ -354,11 +354,11 @@ const LLMEnhancedFertilizerRecommendations = ({
         <CardContent className="px-4 sm:px-6">
           {result.organic_alternatives &&
           result.organic_alternatives.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {result.organic_alternatives.map((option: any, index: number) => (
                 <div
                   key={index}
-                  className="p-4 border rounded-lg bg-green-50 border-green-200"
+                  className="p-3 sm:p-4 border rounded-lg bg-green-50 border-green-200"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <h4 className="font-semibold text-sm sm:text-base text-green-800">
@@ -446,7 +446,7 @@ const LLMEnhancedFertilizerRecommendations = ({
           <CardContent className="px-4 sm:px-6">
             {result.cost_estimate ? (
               <div className="space-y-3">
-                <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
                   <div className="flex justify-between">
                     <span>Primary:</span>
                     <span className="font-medium">
@@ -459,7 +459,7 @@ const LLMEnhancedFertilizerRecommendations = ({
                       {result.cost_estimate.secondary || "₹0"}
                     </span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between col-span-full xs:col-span-1">
                     <span>Organics:</span>
                     <span className="font-medium">
                       {result.cost_estimate.organics || "₹0"}
@@ -469,9 +469,11 @@ const LLMEnhancedFertilizerRecommendations = ({
 
                 <hr className="my-3" />
 
-                <div className="flex justify-between items-center">
-                  <span className="font-bold text-base">Total Estimate:</span>
-                  <span className="font-bold text-green-600 text-lg">
+                <div className="flex flex-col xs:flex-row justify-between items-start xs:items-center gap-1">
+                  <span className="font-bold text-sm sm:text-base">
+                    Total Estimate:
+                  </span>
+                  <span className="font-bold text-green-600 text-base sm:text-lg">
                     {result.cost_estimate.total || "₹0"}
                   </span>
                 </div>

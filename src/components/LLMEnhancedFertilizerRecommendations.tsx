@@ -102,13 +102,13 @@ const LLMEnhancedFertilizerRecommendations = ({
             </div>
             <div className="text-center p-3 bg-white rounded-lg border border-purple-200">
               <div className="text-base sm:text-lg font-semibold text-gray-800">
-                {farm.crop_type}
+                {farm.cropType}
               </div>
               <div className="text-xs text-gray-500">Crop Type</div>
             </div>
             <div className="text-center p-3 bg-white rounded-lg border border-purple-200">
               <div className="text-base sm:text-lg font-semibold text-gray-800">
-                {farm.soil_type}
+                {farm.soilType}
               </div>
               <div className="text-xs text-gray-500">Soil Type</div>
             </div>

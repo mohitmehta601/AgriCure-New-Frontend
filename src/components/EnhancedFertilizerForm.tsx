@@ -314,15 +314,15 @@ const EnhancedFertilizerForm = ({
         Temperature: parseFloat(formData.temperature),
         Humidity: parseFloat(formData.humidity),
         Moisture: parseFloat(formData.soilMoisture),
-        Soil_Type: selectedFarm.soil_type,
-        Crop_Type: selectedFarm.crop_type,
+        Soil_Type: selectedFarm.soilType,
+        Crop_Type: selectedFarm.cropType,
         Nitrogen: parseFloat(formData.nitrogen),
         Potassium: parseFloat(formData.potassium),
         Phosphorous: parseFloat(formData.phosphorus),
         pH: parseFloat(formData.soilPH) || 6.5,
         // Enhanced fields for LLM
         Sowing_Date:
-          selectedFarm.sowing_date || new Date().toISOString().split("T")[0],
+          selectedFarm.sowingDate || new Date().toISOString().split("T")[0],
         Field_Size: selectedFarm.size,
         Field_Unit: selectedFarm.unit,
         Bulk_Density_g_cm3: 1.3, // Default bulk density
@@ -490,8 +490,8 @@ const EnhancedFertilizerForm = ({
                           <div className="flex flex-col">
                             <span className="font-medium">{farm.name}</span>
                             <span className="text-xs text-gray-500">
-                              {farm.size} {farm.unit} • {farm.crop_type} •{" "}
-                              {farm.soil_type}
+                              {farm.size} {farm.unit} • {farm.cropType} •{" "}
+                              {farm.soilType}
                             </span>
                           </div>
                         </SelectItem>
@@ -526,22 +526,22 @@ const EnhancedFertilizerForm = ({
                     <div>
                       <span className="text-gray-600">Crop:</span>
                       <span className="ml-1 font-medium">
-                        {selectedFarm.crop_type}
+                        {selectedFarm.cropType}
                       </span>
                     </div>
                     <div>
                       <span className="text-gray-600">Soil:</span>
                       <span className="ml-1 font-medium">
-                        {selectedFarm.soil_type}
+                        {selectedFarm.soilType}
                       </span>
                     </div>
-                    {selectedFarm.sowing_date && (
+                    {selectedFarm.sowingDate && (
                       <div>
                         <span className="text-gray-600">🌱 Sowing Date:</span>
                         <span className="ml-1 font-medium">
-                          {new Date(
-                            selectedFarm.sowing_date
-                          ).toLocaleDateString("en-GB")}
+                          {new Date(selectedFarm.sowingDate).toLocaleDateString(
+                            "en-GB"
+                          )}
                         </span>
                       </div>
                     )}

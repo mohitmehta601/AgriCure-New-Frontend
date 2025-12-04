@@ -57,6 +57,7 @@ interface FormData {
   soilPH: string;
   soilMoisture: string;
   electricalConductivity: string;
+  soilTemperature: string;
   temperature: string;
   humidity: string;
   mlPrediction?: string;
@@ -80,8 +81,9 @@ const EnhancedFertilizerForm = ({
     soilPH: "",
     soilMoisture: "",
     electricalConductivity: "",
-    temperature: "",
-    humidity: "",
+    soilTemperature: "",
+    temperature: "25",
+    humidity: "60",
   });
   const [farms, setFarms] = useState<Farm[]>([]);
   const [selectedFarm, setSelectedFarm] = useState<Farm | null>(null);
@@ -122,8 +124,9 @@ const EnhancedFertilizerForm = ({
         soilPH: soilData.pH.toString(),
         soilMoisture: soilData.soilMoisture.toString(),
         electricalConductivity: soilData.electricalConductivity.toString(),
-        temperature: environmentData.temperature.toString(),
-        humidity: environmentData.humidity.toString(),
+        soilTemperature: soilData.soilTemperature.toString(),
+        temperature: "25",
+        humidity: "60",
       }));
     }
   }, [soilData, environmentData]);
@@ -176,8 +179,9 @@ const EnhancedFertilizerForm = ({
         soilPH: soilData.pH.toString(),
         soilMoisture: soilData.soilMoisture.toString(),
         electricalConductivity: soilData.electricalConductivity.toString(),
-        temperature: environmentData.temperature.toString(),
-        humidity: environmentData.humidity.toString(),
+        soilTemperature: soilData.soilTemperature.toString(),
+        temperature: "25",
+        humidity: "60",
       }));
 
       toast({
@@ -375,8 +379,8 @@ const EnhancedFertilizerForm = ({
           Temperature: parseFloat(formData.temperature),
           Humidity: parseFloat(formData.humidity),
           Moisture: parseFloat(formData.soilMoisture),
-          Soil_Type: selectedFarm.soil_type,
-          Crop_Type: selectedFarm.crop_type,
+          Soil_Type: selectedFarm.soilType,
+          Crop_Type: selectedFarm.cropType,
           Nitrogen: parseFloat(formData.nitrogen),
           Potassium: parseFloat(formData.potassium),
           Phosphorous: parseFloat(formData.phosphorus),
@@ -537,7 +541,7 @@ const EnhancedFertilizerForm = ({
                     </div>
                     {selectedFarm.sowingDate && (
                       <div>
-                        <span className="text-gray-600">🌱 Sowing Date:</span>
+                        <span className="text-gray-600">Sowing Date:</span>
                         <span className="ml-1 font-medium">
                           {new Date(selectedFarm.sowingDate).toLocaleDateString(
                             "en-GB"
@@ -672,53 +676,24 @@ const EnhancedFertilizerForm = ({
                     className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300"
                   />
                 </div>
-              </div>
-            </div>
-
-            {/* Environmental Conditions */}
-            <div className="space-y-4 p-4 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg border border-orange-200">
-              <h3 className="text-base sm:text-lg font-semibold text-orange-800">
-                Environmental Conditions
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label
-                    htmlFor="temperature"
-                    className="text-sm sm:text-base font-medium text-orange-700"
+                    htmlFor="soilTemperature"
+                    className="text-sm sm:text-base font-medium text-blue-700"
                   >
-                    Temperature (°C) *
+                    Soil Temperature (°C) *
                   </Label>
                   <Input
-                    id="temperature"
+                    id="soilTemperature"
                     type="number"
                     step="0.1"
-                    placeholder="e.g., 21.3"
-                    value={formData.temperature}
+                    placeholder="e.g., 22.5"
+                    value={formData.soilTemperature}
                     onChange={(e) =>
-                      handleChange("temperature", e.target.value)
+                      handleChange("soilTemperature", e.target.value)
                     }
                     required
-                    className="transition-all duration-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 hover:border-orange-300"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="humidity"
-                    className="text-sm sm:text-base font-medium text-orange-700"
-                  >
-                    Humidity (%) *
-                  </Label>
-                  <Input
-                    id="humidity"
-                    type="number"
-                    step="0.1"
-                    min="0"
-                    max="100"
-                    placeholder="e.g., 63.9"
-                    value={formData.humidity}
-                    onChange={(e) => handleChange("humidity", e.target.value)}
-                    required
-                    className="transition-all duration-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 hover:border-orange-300"
+                    className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300"
                   />
                 </div>
               </div>
@@ -755,8 +730,9 @@ const EnhancedFertilizerForm = ({
                     soilPH: "",
                     soilMoisture: "",
                     electricalConductivity: "",
-                    temperature: "",
-                    humidity: "",
+                    soilTemperature: "",
+                    temperature: "25",
+                    humidity: "60",
                   })
                 }
               >

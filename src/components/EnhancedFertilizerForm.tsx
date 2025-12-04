@@ -661,7 +661,7 @@ const EnhancedFertilizerForm = ({
                     htmlFor="electricalConductivity"
                     className="text-sm sm:text-base font-medium text-blue-700"
                   >
-                    Electrical Conductivity (mmhos/cm²) *
+                    Electrical Conductivity (μS/cm) *
                   </Label>
                   <Input
                     id="electricalConductivity"

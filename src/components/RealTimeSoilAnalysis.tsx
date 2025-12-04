@@ -385,7 +385,7 @@ const RealTimeSoilAnalysis = () => {
               <div className="text-base xs:text-lg sm:text-2xl font-bold mb-2 text-gray-900">
                 {(soilData?.electricalConductivity ?? 0).toFixed(2)}
                 <span className="text-xs xs:text-sm font-normal text-gray-500 ml-1">
-                  dS/m
+                  μS/cm
                 </span>
               </div>
               <Progress

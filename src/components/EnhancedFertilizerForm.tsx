@@ -59,7 +59,6 @@ interface FormData {
   electricalConductivity: string;
   soilTemperature: string;
   temperature: string;
-  humidity: string;
   mlPrediction?: string;
   llmEnhancedResult?: any; // LLM enhanced prediction result
 }
@@ -83,7 +82,6 @@ const EnhancedFertilizerForm = ({
     electricalConductivity: "",
     soilTemperature: "",
     temperature: "25",
-    humidity: "60",
   });
   const [farms, setFarms] = useState<Farm[]>([]);
   const [selectedFarm, setSelectedFarm] = useState<Farm | null>(null);
@@ -126,7 +124,6 @@ const EnhancedFertilizerForm = ({
         electricalConductivity: soilData.electricalConductivity.toString(),
         soilTemperature: soilData.soilTemperature.toString(),
         temperature: "25",
-        humidity: "60",
       }));
     }
   }, [soilData, environmentData]);
@@ -181,7 +178,6 @@ const EnhancedFertilizerForm = ({
         electricalConductivity: soilData.electricalConductivity.toString(),
         soilTemperature: soilData.soilTemperature.toString(),
         temperature: "25",
-        humidity: "60",
       }));
 
       toast({
@@ -316,6 +312,7 @@ const EnhancedFertilizerForm = ({
       // Use the new integrated fertilizer-recommendation endpoint
       const recommendationInput = {
         size: selectedFarm.size,
+        unit: selectedFarm.unit || "hectares", // Add unit for proper conversion
         crop: selectedFarm.cropType,
         soil: selectedFarm.soilType,
         sowing_date:
@@ -331,11 +328,36 @@ const EnhancedFertilizerForm = ({
         use_llm: true, // Enable LLM for enhanced recommendations
       };
 
+      console.log("📤 Sending fertilizer recommendation request:");
+      console.log("━".repeat(80));
+      console.log("API Endpoint: /fertilizer-recommendation");
+      console.log(
+        "Request Data:",
+        JSON.stringify(recommendationInput, null, 2)
+      );
+      console.log("━".repeat(80));
+
       const recommendation = await mlApiService.getFertilizerRecommendation(
         recommendationInput
       );
 
+      console.log("📥 Received fertilizer recommendation response:");
+      console.log("━".repeat(80));
+      console.log("Response Data:", JSON.stringify(recommendation, null, 2));
+      console.log("━".repeat(80));
+
       if (recommendation.success && recommendation.ml_predictions) {
+        console.log("✅ ML Predictions:", recommendation.ml_predictions);
+        console.log("💰 Cost Estimate:", recommendation.cost_estimate);
+        console.log(
+          "📅 Application Timing:",
+          recommendation.application_timing
+        );
+        console.log(
+          "🌿 Organic Alternatives:",
+          recommendation.organic_alternatives
+        );
+
         const enhancedData = {
           ...formData,
           mlPrediction:
@@ -361,7 +383,7 @@ const EnhancedFertilizerForm = ({
         throw new Error("Invalid recommendation response");
       }
     } catch (error) {
-      console.error("Fertilizer recommendation failed:", error);
+      console.error("❌ Fertilizer recommendation failed:", error);
       toast({
         title: "Recommendation Failed",
         description:
@@ -689,7 +711,6 @@ const EnhancedFertilizerForm = ({
                     electricalConductivity: "",
                     soilTemperature: "",
                     temperature: "25",
-                    humidity: "60",
                   })
                 }
               >

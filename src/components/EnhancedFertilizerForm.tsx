@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -72,6 +73,7 @@ const EnhancedFertilizerForm = ({
   onSubmit,
   user,
 }: EnhancedFertilizerFormProps) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     selectedFarmId: "",
     nitrogen: "",
@@ -371,14 +373,11 @@ const EnhancedFertilizerForm = ({
           farm: selectedFarm,
         };
 
-        onSubmit(enhancedData);
-
-        toast({
-          title: "🌾 Fertilizer Recommendation Complete!",
-          description: `Primary fertilizer: ${
-            recommendation.ml_predictions.Primary_Fertilizer || "N/A"
-          }`,
+        navigate("/fertilizer-recommendation/full", {
+          state: { recommendationData: enhancedData },
         });
+
+        // Toast notification removed - navigating directly to results page
       } else {
         throw new Error("Invalid recommendation response");
       }

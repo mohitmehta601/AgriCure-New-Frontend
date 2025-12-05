@@ -13,6 +13,7 @@ import Recommendations from "./pages/Recommendations";
 import RecommendationDetails from "./pages/RecommendationDetails";
 import DetailedRecommendationsPage from "./pages/DetailedRecommendationsPage";
 import FertilizerRecommendation from "./pages/FertilizerRecommendation";
+import FullRecommendations from "./pages/FullRecommendations";
 import NotFound from "./pages/NotFound";
 import Video from "./pages/Video";
 import { EnhancedMLDemo } from "./components/EnhancedMLDemo";
@@ -36,6 +37,10 @@ const App = () => (
               <Route
                 path="/fertilizer-recommendation"
                 element={<FertilizerRecommendation />}
+              />
+              <Route
+                path="/fertilizer-recommendation/full"
+                element={<FullRecommendations />}
               />
               <Route path="/recommendations" element={<Recommendations />} />
               <Route

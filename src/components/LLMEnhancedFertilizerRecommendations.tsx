@@ -136,42 +136,32 @@ const LLMEnhancedFertilizerRecommendations = ({
 
       {/* Soil Condition Analysis */}
       <Card>
-        <CardHeader className="px-4 sm:px-6">
-          <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
-            <Droplets className="h-5 w-5 text-blue-600" />
-            <span>🧪 Soil Analysis</span>
+        <CardHeader className="px-5 py-3">
+          <CardTitle className="text-base font-semibold">
+            Soil Analysis
           </CardTitle>
-          <CardDescription className="text-sm sm:text-base">
-            Comprehensive soil condition assessment with nutrient conversions
-          </CardDescription>
         </CardHeader>
-        <CardContent className="px-4 sm:px-6">
-          {/* Nutrient Status Overview */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6">
-            <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200">
-              <div className="text-xs text-blue-600 font-medium mb-1">
-                pH Status
-              </div>
+        <CardContent className="px-5 pb-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+            <div className="p-2 bg-blue-50 rounded">
+              <div className="text-xs text-gray-600 mb-1">pH</div>
               <Badge
                 variant={
                   soilCondition.ph_status?.toLowerCase() === "optimal"
                     ? "default"
                     : "secondary"
                 }
-                className="text-sm"
+                className="text-xs"
               >
                 {soilCondition.ph_status || phAmendment}
               </Badge>
-              <div className="text-xs text-blue-700 mt-1">
-                Value:{" "}
+              <div className="text-xs font-semibold mt-1">
                 {result.soil_condition?.soil_test_values?.pH || data.soilPH}
               </div>
             </div>
 
-            <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200">
-              <div className="text-xs text-green-600 font-medium mb-1">
-                Nitrogen (N)
-              </div>
+            <div className="p-2 bg-green-50 rounded">
+              <div className="text-xs text-gray-600 mb-1">Nitrogen</div>
               <Badge
                 variant={
                   soilCondition.n_status?.toLowerCase() === "optimal"
@@ -180,21 +170,17 @@ const LLMEnhancedFertilizerRecommendations = ({
                     ? "destructive"
                     : "secondary"
                 }
-                className="text-sm"
+                className="text-xs"
               >
                 {soilCondition.n_status || "N/A"}
               </Badge>
-              <div className="text-xs text-green-700 mt-1">
-                {result.soil_condition?.soil_test_values?.N?.kg_per_ha ||
-                  data.nitrogen}{" "}
-                kg/ha
+              <div className="text-xs font-semibold mt-1">
+                {data.nitrogen} mg/kg
               </div>
             </div>
 
-            <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200">
-              <div className="text-xs text-purple-600 font-medium mb-1">
-                Phosphorus (P)
-              </div>
+            <div className="p-2 bg-purple-50 rounded">
+              <div className="text-xs text-gray-600 mb-1">Phosphorus</div>
               <Badge
                 variant={
                   soilCondition.p_status?.toLowerCase() === "optimal"
@@ -203,21 +189,17 @@ const LLMEnhancedFertilizerRecommendations = ({
                     ? "destructive"
                     : "secondary"
                 }
-                className="text-sm"
+                className="text-xs"
               >
                 {soilCondition.p_status || "N/A"}
               </Badge>
-              <div className="text-xs text-purple-700 mt-1">
-                {result.soil_condition?.soil_test_values?.P?.kg_per_ha ||
-                  data.phosphorus}{" "}
-                kg/ha
+              <div className="text-xs font-semibold mt-1">
+                {data.phosphorus} mg/kg
               </div>
             </div>
 
-            <div className="p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg border border-orange-200">
-              <div className="text-xs text-orange-600 font-medium mb-1">
-                Potassium (K)
-              </div>
+            <div className="p-2 bg-orange-50 rounded">
+              <div className="text-xs text-gray-600 mb-1">Potassium</div>
               <Badge
                 variant={
                   soilCondition.k_status?.toLowerCase() === "optimal"
@@ -226,14 +208,12 @@ const LLMEnhancedFertilizerRecommendations = ({
                     ? "destructive"
                     : "secondary"
                 }
-                className="text-sm"
+                className="text-xs"
               >
                 {soilCondition.k_status || "N/A"}
               </Badge>
-              <div className="text-xs text-orange-700 mt-1">
-                {result.soil_condition?.soil_test_values?.K?.kg_per_ha ||
-                  data.potassium}{" "}
-                kg/ha
+              <div className="text-xs font-semibold mt-1">
+                {data.potassium} mg/kg
               </div>
             </div>
           </div>
@@ -304,238 +284,120 @@ const LLMEnhancedFertilizerRecommendations = ({
               </div>
             )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-            <div>
-              <h4 className="font-semibold mb-3 text-sm sm:text-base border-b pb-2">
-                Environmental Conditions
-              </h4>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center p-2 bg-amber-50 rounded">
-                  <span className="text-sm">Soil Temperature:</span>
-                  <span className="text-sm font-semibold text-amber-700">
-                    {result.soil_condition?.soil_test_values
-                      ?.soil_temperature || data.temperature}
-                    °C
-                  </span>
+          <div>
+            <h4 className="font-medium mb-1.5 text-xs uppercase text-gray-600">
+              Soil Test Results
+            </h4>
+
+            <div className="grid grid-cols-2 gap-1.5">
+              <div className="p-1.5 bg-gray-50 rounded">
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="text-xs text-gray-600">Nitrogen (N)</span>
+                  <Badge
+                    variant={
+                      soilCondition.n_status?.toLowerCase() === "low"
+                        ? "destructive"
+                        : "default"
+                    }
+                    className="text-xs h-4"
+                  >
+                    {soilCondition.n_status}
+                  </Badge>
                 </div>
-                <div className="flex justify-between items-center p-2 bg-cyan-50 rounded">
-                  <span className="text-sm">Soil Moisture:</span>
-                  <span className="text-sm font-semibold text-cyan-700">
-                    {result.soil_condition?.soil_test_values?.soil_moisture ||
-                      data.soilMoisture}
-                    %
-                  </span>
+                <div className="text-xs font-semibold">
+                  {data.nitrogen} mg/kg
                 </div>
-                <div className="flex justify-between items-center p-2 bg-purple-50 rounded">
-                  <span className="text-sm">Electrical Conductivity:</span>
-                  <span className="text-sm font-semibold text-purple-700">
-                    {result.soil_condition?.soil_test_values?.EC_mmhos_cm2 ||
-                      data.electricalConductivity}{" "}
-                    mmhos/cm²
-                  </span>
-                </div>
-                <div className="flex justify-between items-center p-2 bg-teal-50 rounded">
-                  <span className="text-sm">Soil Type:</span>
-                  <span className="text-sm font-semibold text-teal-700">
-                    {farm.soil_type}
-                  </span>
-                </div>
-                {soilCondition.moisture_status && (
-                  <div className="flex justify-between items-center p-2 bg-blue-50 rounded">
-                    <span className="text-sm">Moisture Status:</span>
-                    <Badge variant="secondary" className="text-xs">
-                      {soilCondition.moisture_status}
-                    </Badge>
-                  </div>
-                )}
               </div>
-            </div>
 
-            {/* Soil Test Results - Enhanced */}
-            <div>
-              <h4 className="font-semibold mb-3 text-sm sm:text-base border-b pb-2">
-                Detailed Soil Test Results
-              </h4>
-
-              {result.soil_condition?.soil_test_values ? (
-                <div className="space-y-3">
-                  <div className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
-                    <div className="font-medium text-blue-800 text-sm mb-2">
-                      Test Parameters
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div className="flex justify-between">
-                        <span className="text-blue-600">Bulk Density:</span>
-                        <span className="font-semibold text-blue-700">
-                          {
-                            result.soil_condition.soil_test_values
-                              .bulk_density_g_cm3
-                          }{" "}
-                          g/cm³
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-blue-600">Sampling Depth:</span>
-                        <span className="font-semibold text-blue-700">
-                          {
-                            result.soil_condition.soil_test_values
-                              .sampling_depth_cm
-                          }{" "}
-                          cm
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* NPK Detailed Results */}
-                  <div className="space-y-2">
-                    <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="font-semibold text-green-800 text-sm">
-                          Nitrogen (N)
-                        </span>
-                        <Badge
-                          variant={
-                            soilCondition.n_status?.toLowerCase() === "low"
-                              ? "destructive"
-                              : "default"
-                          }
-                          className="text-xs"
-                        >
-                          {soilCondition.n_status}
-                        </Badge>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2 text-xs">
-                        <div>
-                          <span className="text-green-600">Concentration:</span>
-                          <div className="font-semibold text-green-700">
-                            {result.soil_condition.soil_test_values.N
-                              ?.mg_per_kg || data.nitrogen}{" "}
-                            mg/kg
-                          </div>
-                        </div>
-                        <div>
-                          <span className="text-green-600">Per Hectare:</span>
-                          <div className="font-semibold text-green-700">
-                            {result.soil_condition.soil_test_values.N
-                              ?.kg_per_ha || data.nitrogen}{" "}
-                            kg/ha
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-3 bg-purple-50 rounded-lg border border-purple-200">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="font-semibold text-purple-800 text-sm">
-                          Phosphorus (P)
-                        </span>
-                        <Badge
-                          variant={
-                            soilCondition.p_status?.toLowerCase() === "low"
-                              ? "destructive"
-                              : "default"
-                          }
-                          className="text-xs"
-                        >
-                          {soilCondition.p_status}
-                        </Badge>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2 text-xs">
-                        <div>
-                          <span className="text-purple-600">
-                            Concentration:
-                          </span>
-                          <div className="font-semibold text-purple-700">
-                            {result.soil_condition.soil_test_values.P
-                              ?.mg_per_kg || data.phosphorus}{" "}
-                            mg/kg
-                          </div>
-                        </div>
-                        <div>
-                          <span className="text-purple-600">Per Hectare:</span>
-                          <div className="font-semibold text-purple-700">
-                            {result.soil_condition.soil_test_values.P
-                              ?.kg_per_ha || data.phosphorus}{" "}
-                            kg/ha
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-3 bg-orange-50 rounded-lg border border-orange-200">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="font-semibold text-orange-800 text-sm">
-                          Potassium (K)
-                        </span>
-                        <Badge
-                          variant={
-                            soilCondition.k_status?.toLowerCase() === "low"
-                              ? "destructive"
-                              : "default"
-                          }
-                          className="text-xs"
-                        >
-                          {soilCondition.k_status}
-                        </Badge>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2 text-xs">
-                        <div>
-                          <span className="text-orange-600">
-                            Concentration:
-                          </span>
-                          <div className="font-semibold text-orange-700">
-                            {result.soil_condition.soil_test_values.K
-                              ?.mg_per_kg || data.potassium}{" "}
-                            mg/kg
-                          </div>
-                        </div>
-                        <div>
-                          <span className="text-orange-600">Per Hectare:</span>
-                          <div className="font-semibold text-orange-700">
-                            {result.soil_condition.soil_test_values.K
-                              ?.kg_per_ha || data.potassium}{" "}
-                            kg/ha
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <div className="p-1.5 bg-gray-50 rounded">
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="text-xs text-gray-600">Phosphorus (P)</span>
+                  <Badge
+                    variant={
+                      soilCondition.p_status?.toLowerCase() === "low"
+                        ? "destructive"
+                        : "default"
+                    }
+                    className="text-xs h-4"
+                  >
+                    {soilCondition.p_status}
+                  </Badge>
                 </div>
-              ) : (
-                <div className="space-y-2">
-                  <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-green-800 text-sm">
-                        Nitrogen (N)
-                      </span>
-                      <span className="text-sm font-semibold text-green-700">
-                        {data.nitrogen} kg/ha
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-3 bg-purple-50 rounded-lg border border-purple-200">
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-purple-800 text-sm">
-                        Phosphorus (P)
-                      </span>
-                      <span className="text-sm font-semibold text-purple-700">
-                        {data.phosphorus} kg/ha
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-3 bg-orange-50 rounded-lg border border-orange-200">
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-orange-800 text-sm">
-                        Potassium (K)
-                      </span>
-                      <span className="text-sm font-semibold text-orange-700">
-                        {data.potassium} kg/ha
-                      </span>
-                    </div>
-                  </div>
+                <div className="text-xs font-semibold">
+                  {data.phosphorus} mg/kg
                 </div>
-              )}
+              </div>
+
+              <div className="p-1.5 bg-gray-50 rounded">
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="text-xs text-gray-600">Potassium (K)</span>
+                  <Badge
+                    variant={
+                      soilCondition.k_status?.toLowerCase() === "low"
+                        ? "destructive"
+                        : "default"
+                    }
+                    className="text-xs h-4"
+                  >
+                    {soilCondition.k_status}
+                  </Badge>
+                </div>
+                <div className="text-xs font-semibold">
+                  {data.potassium} mg/kg
+                </div>
+              </div>
+
+              <div className="p-1.5 bg-gray-50 rounded">
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="text-xs text-gray-600">pH Status</span>
+                  <Badge
+                    variant={
+                      soilCondition.ph_status?.toLowerCase() === "optimal"
+                        ? "default"
+                        : "secondary"
+                    }
+                    className="text-xs h-4"
+                  >
+                    {soilCondition.ph_status || phAmendment}
+                  </Badge>
+                </div>
+                <div className="text-xs font-semibold">
+                  {result.soil_condition?.soil_test_values?.pH || data.soilPH}
+                </div>
+              </div>
+
+              <div className="p-1.5 bg-gray-50 rounded">
+                <div className="text-xs text-gray-600 mb-0.5">
+                  Soil Temperature
+                </div>
+                <div className="text-xs font-semibold">
+                  {result.soil_condition?.soil_test_values?.soil_temperature ||
+                    data.temperature}
+                  °C
+                </div>
+              </div>
+
+              <div className="p-1.5 bg-gray-50 rounded">
+                <div className="text-xs text-gray-600 mb-0.5">
+                  Soil Moisture
+                </div>
+                <div className="text-xs font-semibold">
+                  {result.soil_condition?.soil_test_values?.soil_moisture ||
+                    data.soilMoisture}
+                  %
+                </div>
+              </div>
+
+              <div className="p-1.5 bg-gray-50 rounded col-span-2">
+                <div className="text-xs text-gray-600 mb-0.5">
+                  Electrical Conductivity
+                </div>
+                <div className="text-xs font-semibold">
+                  {result.soil_condition?.soil_test_values?.EC_mmhos_cm2 ||
+                    data.electricalConductivity}{" "}
+                  mmhos/cm²
+                </div>
+              </div>
             </div>
           </div>
 
@@ -608,14 +470,22 @@ const LLMEnhancedFertilizerRecommendations = ({
                   <p className="text-sm">{primaryFertilizer.reason}</p>
                 </div>
               )}
-              {primaryFertilizer?.application_method && (
+              {primaryFertilizer?.nutrients_provided && (
                 <div>
-                  <h4 className="font-medium text-sm text-gray-600">
-                    Application Method:
+                  <h4 className="font-medium text-xs sm:text-sm text-gray-600">
+                    Nutrients Provided:
                   </h4>
                   <p className="text-sm">
-                    {primaryFertilizer.application_method}
+                    {primaryFertilizer.nutrients_provided}
                   </p>
+                </div>
+              )}
+              {primaryFertilizer?.benefits && (
+                <div>
+                  <h4 className="font-medium text-xs sm:text-sm text-gray-600">
+                    How it helps:
+                  </h4>
+                  <p className="text-sm">{primaryFertilizer.benefits}</p>
                 </div>
               )}
             </div>
@@ -668,14 +538,22 @@ const LLMEnhancedFertilizerRecommendations = ({
                   <p className="text-sm">{secondaryFertilizer.reason}</p>
                 </div>
               )}
-              {secondaryFertilizer?.application_method && (
+              {secondaryFertilizer?.nutrients_provided && (
                 <div>
-                  <h4 className="font-medium text-sm text-gray-600">
-                    Application Method:
+                  <h4 className="font-medium text-xs sm:text-sm text-gray-600">
+                    Nutrients Provided:
                   </h4>
                   <p className="text-sm">
-                    {secondaryFertilizer.application_method}
+                    {secondaryFertilizer.nutrients_provided}
                   </p>
+                </div>
+              )}
+              {secondaryFertilizer?.benefits && (
+                <div>
+                  <h4 className="font-medium text-xs sm:text-sm text-gray-600">
+                    How it helps:
+                  </h4>
+                  <p className="text-sm">{secondaryFertilizer.benefits}</p>
                 </div>
               )}
             </div>
@@ -703,22 +581,36 @@ const LLMEnhancedFertilizerRecommendations = ({
                   {phAmendment &&
                   phAmendment !== "None needed" &&
                   phAmendment !== "None"
-                    ? "Maintains optimal pH for nutrient uptake"
-                    : "Soil pH is within optimal range"}
+                    ? "Adjusts soil pH to optimal range for maximum nutrient availability and absorption"
+                    : "Soil pH is within optimal range (6.0-7.5) for most nutrients"}
                 </p>
               </div>
-              <div>
-                <h4 className="font-medium text-sm text-gray-600">
-                  Application Method:
-                </h4>
-                <p className="text-sm">
-                  {phAmendment &&
-                  phAmendment !== "None needed" &&
-                  phAmendment !== "None"
-                    ? "Apply evenly and incorporate into soil before planting"
-                    : "No pH correction required"}
-                </p>
-              </div>
+              {phAmendment &&
+                phAmendment !== "None needed" &&
+                phAmendment !== "None" && (
+                  <>
+                    <div>
+                      <h4 className="font-medium text-xs sm:text-sm text-gray-600">
+                        Nutrients Enhanced:
+                      </h4>
+                      <p className="text-sm">
+                        Improves availability of Nitrogen, Phosphorus,
+                        Potassium, and essential micronutrients by optimizing
+                        soil pH.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-xs sm:text-sm text-gray-600">
+                        How it helps:
+                      </h4>
+                      <p className="text-sm">
+                        Creates ideal soil conditions for nutrient uptake,
+                        enhances beneficial microbial activity, reduces nutrient
+                        lock-up, and improves overall fertilizer efficiency.
+                      </p>
+                    </div>
+                  </>
+                )}
             </div>
           </CardContent>
         </Card>
@@ -742,22 +634,68 @@ const LLMEnhancedFertilizerRecommendations = ({
               {result.organic_alternatives.map((option: any, index: number) => (
                 <div
                   key={index}
-                  className="p-3 sm:p-4 border rounded-lg bg-green-50 border-green-200"
+                  className="p-3 sm:p-4 border rounded-lg bg-green-50 border-green-200 hover:shadow-md transition-shadow"
                 >
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-semibold text-sm sm:text-base text-green-800">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="font-semibold text-base sm:text-lg text-green-800">
                       {option.name}
                     </h4>
                     <Badge variant="secondary" className="text-xs">
                       {option.amount_kg} kg
                     </Badge>
                   </div>
-                  <p className="text-xs sm:text-sm text-green-700 mb-2">
+
+                  {/* NPK Content */}
+                  {option.npk_content && (
+                    <div className="mb-2 pb-2 border-b border-green-200">
+                      <div className="text-xs font-medium text-green-700 mb-1">
+                        NPK Ratio:
+                      </div>
+                      <div className="text-sm font-semibold text-green-900">
+                        {option.npk_content}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Primary Nutrients */}
+                  {option.primary_nutrients &&
+                    option.primary_nutrients.length > 0 && (
+                      <div className="mb-2 pb-2 border-b border-green-200">
+                        <div className="text-xs font-medium text-green-700 mb-1">
+                          Provides:
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                          {option.primary_nutrients.map(
+                            (nutrient: string, idx: number) => (
+                              <Badge
+                                key={idx}
+                                variant="outline"
+                                className="text-xs bg-white text-green-700 border-green-300"
+                              >
+                                {nutrient}
+                              </Badge>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                  {/* Benefits */}
+                  {option.benefits && (
+                    <div className="mb-2">
+                      <div className="text-xs font-medium text-green-700 mb-1">
+                        Why use this:
+                      </div>
+                      <p className="text-xs text-green-600 leading-relaxed">
+                        {option.benefits}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Reason */}
+                  <p className="text-xs sm:text-sm text-green-700">
                     {option.reason || "Organic nutrition source"}
                   </p>
-                  <div className="text-xs text-green-600">
-                    <strong>Application:</strong> {option.timing || "As needed"}
-                  </div>
                 </div>
               ))}
             </div>
@@ -786,43 +724,103 @@ const LLMEnhancedFertilizerRecommendations = ({
             <div className="space-y-4">
               {(result.application_timing?.primary_fertilizer ||
                 result.application_timing?.primary) && (
-                <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-                  <h4 className="font-medium text-sm text-green-800 mb-1 flex items-center gap-2">
-                    <Leaf className="h-4 w-4" />
-                    Primary Fertilizer Application
+                <div className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg border-2 border-green-200 shadow-sm">
+                  <h4 className="font-semibold text-base text-green-900 mb-3 flex items-center gap-2">
+                    <Leaf className="h-5 w-5 text-green-600" />
+                    🌾 Primary Fertilizer Application
                   </h4>
-                  <p className="text-xs sm:text-sm text-green-700">
-                    {result.application_timing.primary_fertilizer ||
-                      result.application_timing.primary}
-                  </p>
+                  <div className="space-y-2">
+                    <p className="text-sm text-green-800 leading-relaxed">
+                      {result.application_timing.primary_fertilizer ||
+                        result.application_timing.primary}
+                    </p>
+                    <div className="mt-3 pt-3 border-t border-green-200">
+                      <p className="text-xs text-green-700 font-medium mb-1">
+                        💡 Best Practices:
+                      </p>
+                      <ul className="text-xs text-green-600 space-y-1 ml-4 list-disc">
+                        <li>
+                          Apply early morning or late evening when temperature
+                          is cooler
+                        </li>
+                        <li>
+                          Ensure soil has adequate moisture before application
+                        </li>
+                        <li>
+                          Mix fertilizer with soil; don't leave on surface
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               )}
 
               {(result.application_timing?.secondary_fertilizer ||
                 result.application_timing?.secondary) && (
-                <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                  <h4 className="font-medium text-sm text-blue-800 mb-1 flex items-center gap-2">
-                    <Sprout className="h-4 w-4" />
-                    Secondary Fertilizer Application
+                <div className="p-4 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-lg border-2 border-blue-200 shadow-sm">
+                  <h4 className="font-semibold text-base text-blue-900 mb-3 flex items-center gap-2">
+                    <Sprout className="h-5 w-5 text-blue-600" />
+                    🧬 Secondary Fertilizer Application
                   </h4>
-                  <p className="text-xs sm:text-sm text-blue-700">
-                    {result.application_timing.secondary_fertilizer ||
-                      result.application_timing.secondary}
-                  </p>
+                  <div className="space-y-2">
+                    <p className="text-sm text-blue-800 leading-relaxed">
+                      {result.application_timing.secondary_fertilizer ||
+                        result.application_timing.secondary}
+                    </p>
+                    <div className="mt-3 pt-3 border-t border-blue-200">
+                      <p className="text-xs text-blue-700 font-medium mb-1">
+                        ⚠️ Important Notes:
+                      </p>
+                      <ul className="text-xs text-blue-600 space-y-1 ml-4 list-disc">
+                        <li>
+                          Apply as foliar spray or soil application as per label
+                        </li>
+                        <li>
+                          Don't mix with other chemicals without expert advice
+                        </li>
+                        <li>
+                          Water the crop after application for better absorption
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               )}
 
               {(result.application_timing?.organic_options ||
                 result.application_timing?.organics) && (
-                <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-                  <h4 className="font-medium text-sm text-yellow-800 mb-1 flex items-center gap-2">
-                    <Target className="h-4 w-4" />
-                    Organic Options Application
+                <div className="p-4 bg-gradient-to-br from-amber-50 to-yellow-50 rounded-lg border-2 border-amber-200 shadow-sm">
+                  <h4 className="font-semibold text-base text-amber-900 mb-3 flex items-center gap-2">
+                    <Target className="h-5 w-5 text-amber-600" />
+                    🌱 Organic Options Application
                   </h4>
-                  <p className="text-xs sm:text-sm text-yellow-700">
-                    {result.application_timing.organic_options ||
-                      result.application_timing.organics}
-                  </p>
+                  <div className="space-y-2">
+                    <p className="text-sm text-amber-800 leading-relaxed">
+                      {result.application_timing.organic_options ||
+                        result.application_timing.organics}
+                    </p>
+                    <div className="mt-3 pt-3 border-t border-amber-200">
+                      <p className="text-xs text-amber-700 font-medium mb-1">
+                        ✅ Why Apply Before Sowing:
+                      </p>
+                      <ul className="text-xs text-amber-600 space-y-1 ml-4 list-disc">
+                        <li>
+                          Organic matter needs time to decompose and release
+                          nutrients
+                        </li>
+                        <li>
+                          Improves soil structure and water retention capacity
+                        </li>
+                        <li>
+                          Increases beneficial soil microorganism activity
+                        </li>
+                        <li>
+                          Creates ideal conditions for seed germination and root
+                          growth
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               )}
 
@@ -844,46 +842,113 @@ const LLMEnhancedFertilizerRecommendations = ({
         </Card>
 
         <Card>
-          <CardHeader className="px-4 sm:px-6">
-            <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
-              <Calculator className="h-5 w-5 text-green-600" />
+          <CardHeader className="px-5 sm:px-6 py-4">
+            <CardTitle className="flex items-center space-x-2 text-xl sm:text-2xl">
+              <Calculator className="h-6 w-6 text-green-600" />
               <span>Cost Analysis</span>
             </CardTitle>
           </CardHeader>
-          <CardContent className="px-4 sm:px-6">
+          <CardContent className="px-5 sm:px-6 pb-6">
             {result.cost_estimate ? (
-              <div className="space-y-3">
-                {/* Primary Fertilizer Cost */}
-                <div className="flex justify-between items-center p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
-                  <span className="font-medium text-green-800">
-                    Primary Fertilizer:
-                  </span>
-                  <span className="font-bold text-green-700 text-lg">
-                    {result.cost_estimate.primary_fertilizer ||
-                      result.cost_estimate.primary ||
-                      "₹0"}
-                  </span>
+              <div className="space-y-4">
+                {/* Chemical Fertilizers Cost - Combined section like Organic Alternatives */}
+                <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="font-semibold text-green-800 text-base sm:text-lg">
+                      Chemical Fertilizers:
+                    </span>
+                    <span className="font-bold text-green-700 text-2xl sm:text-3xl">
+                      ₹
+                      {(
+                        parseInt(
+                          result.cost_estimate.primary_fertilizer?.replace(
+                            /[₹,]/g,
+                            ""
+                          ) ||
+                            result.cost_estimate.primary?.replace(
+                              /[₹,]/g,
+                              ""
+                            ) ||
+                            "0"
+                        ) +
+                        parseInt(
+                          result.cost_estimate.secondary_fertilizer?.replace(
+                            /[₹,]/g,
+                            ""
+                          ) ||
+                            result.cost_estimate.secondary?.replace(
+                              /[₹,]/g,
+                              ""
+                            ) ||
+                            "0"
+                        )
+                      ).toLocaleString()}
+                    </span>
+                  </div>
+                  <div className="space-y-2 pt-3 border-t border-green-300">
+                    {/* Primary Fertilizer */}
+                    <div className="flex justify-between items-center text-sm sm:text-base text-green-700">
+                      <span>
+                        Primary Fertilizer [
+                        {result.cost_estimate?.breakdown?.primary?.fertilizer ||
+                          result.primary_fertilizer?.name ||
+                          "Primary Fertilizer"}
+                        ]
+                      </span>
+                      <span className="font-medium text-base sm:text-lg">
+                        {result.cost_estimate.primary_fertilizer ||
+                          result.cost_estimate.primary ||
+                          "₹0"}
+                      </span>
+                    </div>
+                    {/* Secondary Fertilizer */}
+                    <div className="space-y-1">
+                      <div className="flex justify-between items-center text-sm sm:text-base text-green-700">
+                        <span>
+                          Secondary Fertilizer [
+                          {result.cost_estimate?.breakdown?.secondary
+                            ?.fertilizer ||
+                            result.secondary_fertilizer?.name ||
+                            "Secondary Fertilizer"}
+                          ]
+                        </span>
+                        <span className="font-medium text-base sm:text-lg">
+                          {result.cost_estimate.secondary_fertilizer ||
+                            result.cost_estimate.secondary ||
+                            "₹0"}
+                        </span>
+                      </div>
+                      {/* Show component breakdown if available */}
+                      {result.cost_estimate?.breakdown?.secondary?.components &&
+                        result.cost_estimate.breakdown.secondary.components
+                          .length > 1 && (
+                          <div className="ml-4 space-y-1 text-xs sm:text-sm text-green-600">
+                            {result.cost_estimate.breakdown.secondary.components.map(
+                              (comp: any, idx: number) => (
+                                <div
+                                  key={idx}
+                                  className="flex justify-between items-center"
+                                >
+                                  <span>
+                                    • {comp.name} ({comp.quantity_kg} kg)
+                                  </span>
+                                  <span>{comp.cost}</span>
+                                </div>
+                              )
+                            )}
+                          </div>
+                        )}
+                    </div>
+                  </div>
                 </div>
 
-                {/* Secondary Fertilizer Cost */}
-                <div className="flex justify-between items-center p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
-                  <span className="font-medium text-blue-800">
-                    Secondary Fertilizer:
-                  </span>
-                  <span className="font-bold text-blue-700 text-lg">
-                    {result.cost_estimate.secondary_fertilizer ||
-                      result.cost_estimate.secondary ||
-                      "₹0"}
-                  </span>
-                </div>
-
-                {/* Organic Alternatives Cost - Compact breakdown */}
-                <div className="p-3 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-lg border border-amber-200">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="font-medium text-amber-800">
+                {/* Organic Alternatives Cost - Separate section */}
+                <div className="p-4 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-lg border border-amber-200">
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="font-semibold text-amber-800 text-base sm:text-lg">
                       Organic Alternatives:
                     </span>
-                    <span className="font-bold text-amber-700 text-lg">
+                    <span className="font-bold text-amber-700 text-2xl sm:text-3xl">
                       {result.cost_estimate.organic_options ||
                         result.cost_estimate.organics ||
                         "₹0"}
@@ -891,37 +956,22 @@ const LLMEnhancedFertilizerRecommendations = ({
                   </div>
                   {result.organic_alternatives &&
                     result.organic_alternatives.length > 0 && (
-                      <div className="space-y-1 pt-2 border-t border-amber-200">
+                      <div className="space-y-2 pt-3 border-t border-amber-300">
                         {result.organic_alternatives
                           .slice(0, 3)
                           .map((option: any, index: number) => (
                             <div
                               key={index}
-                              className="flex justify-between items-center text-xs text-amber-700"
+                              className="flex justify-between items-center text-sm sm:text-base text-amber-700"
                             >
                               <span>{option.name}</span>
-                              <span>
+                              <span className="font-medium text-base sm:text-lg">
                                 ₹{option.cost?.toLocaleString() || "0"}
                               </span>
                             </div>
                           ))}
                       </div>
                     )}
-                </div>
-
-                {/* Divider */}
-                <div className="border-t-2 border-green-300 my-2"></div>
-
-                {/* Total Cost */}
-                <div className="flex justify-between items-center p-4 bg-gradient-to-r from-green-100 to-emerald-100 rounded-lg border-2 border-green-400">
-                  <span className="font-bold text-green-900 text-lg">
-                    Total Cost:
-                  </span>
-                  <span className="font-bold text-green-800 text-2xl">
-                    {result.cost_estimate.total_estimate ||
-                      result.cost_estimate.total ||
-                      "₹0"}
-                  </span>
                 </div>
               </div>
             ) : (

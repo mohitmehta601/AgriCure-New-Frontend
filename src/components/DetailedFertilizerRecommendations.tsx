@@ -386,11 +386,22 @@ const DetailedFertilizerRecommendations = ({
 
                   <div>
                     <h4 className="text-xs sm:text-sm font-semibold text-gray-700 mb-1">
-                      Application Method:
+                      Nutrients Provided:
                     </h4>
                     <p className="text-xs sm:text-sm text-gray-600">
-                      Apply 2-3 split doses as top dressing during vegetative
-                      growth.
+                      High nitrogen content for vegetative growth, leaf
+                      development, and protein synthesis.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-xs sm:text-sm font-semibold text-gray-700 mb-1">
+                      How it helps:
+                    </h4>
+                    <p className="text-xs sm:text-sm text-gray-600">
+                      Promotes vigorous vegetative growth, enhances chlorophyll
+                      production for greener leaves, and improves overall plant
+                      health and yield potential.
                     </p>
                   </div>
                 </div>
@@ -423,19 +434,29 @@ const DetailedFertilizerRecommendations = ({
                       Why this fertilizer:
                     </h4>
                     <p className="text-xs sm:text-sm text-gray-600">
-                      ML model detected optimal levels. Selected as secondary
-                      fertilizer based on soil analysis and crop requirements.
-                      Provides balanced nutrition according to soil test
-                      recommendations.
+                      Addresses micronutrient deficiencies detected in soil
+                      analysis. Essential for optimal crop growth and yield.
                     </p>
                   </div>
 
                   <div>
                     <h4 className="text-xs sm:text-sm font-semibold text-gray-700 mb-1">
-                      Application Method:
+                      Nutrients Provided:
                     </h4>
                     <p className="text-xs sm:text-sm text-gray-600">
-                      Follow label guidance and local agronomy recommendations.
+                      Boron, Iron, and Zinc - critical micronutrients for enzyme
+                      activation and plant metabolism.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-xs sm:text-sm font-semibold text-gray-700 mb-1">
+                      How it helps:
+                    </h4>
+                    <p className="text-xs sm:text-sm text-gray-600">
+                      Improves flowering and fruit set, enhances disease
+                      resistance, promotes better nutrient uptake, and prevents
+                      micronutrient deficiency symptoms.
                     </p>
                   </div>
                 </div>

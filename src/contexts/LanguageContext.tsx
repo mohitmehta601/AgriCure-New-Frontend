@@ -106,7 +106,6 @@ const translations = {
     "dashboard.primaryFertilizer": "Primary Fertilizer",
     "dashboard.secondaryFertilizer": "Secondary Fertilizer",
     "dashboard.reason": "Reason",
-    "dashboard.applicationMethod": "Application Method",
     "dashboard.organicAlternatives": "Organic Alternatives",
     "dashboard.sustainableOptions":
       "Sustainable options for long-term soil health improvement",
@@ -306,7 +305,8 @@ const translations = {
 
     // ML Model Status
     "mlModel.title": "ML Model Status",
-    "mlModel.description": "Real-time status of the machine learning prediction model",
+    "mlModel.description":
+      "Real-time status of the machine learning prediction model",
     "mlModel.connected": "Connected",
     "mlModel.disconnected": "Disconnected",
     "mlModel.refresh": "Refresh",
@@ -319,7 +319,8 @@ const translations = {
     "mlModel.labelEncoders": "Label Encoders",
     "mlModel.unknown": "Unknown",
     "mlModel.usingFallback": "Using Fallback Predictions",
-    "mlModel.fallbackDescription": "The ML model is unavailable. Predictions are using rule-based algorithms with reduced accuracy.",
+    "mlModel.fallbackDescription":
+      "The ML model is unavailable. Predictions are using rule-based algorithms with reduced accuracy.",
     "mlModel.lastChecked": "Last checked",
 
     // Crop Types
@@ -360,14 +361,19 @@ const translations = {
     "nutrients.potassium": "Potassium",
 
     // Fertilizer Application
-    "fertilizer.standardApplication": "Apply as per standard agricultural practices",
-    "fertilizer.phosphorusDeficiency": "Addresses phosphorus deficiency identified in soil analysis",
+    "fertilizer.standardApplication":
+      "Apply as per standard agricultural practices",
+    "fertilizer.phosphorusDeficiency":
+      "Addresses phosphorus deficiency identified in soil analysis",
     "fertilizer.basalDose": "Apply as basal dose during soil preparation",
-    "fertilizer.potassiumDeficiency": "Addresses potassium deficiency for better fruit quality",
+    "fertilizer.potassiumDeficiency":
+      "Addresses potassium deficiency for better fruit quality",
     "fertilizer.fruitDevelopment": "Apply during fruit development stage",
     "fertilizer.organicCompost": "Organic Compost",
-    "fertilizer.improvesStructure": "Improves soil structure and provides slow-release nutrients",
-    "fertilizer.incorporateSoil": "Apply 2-3 weeks before planting and incorporate into soil",
+    "fertilizer.improvesStructure":
+      "Improves soil structure and provides slow-release nutrients",
+    "fertilizer.incorporateSoil":
+      "Apply 2-3 weeks before planting and incorporate into soil",
     "fertilizer.potassiumSulfate": "Potassium sulfate",
     "fertilizer.dap": "DAP",
 
@@ -385,7 +391,8 @@ const translations = {
     "integration.checkingBackend": "Checking if backend is accessible...",
     "integration.verifyingML": "Verifying ML model availability...",
     "integration.testingBasic": "Testing basic fertilizer prediction...",
-    "integration.testingEnhanced": "Testing enhanced prediction with all outputs...",
+    "integration.testingEnhanced":
+      "Testing enhanced prediction with all outputs...",
     "integration.testingLLM": "Testing LLM-enhanced recommendations...",
     "integration.testingLocation": "Testing location-based features...",
     "integration.testingSoilData": "Testing soil data integration...",
@@ -695,7 +702,8 @@ const translations = {
     "mlModel.labelEncoders": "लेबल एनकोडर",
     "mlModel.unknown": "अज्ञात",
     "mlModel.usingFallback": "फॉलबैक भविष्यवाणियों का उपयोग",
-    "mlModel.fallbackDescription": "एमएल मॉडल उपलब्ध नहीं है। भविष्यवाणियां कम सटीकता के साथ नियम-आधारित एल्गोरिदम का उपयोग कर रही हैं।",
+    "mlModel.fallbackDescription":
+      "एमएल मॉडल उपलब्ध नहीं है। भविष्यवाणियां कम सटीकता के साथ नियम-आधारित एल्गोरिदम का उपयोग कर रही हैं।",
     "mlModel.lastChecked": "अंतिम जांच",
 
     // Crop Types
@@ -737,13 +745,18 @@ const translations = {
 
     // Fertilizer Application
     "fertilizer.standardApplication": "मानक कृषि प्रथाओं के अनुसार लागू करें",
-    "fertilizer.phosphorusDeficiency": "मिट्टी विश्लेषण में पहचानी गई फास्फोरस की कमी को दूर करता है",
-    "fertilizer.basalDose": "मिट्टी तैयारी के दौरान बेसल खुराक के रूप में लागू करें",
-    "fertilizer.potassiumDeficiency": "बेहतर फल गुणवत्ता के लिए पोटैशियम की कमी को दूर करता है",
+    "fertilizer.phosphorusDeficiency":
+      "मिट्टी विश्लेषण में पहचानी गई फास्फोरस की कमी को दूर करता है",
+    "fertilizer.basalDose":
+      "मिट्टी तैयारी के दौरान बेसल खुराक के रूप में लागू करें",
+    "fertilizer.potassiumDeficiency":
+      "बेहतर फल गुणवत्ता के लिए पोटैशियम की कमी को दूर करता है",
     "fertilizer.fruitDevelopment": "फल विकास चरण के दौरान लागू करें",
     "fertilizer.organicCompost": "जैविक खाद",
-    "fertilizer.improvesStructure": "मिट्टी की संरचना में सुधार करता है और धीमी गति से निकलने वाले पोषक तत्व प्रदान करता है",
-    "fertilizer.incorporateSoil": "रोपण से 2-3 सप्ताह पहले लागू करें और मिट्टी में मिलाएं",
+    "fertilizer.improvesStructure":
+      "मिट्टी की संरचना में सुधार करता है और धीमी गति से निकलने वाले पोषक तत्व प्रदान करता है",
+    "fertilizer.incorporateSoil":
+      "रोपण से 2-3 सप्ताह पहले लागू करें और मिट्टी में मिलाएं",
     "fertilizer.potassiumSulfate": "पोटैशियम सल्फेट",
     "fertilizer.dap": "डीएपी",
 
@@ -761,7 +774,8 @@ const translations = {
     "integration.checkingBackend": "जांच रहे हैं कि बैकएंड सुलभ है...",
     "integration.verifyingML": "एमएल मॉडल उपलब्धता सत्यापित कर रहे हैं...",
     "integration.testingBasic": "बुनियादी उर्वरक भविष्यवाणी का परीक्षण...",
-    "integration.testingEnhanced": "सभी आउटपुट के साथ उन्नत भविष्यवाणी का परीक्षण...",
+    "integration.testingEnhanced":
+      "सभी आउटपुट के साथ उन्नत भविष्यवाणी का परीक्षण...",
     "integration.testingLLM": "एलएलएम-उन्नत सिफारिशों का परीक्षण...",
     "integration.testingLocation": "स्थान-आधारित सुविधाओं का परीक्षण...",
     "integration.testingSoilData": "मिट्टी डेटा एकीकरण का परीक्षण...",
@@ -1070,7 +1084,8 @@ const translations = {
     "mlModel.labelEncoders": "ਲੇਬਲ ਐਨਕੋਡਰ",
     "mlModel.unknown": "ਅਣਜਾਣ",
     "mlModel.usingFallback": "ਫਾਲਬੈਕ ਭਵਿੱਖਬਾਣੀਆਂ ਦੀ ਵਰਤੋਂ",
-    "mlModel.fallbackDescription": "ਐਮਐਲ ਮਾਡਲ ਉਪਲਬਧ ਨਹੀਂ ਹੈ। ਭਵਿੱਖਬਾਣੀਆਂ ਘੱਟ ਸ਼ੁੱਧਤਾ ਦੇ ਨਾਲ ਨਿਯਮ-ਆਧਾਰਿਤ ਐਲਗੋਰਿਦਮ ਦੀ ਵਰਤੋਂ ਕਰ ਰਹੀਆਂ ਹਨ।",
+    "mlModel.fallbackDescription":
+      "ਐਮਐਲ ਮਾਡਲ ਉਪਲਬਧ ਨਹੀਂ ਹੈ। ਭਵਿੱਖਬਾਣੀਆਂ ਘੱਟ ਸ਼ੁੱਧਤਾ ਦੇ ਨਾਲ ਨਿਯਮ-ਆਧਾਰਿਤ ਐਲਗੋਰਿਦਮ ਦੀ ਵਰਤੋਂ ਕਰ ਰਹੀਆਂ ਹਨ।",
     "mlModel.lastChecked": "ਆਖਰੀ ਜਾਂਚ",
 
     // Crop Types
@@ -1111,14 +1126,19 @@ const translations = {
     "nutrients.potassium": "ਪੋਟਾਸ਼ੀਅਮ",
 
     // Fertilizer Application
-    "fertilizer.standardApplication": "ਮਿਆਰੀ ਖੇਤੀਬਾੜੀ ਪ੍ਰਥਾਵਾਂ ਦੇ ਅਨੁਸਾਰ ਲਾਗੂ ਕਰੋ",
-    "fertilizer.phosphorusDeficiency": "ਮਿੱਟੀ ਵਿਸ਼ਲੇਸ਼ਣ ਵਿੱਚ ਪਛਾਣੀ ਗਈ ਫਾਸਫੋਰਸ ਦੀ ਕਮੀ ਨੂੰ ਦੂਰ ਕਰਦਾ ਹੈ",
+    "fertilizer.standardApplication":
+      "ਮਿਆਰੀ ਖੇਤੀਬਾੜੀ ਪ੍ਰਥਾਵਾਂ ਦੇ ਅਨੁਸਾਰ ਲਾਗੂ ਕਰੋ",
+    "fertilizer.phosphorusDeficiency":
+      "ਮਿੱਟੀ ਵਿਸ਼ਲੇਸ਼ਣ ਵਿੱਚ ਪਛਾਣੀ ਗਈ ਫਾਸਫੋਰਸ ਦੀ ਕਮੀ ਨੂੰ ਦੂਰ ਕਰਦਾ ਹੈ",
     "fertilizer.basalDose": "ਮਿੱਟੀ ਤਿਆਰੀ ਦੌਰਾਨ ਬੇਸਲ ਖੁਰਾਕ ਦੇ ਰੂਪ ਵਿੱਚ ਲਾਗੂ ਕਰੋ",
-    "fertilizer.potassiumDeficiency": "ਬਿਹਤਰ ਫਲ ਗੁਣਵੱਤਾ ਲਈ ਪੋਟਾਸ਼ੀਅਮ ਦੀ ਕਮੀ ਨੂੰ ਦੂਰ ਕਰਦਾ ਹੈ",
+    "fertilizer.potassiumDeficiency":
+      "ਬਿਹਤਰ ਫਲ ਗੁਣਵੱਤਾ ਲਈ ਪੋਟਾਸ਼ੀਅਮ ਦੀ ਕਮੀ ਨੂੰ ਦੂਰ ਕਰਦਾ ਹੈ",
     "fertilizer.fruitDevelopment": "ਫਲ ਵਿਕਾਸ ਪੜਾਅ ਦੌਰਾਨ ਲਾਗੂ ਕਰੋ",
     "fertilizer.organicCompost": "ਜੈਵਿਕ ਖਾਦ",
-    "fertilizer.improvesStructure": "ਮਿੱਟੀ ਦੀ ਬਣਤਰ ਵਿੱਚ ਸੁਧਾਰ ਕਰਦਾ ਹੈ ਅਤੇ ਹੌਲੀ ਰਿਲੀਜ਼ ਪੋਸ਼ਕ ਤੱਤ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ",
-    "fertilizer.incorporateSoil": "ਰੋਪਣ ਤੋਂ 2-3 ਹਫਤੇ ਪਹਿਲਾਂ ਲਾਗੂ ਕਰੋ ਅਤੇ ਮਿੱਟੀ ਵਿੱਚ ਮਿਲਾਓ",
+    "fertilizer.improvesStructure":
+      "ਮਿੱਟੀ ਦੀ ਬਣਤਰ ਵਿੱਚ ਸੁਧਾਰ ਕਰਦਾ ਹੈ ਅਤੇ ਹੌਲੀ ਰਿਲੀਜ਼ ਪੋਸ਼ਕ ਤੱਤ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ",
+    "fertilizer.incorporateSoil":
+      "ਰੋਪਣ ਤੋਂ 2-3 ਹਫਤੇ ਪਹਿਲਾਂ ਲਾਗੂ ਕਰੋ ਅਤੇ ਮਿੱਟੀ ਵਿੱਚ ਮਿਲਾਓ",
     "fertilizer.potassiumSulfate": "ਪੋਟਾਸ਼ੀਅਮ ਸਲਫੇਟ",
     "fertilizer.dap": "ਡੀਏਪੀ",
 
@@ -1136,7 +1156,8 @@ const translations = {
     "integration.checkingBackend": "ਜਾਂਚ ਕਰ ਰਹੇ ਹਨ ਕਿ ਬੈਕਐਂਡ ਪਹੁੰਚਯੋਗ ਹੈ...",
     "integration.verifyingML": "ਐਮਐਲ ਮਾਡਲ ਉਪਲਬਧਤਾ ਤਸਦੀਕ ਕਰ ਰਹੇ ਹਨ...",
     "integration.testingBasic": "ਬੁਨਿਆਦੀ ਖਾਦ ਭਵਿੱਖਬਾਣੀ ਦਾ ਟੈਸਟ...",
-    "integration.testingEnhanced": "ਸਾਰੇ ਆਉਟਪੁੱਟਾਂ ਦੇ ਨਾਲ ਵਿਕਸਿਤ ਭਵਿੱਖਬਾਣੀ ਦਾ ਟੈਸਟ...",
+    "integration.testingEnhanced":
+      "ਸਾਰੇ ਆਉਟਪੁੱਟਾਂ ਦੇ ਨਾਲ ਵਿਕਸਿਤ ਭਵਿੱਖਬਾਣੀ ਦਾ ਟੈਸਟ...",
     "integration.testingLLM": "ਐਲਐਲਐਮ-ਵਿਕਸਿਤ ਸਿਫਾਰਸ਼ਾਂ ਦਾ ਟੈਸਟ...",
     "integration.testingLocation": "ਸਥਾਨ-ਆਧਾਰਿਤ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਦਾ ਟੈਸਟ...",
     "integration.testingSoilData": "ਮਿੱਟੀ ਡੇਟਾ ਇੰਟੀਗ੍ਰੇਸ਼ਨ ਦਾ ਟੈਸਟ...",

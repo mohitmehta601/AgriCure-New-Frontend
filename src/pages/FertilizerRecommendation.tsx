@@ -174,36 +174,14 @@ const FertilizerRecommendation = () => {
         </div>
 
         {/* Results Section - Only show when there's data */}
-        {fertilizerData && (
+        {fertilizerData && fertilizerData.llmEnhancedResult && (
           <div className="max-w-7xl mx-auto mt-4 sm:mt-6 md:mt-8">
-            {fertilizerData.llmEnhancedResult ? (
-              <LLMEnhancedFertilizerRecommendations
-                data={fertilizerData.llmEnhancedResult}
-              />
-            ) : fertilizerData.mlPrediction ? (
-              <EnhancedFertilizerRecommendations
-                recommendations={
-                  {
-                    primaryFertilizer: fertilizerData.mlPrediction,
-                    confidenceScore: 0,
-                    applicationRate: 0,
-                    applicationRateUnit: "kg/ha",
-                  } as any
-                }
-                formData={
-                  {
-                    temperature: fertilizerData.temperature,
-                    humidity: fertilizerData.humidity,
-                    soilMoisture: fertilizerData.soilMoisture,
-                    soilType: fertilizerData.farm?.soilType || "",
-                    cropType: fertilizerData.farm?.cropType || "",
-                    nitrogen: fertilizerData.nitrogen,
-                    potassium: fertilizerData.potassium,
-                    phosphorus: fertilizerData.phosphorus,
-                  } as any
-                }
-              />
-            ) : null}
+            <LLMEnhancedFertilizerRecommendations
+              data={{
+                ...fertilizerData,
+                farm: fertilizerData.farm,
+              }}
+            />
           </div>
         )}
       </div>

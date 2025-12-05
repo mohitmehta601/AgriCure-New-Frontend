@@ -313,100 +313,57 @@ const EnhancedFertilizerForm = ({
     setIsLoading(true);
 
     try {
-      // Use enhanced input for LLM-powered recommendations
-      const enhancedMLInput = {
-        Temperature: parseFloat(formData.temperature),
-        Humidity: parseFloat(formData.humidity),
-        Moisture: parseFloat(formData.soilMoisture),
-        Soil_Type: selectedFarm.soilType,
-        Crop_Type: selectedFarm.cropType,
-        Nitrogen: parseFloat(formData.nitrogen),
-        Potassium: parseFloat(formData.potassium),
-        Phosphorous: parseFloat(formData.phosphorus),
-        pH: parseFloat(formData.soilPH) || 6.5,
-        // Enhanced fields for LLM
-        Sowing_Date:
+      // Use the new integrated fertilizer-recommendation endpoint
+      const recommendationInput = {
+        size: selectedFarm.size,
+        crop: selectedFarm.cropType,
+        soil: selectedFarm.soilType,
+        sowing_date:
           selectedFarm.sowingDate || new Date().toISOString().split("T")[0],
-        Field_Size: selectedFarm.size,
-        Field_Unit: selectedFarm.unit,
-        Bulk_Density_g_cm3: 1.3, // Default bulk density
-        Sampling_Depth_cm: 15.0, // Default sampling depth
+        nitrogen: parseFloat(formData.nitrogen),
+        phosphorus: parseFloat(formData.phosphorus),
+        potassium: parseFloat(formData.potassium),
+        soil_ph: parseFloat(formData.soilPH) || 6.5,
+        soil_moisture: parseFloat(formData.soilMoisture),
+        electrical_conductivity:
+          parseFloat(formData.electricalConductivity) || 450.0,
+        soil_temperature: parseFloat(formData.soilTemperature) || 25.0,
+        use_llm: true, // Enable LLM for enhanced recommendations
       };
 
-      const validation = mlApiService.validateEnhancedInput(enhancedMLInput);
-      if (!validation.isValid) {
-        toast({
-          title: "Validation Error",
-          description: validation.errors.join(", "),
-          variant: "destructive",
-        });
-        setIsLoading(false);
-        return;
-      }
+      const recommendation = await mlApiService.getFertilizerRecommendation(
+        recommendationInput
+      );
 
-      // Try LLM-enhanced prediction first, fallback to basic if needed
-      try {
-        const llmPrediction = await mlApiService.getLLMEnhancedPrediction(
-          enhancedMLInput
-        );
-
+      if (recommendation.success && recommendation.ml_predictions) {
         const enhancedData = {
           ...formData,
           mlPrediction:
-            llmPrediction.ml_model_prediction?.name ||
-            llmPrediction.primary_fertilizer?.name ||
-            "Unknown",
-          llmEnhancedResult: llmPrediction,
+            recommendation.ml_predictions.Primary_Fertilizer || "Unknown",
+          llmEnhancedResult: recommendation.enhanced_report || {
+            ml_predictions: recommendation.ml_predictions,
+            cost_estimate: recommendation.cost_estimate,
+            application_timing: recommendation.application_timing,
+            organic_alternatives: recommendation.organic_alternatives,
+          },
           farm: selectedFarm,
         };
 
         onSubmit(enhancedData);
 
         toast({
-          title: "🧠 AI Analysis Complete!",
-          description: `Enhanced recommendations with cost analysis generated for ${
-            llmPrediction.primary_fertilizer?.name || "fertilizer"
+          title: "🌾 Fertilizer Recommendation Complete!",
+          description: `Primary fertilizer: ${
+            recommendation.ml_predictions.Primary_Fertilizer || "N/A"
           }`,
         });
-      } catch (llmError) {
-        console.warn(
-          "LLM prediction failed, falling back to basic prediction:",
-          llmError
-        );
-
-        // Fallback to basic prediction
-        const basicMLInput = {
-          Temperature: parseFloat(formData.temperature),
-          Humidity: parseFloat(formData.humidity),
-          Moisture: parseFloat(formData.soilMoisture),
-          Soil_Type: selectedFarm.soilType,
-          Crop_Type: selectedFarm.cropType,
-          Nitrogen: parseFloat(formData.nitrogen),
-          Potassium: parseFloat(formData.potassium),
-          Phosphorous: parseFloat(formData.phosphorus),
-          pH: parseFloat(formData.soilPH) || 6.5,
-        };
-
-        const prediction = await mlApiService.getPrediction(basicMLInput);
-
-        const enhancedData = {
-          ...formData,
-          mlPrediction: prediction.fertilizer,
-          farm: selectedFarm,
-        };
-
-        onSubmit(enhancedData);
-
-        toast({
-          title: "AI Analysis Complete!",
-          description: `Basic recommendation: ${prediction.fertilizer} (Enhanced features unavailable)`,
-          variant: "default",
-        });
+      } else {
+        throw new Error("Invalid recommendation response");
       }
     } catch (error) {
-      console.error("ML prediction failed:", error);
+      console.error("Fertilizer recommendation failed:", error);
       toast({
-        title: "AI Prediction Failed",
+        title: "Recommendation Failed",
         description:
           error instanceof Error
             ? error.message

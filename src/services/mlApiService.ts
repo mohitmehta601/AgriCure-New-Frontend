@@ -93,6 +93,39 @@ export interface ModelInfo {
   label_encoders: Record<string, string[]>;
 }
 
+export interface FertilizerRecommendationRequest {
+  size: number;
+  crop: string;
+  soil: string;
+  sowing_date: string;
+  nitrogen: number;
+  phosphorus: number;
+  potassium: number;
+  soil_ph: number;
+  soil_moisture: number;
+  electrical_conductivity: number;
+  soil_temperature: number;
+  use_llm?: boolean;
+}
+
+export interface FertilizerRecommendationResponse {
+  success: boolean;
+  ml_predictions: {
+    N_Status?: string;
+    P_Status?: string;
+    K_Status?: string;
+    Primary_Fertilizer?: string;
+    Secondary_Fertilizer?: string;
+    pH_Amendment?: string;
+    [key: string]: any;
+  };
+  cost_estimate?: Record<string, any>;
+  application_timing?: Record<string, any>;
+  organic_alternatives?: Array<Record<string, any>>;
+  enhanced_report?: Record<string, any>;
+  timestamp: string;
+}
+
 class MLApiService {
   private baseUrl: string;
 
@@ -162,6 +195,28 @@ class MLApiService {
       return await response.json();
     } catch (error) {
       console.error('Error getting LLM enhanced prediction:', error);
+      throw error;
+    }
+  }
+
+  async getFertilizerRecommendation(input: FertilizerRecommendationRequest): Promise<FertilizerRecommendationResponse> {
+    try {
+      const response = await fetch(`${this.baseUrl}/fertilizer-recommendation`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error getting fertilizer recommendation:', error);
       throw error;
     }
   }

@@ -119,13 +119,13 @@ const LLMEnhancedFertilizerRecommendations = ({
             </div>
             <div className="text-center p-3 bg-white rounded-lg border border-purple-200">
               <div className="text-base sm:text-lg font-semibold text-gray-800">
-                {farm.crop_type}
+                {farm.crop_type || (farm as any).cropType || "N/A"}
               </div>
               <div className="text-xs text-gray-500">Crop Type</div>
             </div>
             <div className="text-center p-3 bg-white rounded-lg border border-purple-200">
               <div className="text-base sm:text-lg font-semibold text-gray-800">
-                {farm.soil_type}
+                {farm.soil_type || (farm as any).soilType || "N/A"}
               </div>
               <div className="text-xs text-gray-500">Soil Type</div>
             </div>
@@ -301,8 +301,7 @@ const LLMEnhancedFertilizerRecommendations = ({
         <Card className="border-2 border-green-200">
           <CardHeader className="px-4 sm:px-6 bg-green-50">
             <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
-              <Target className="h-5 w-5 text-green-600" />
-              <span>🥇 Primary Fertilizer</span>
+              <span>🌾 Primary Fertilizer</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="px-4 sm:px-6 py-4">
@@ -362,8 +361,7 @@ const LLMEnhancedFertilizerRecommendations = ({
         <Card className="border-2 border-blue-200">
           <CardHeader className="px-4 sm:px-6 bg-blue-50">
             <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
-              <TrendingUp className="h-5 w-5 text-blue-600" />
-              <span>🥈 Secondary Fertilizer</span>
+              <span>🧬 Secondary Fertilizer</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="px-4 sm:px-6 py-4">
@@ -423,7 +421,6 @@ const LLMEnhancedFertilizerRecommendations = ({
         <Card className="border-2 border-amber-200">
           <CardHeader className="px-4 sm:px-6 bg-amber-50">
             <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
-              <AlertCircle className="h-5 w-5 text-amber-600" />
               <span>⚗️ pH Amendment</span>
             </CardTitle>
           </CardHeader>

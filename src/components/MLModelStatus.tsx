@@ -6,90 +6,61 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Brain,
   CheckCircle,
   XCircle,
   RefreshCw,
-  AlertTriangle,
-  Wheat,
-  Mountain,
+  Sprout,
+  FlaskConical,
 } from "lucide-react";
-import { mlApiService, ModelInfo } from "@/services/mlApiService";
-import { useToast } from "@/hooks/use-toast";
+import { mlApiService } from "@/services/mlApiService";
 import { useLanguage } from "@/contexts/LanguageContext";
 
+interface ModelStatus {
+  soilPrediction: boolean;
+  fertilizerRecommendation: boolean;
+}
+
 const MLModelStatus = () => {
-  const [modelInfo, setModelInfo] = useState<ModelInfo | null>(null);
-  const [isConnected, setIsConnected] = useState(false);
+  const [modelStatus, setModelStatus] = useState<ModelStatus>({
+    soilPrediction: false,
+    fertilizerRecommendation: false,
+  });
   const [isLoading, setIsLoading] = useState(true);
   const [lastChecked, setLastChecked] = useState<Date | null>(null);
-  const { toast } = useToast();
   const { t } = useLanguage();
-
-  // Define all 11 crop types - all using consistent green theme
-  const cropTypes = [
-    { name: t("crops.tea"), color: "bg-green-100 text-green-800" },
-    { name: t("crops.cotton"), color: "bg-green-100 text-green-800" },
-    { name: t("crops.maize"), color: "bg-green-100 text-green-800" },
-    { name: t("crops.groundnut"), color: "bg-green-100 text-green-800" },
-    { name: t("crops.pulses"), color: "bg-green-100 text-green-800" },
-    { name: t("crops.millets"), color: "bg-green-100 text-green-800" },
-    { name: t("crops.rice"), color: "bg-green-100 text-green-800" },
-    { name: t("crops.soybean"), color: "bg-green-100 text-green-800" },
-    { name: t("crops.sugarcane"), color: "bg-green-100 text-green-800" },
-    { name: t("crops.wheat"), color: "bg-green-100 text-green-800" },
-    { name: t("crops.coffee"), color: "bg-green-100 text-green-800" },
-  ];
-
-  // Define all 10 soil types - all using consistent green theme
-  const soilTypes = [
-    { name: t("soils.sandy"), color: "bg-green-100 text-green-800" },
-    { name: t("soils.silty"), color: "bg-green-100 text-green-800" },
-    { name: t("soils.laterite"), color: "bg-green-100 text-green-800" },
-    { name: t("soils.alkaline"), color: "bg-green-100 text-green-800" },
-    { name: t("soils.black"), color: "bg-green-100 text-green-800" },
-    { name: t("soils.clayey"), color: "bg-green-100 text-green-800" },
-    { name: t("soils.saline"), color: "bg-green-100 text-green-800" },
-    { name: t("soils.loamy"), color: "bg-green-100 text-green-800" },
-    { name: t("soils.red"), color: "bg-green-100 text-green-800" },
-    { name: t("soils.peaty"), color: "bg-green-100 text-green-800" },
-  ];
 
   const checkModelStatus = async () => {
     setIsLoading(true);
     try {
-      const health = await mlApiService.healthCheck();
-      setIsConnected(health.model_loaded);
-
-      if (health.model_loaded) {
-        try {
-          const info = await mlApiService.getModelInfo();
-          setModelInfo(info);
-        } catch (modelInfoError) {
-          console.warn(
-            "Model info endpoint not available, using basic status only"
-          );
-          // Set basic model info from health check
-          setModelInfo({
-            model_type: health.model_type || "ML Model",
-            features: [],
-            targets: [],
-            label_encoders: {},
-          } as ModelInfo);
-        }
-      } else {
-        setModelInfo(null);
+      // Check Soil Prediction Model
+      const soilHealth = await mlApiService.healthCheck();
+      
+      // Check Fertilizer Recommendation Model
+      let fertilizerConnected = false;
+      try {
+        const fertilizerResponse = await fetch(
+          `${import.meta.env.VITE_PYTHON_API_URL || 'http://localhost:8000'}/health`
+        );
+        fertilizerConnected = fertilizerResponse.ok;
+      } catch {
+        fertilizerConnected = false;
       }
+
+      setModelStatus({
+        soilPrediction: soilHealth.model_loaded,
+        fertilizerRecommendation: fertilizerConnected,
+      });
 
       setLastChecked(new Date());
     } catch (error) {
       console.error("Failed to check ML model status:", error);
-      setIsConnected(false);
-      setModelInfo(null);
-      // Don't show error toast, just update status silently
+      setModelStatus({
+        soilPrediction: false,
+        fertilizerRecommendation: false,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -101,6 +72,8 @@ const MLModelStatus = () => {
     const interval = setInterval(checkModelStatus, 5 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
+
+  const isAnyConnected = modelStatus.soilPrediction || modelStatus.fertilizerRecommendation;
 
   return (
     <Card className="border-0 shadow-lg">
@@ -115,16 +88,16 @@ const MLModelStatus = () => {
       </CardHeader>
       <CardContent className="px-4 sm:px-6">
         <div className="space-y-4">
-          {/* Connection Status */}
-          <div className="flex items-center justify-between">
+          {/* Overall Status */}
+          <div className="flex items-center justify-between pb-4 border-b">
             <div className="flex items-center space-x-2">
-              {isConnected ? (
+              {isAnyConnected ? (
                 <CheckCircle className="h-5 w-5 text-green-600" />
               ) : (
                 <XCircle className="h-5 w-5 text-red-600" />
               )}
               <span className="font-medium">
-                {isConnected
+                {isAnyConnected
                   ? t("mlModel.connected")
                   : t("mlModel.disconnected")}
               </span>
@@ -143,129 +116,65 @@ const MLModelStatus = () => {
             </Button>
           </div>
 
-          {/* Show detailed information only when ML model is connected */}
-          {isConnected && (
-            <>
-              {/* Supported Crop Types */}
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <Wheat className="h-3 w-3 text-green-600" />
-                  <span className="font-medium text-sm">
-                    {t("mlModel.supportedCropTypes")}
-                  </span>
-                  <Badge
-                    variant="secondary"
-                    className="bg-red-500 text-white text-xs"
-                  >
-                    {cropTypes.length} {t("mlModel.types")}
-                  </Badge>
-                </div>
-                <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-1">
-                  {cropTypes.map((crop, index) => (
-                    <div
-                      key={crop.name}
-                      className={`flex items-center justify-center px-2 py-1 rounded border transition-all duration-200 hover:scale-105 ${crop.color}`}
-                      style={{ animationDelay: `${index * 50}ms` }}
-                    >
-                      <span className="text-xs font-medium">{crop.name}</span>
-                    </div>
-                  ))}
+          {/* Individual Model Status */}
+          <div className="space-y-3">
+            {/* Soil Prediction Model */}
+            {modelStatus.soilPrediction && (
+              <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border-2 border-green-200">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-green-100 rounded-full">
+                    <Sprout className="h-5 w-5 text-green-700" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-green-900">
+                      Soil Prediction Model
+                    </h4>
+                    <p className="text-xs text-green-700">
+                      Predicts optimal soil type for crops
+                    </p>
+                  </div>
+                  <CheckCircle className="h-5 w-5 text-green-600" />
                 </div>
               </div>
+            )}
 
-              {/* Supported Soil Types */}
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <Mountain className="h-3 w-3 text-green-600" />
-                  <span className="font-medium text-sm">
-                    {t("mlModel.supportedSoilTypes")}
-                  </span>
-                  <Badge
-                    variant="secondary"
-                    className="bg-red-500 text-white text-xs"
-                  >
-                    {soilTypes.length} {t("mlModel.types")}
-                  </Badge>
-                </div>
-                <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-1">
-                  {soilTypes.map((soil, index) => (
-                    <div
-                      key={soil.name}
-                      className={`flex items-center justify-center px-2 py-1 rounded border transition-all duration-200 hover:scale-105 ${soil.color}`}
-                      style={{ animationDelay: `${index * 50}ms` }}
-                    >
-                      <span className="text-xs font-medium">{soil.name}</span>
-                    </div>
-                  ))}
+            {/* Fertilizer Recommendation Model */}
+            {modelStatus.fertilizerRecommendation && (
+              <div className="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg border-2 border-blue-200">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-blue-100 rounded-full">
+                    <FlaskConical className="h-5 w-5 text-blue-700" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-blue-900">
+                      Fertilizer Recommendation Model
+                    </h4>
+                    <p className="text-xs text-blue-700">
+                      Provides nutrient-based fertilizer recommendations
+                    </p>
+                  </div>
+                  <CheckCircle className="h-5 w-5 text-blue-600" />
                 </div>
               </div>
+            )}
 
-              {/* Model Information */}
-              {modelInfo && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">
-                        {t("mlModel.modelType")}:
-                      </span>
-                      <Badge variant="secondary">
-                        {modelInfo.model_type || t("mlModel.unknown")}
-                      </Badge>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">
-                        {t("mlModel.totalFeatures")}:
-                      </span>
-                      <Badge
-                        variant="secondary"
-                        className="bg-blue-100 text-blue-800"
-                      >
-                        {modelInfo.features?.length || 0}
-                      </Badge>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">
-                        {t("mlModel.targets")}:
-                      </span>
-                      <span className="text-sm font-medium">
-                        {modelInfo.targets?.length || 0}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">
-                        {t("mlModel.labelEncoders")}:
-                      </span>
-                      <span className="text-sm font-medium">
-                        {Object.keys(modelInfo.label_encoders || {}).length}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Fallback Warning */}
-          {!isConnected && (
-            <div className="flex items-start space-x-2 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <AlertTriangle className="h-5 w-5 text-yellow-600 mt-0.5" />
-              <div>
-                <p className="text-sm font-medium text-yellow-800">
-                  {t("mlModel.usingFallback")}
+            {/* Show message when no models are connected */}
+            {!isAnyConnected && (
+              <div className="p-4 bg-gray-50 rounded-lg border-2 border-gray-200 text-center">
+                <XCircle className="h-8 w-8 text-gray-400 mx-auto mb-2" />
+                <p className="text-sm font-medium text-gray-700">
+                  No ML models connected
                 </p>
-                <p className="text-xs text-yellow-700 mt-1">
-                  {t("mlModel.fallbackDescription")}
+                <p className="text-xs text-gray-500 mt-1">
+                  Please check if the Python backend servers are running
                 </p>
               </div>
-            </div>
-          )}
+            )}
+          </div>
 
           {/* Last Checked */}
           {lastChecked && (
-            <div className="text-xs text-gray-500 flex items-center space-x-2">
+            <div className="text-xs text-gray-500 flex items-center space-x-2 pt-3 border-t">
               <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
               <span>
                 {t("mlModel.lastChecked")}: {lastChecked.toLocaleTimeString()}

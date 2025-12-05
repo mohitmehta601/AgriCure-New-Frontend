@@ -37,12 +37,14 @@ const MLModelStatus = () => {
     try {
       // Check Soil Prediction Model
       const soilHealth = await mlApiService.healthCheck();
-      
+
       // Check Fertilizer Recommendation Model
       let fertilizerConnected = false;
       try {
         const fertilizerResponse = await fetch(
-          `${import.meta.env.VITE_PYTHON_API_URL || 'http://localhost:8000'}/health`
+          `${
+            import.meta.env.VITE_PYTHON_API_URL || "http://localhost:8000"
+          }/health`
         );
         fertilizerConnected = fertilizerResponse.ok;
       } catch {
@@ -73,7 +75,8 @@ const MLModelStatus = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const isAnyConnected = modelStatus.soilPrediction || modelStatus.fertilizerRecommendation;
+  const isAnyConnected =
+    modelStatus.soilPrediction || modelStatus.fertilizerRecommendation;
 
   return (
     <Card className="border-0 shadow-lg">

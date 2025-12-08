@@ -623,7 +623,7 @@ const IntegrationTestDashboard: React.FC = () => {
               <li>Shadcn/ui component library</li>
               <li>Integrated ML API service</li>
               <li>Real-time data visualization</li>
-              <li>Supabase authentication and database</li>
+              <li>MongoDB database with JWT authentication</li>
             </ul>
           </div>
           <div>

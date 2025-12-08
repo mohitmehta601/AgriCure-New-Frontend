@@ -20,6 +20,17 @@ export interface SignUpData {
   phoneNumber: string;
 }
 
+export interface SignUpResponse {
+  message: string;
+  email: string;
+}
+
+export interface VerifyOTPResponse {
+  message: string;
+  token: string;
+  user: User;
+}
+
 export interface SignInData {
   email: string;
   password: string;
@@ -37,10 +48,26 @@ interface DecodedToken {
 }
 
 export const authService = {
-  // Sign up new user
+  // Sign up new user - sends OTP to email
   async signUp(data: SignUpData) {
     try {
-      const response = await apiClient.post<AuthResponse>('/auth/signup', data);
+      const response = await apiClient.post<SignUpResponse>('/auth/signup', data);
+      return { data: response.data, error: null };
+    } catch (error: any) {
+      return { 
+        data: null, 
+        error: error.response?.data?.message || error.message || 'Sign up failed' 
+      };
+    }
+  },
+
+  // Verify OTP and complete registration
+  async verifyOTP(email: string, otp: string) {
+    try {
+      const response = await apiClient.post<VerifyOTPResponse>('/auth/verify-otp', {
+        email,
+        otp
+      });
       let { token, user } = response.data;
       
       // Normalize _id to id (MongoDB compatibility)
@@ -56,7 +83,20 @@ export const authService = {
     } catch (error: any) {
       return { 
         data: null, 
-        error: error.response?.data?.message || error.message || 'Sign up failed' 
+        error: error.response?.data?.message || error.message || 'OTP verification failed' 
+      };
+    }
+  },
+
+  // Resend OTP
+  async resendOTP(email: string) {
+    try {
+      const response = await apiClient.post('/auth/resend-otp', { email });
+      return { data: response.data, error: null };
+    } catch (error: any) {
+      return { 
+        data: null, 
+        error: error.response?.data?.message || error.message || 'Failed to resend OTP' 
       };
     }
   },

@@ -16,6 +16,7 @@ import { authService } from "@/services/authService";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import QRScanner from "@/components/QRScanner";
+import VerifyOTP from "./VerifyOTP";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -29,6 +30,8 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showOTPVerification, setShowOTPVerification] = useState(false);
+  const [pendingEmail, setPendingEmail] = useState("");
   const navigate = useNavigate();
   const { toast } = useToast();
   const { t } = useLanguage();
@@ -79,7 +82,7 @@ const Signup = () => {
     setIsLoading(true);
 
     try {
-      // Direct signup
+      // Send signup request which will send OTP
       const { data, error } = await authService.signUp({
         email: formData.email,
         password: formData.password,
@@ -92,15 +95,10 @@ const Signup = () => {
         throw new Error(error);
       }
 
-      if (data?.user) {
-        // Sign out the user immediately after account creation
-        await authService.signOut();
-
-        toast({
-          title: "Account Created! 🎉",
-          description: "Please login to continue",
-        });
-        navigate("/login");
+      if (data) {
+        // Show OTP verification page
+        setPendingEmail(formData.email);
+        setShowOTPVerification(true);
       }
     } catch (error: any) {
       console.error("Signup error:", error);
@@ -113,6 +111,16 @@ const Signup = () => {
       setIsLoading(false);
     }
   };
+
+  const handleBackFromOTP = () => {
+    setShowOTPVerification(false);
+    setPendingEmail("");
+  };
+
+  // Show OTP verification page if OTP was sent
+  if (showOTPVerification && pendingEmail) {
+    return <VerifyOTP email={pendingEmail} onBack={handleBackFromOTP} />;
+  }
 
   const handleBack = () => {
     navigate("/");

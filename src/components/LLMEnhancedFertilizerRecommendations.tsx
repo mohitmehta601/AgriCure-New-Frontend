@@ -43,7 +43,6 @@ interface Farm {
   size: number;
   unit: string;
   crop_type: string;
-  soil_type: string;
   sowing_date?: string;
   location?: string;
 }
@@ -111,7 +110,7 @@ const LLMEnhancedFertilizerRecommendations = ({
           </CardDescription>
         </CardHeader>
         <CardContent className="px-4 sm:px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div className="text-center p-3 bg-white rounded-lg border border-purple-200">
               <div className="text-base sm:text-lg font-semibold text-gray-800">
                 {farm.size} {farm.unit}
@@ -123,12 +122,6 @@ const LLMEnhancedFertilizerRecommendations = ({
                 {farm.crop_type || (farm as any).cropType || "N/A"}
               </div>
               <div className="text-xs text-gray-500">Crop Type</div>
-            </div>
-            <div className="text-center p-3 bg-white rounded-lg border border-purple-200">
-              <div className="text-base sm:text-lg font-semibold text-gray-800">
-                {farm.soil_type || (farm as any).soilType || "N/A"}
-              </div>
-              <div className="text-xs text-gray-500">Soil Type</div>
             </div>
           </div>
         </CardContent>

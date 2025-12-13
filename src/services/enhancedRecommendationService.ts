@@ -8,10 +8,8 @@ import {
   predictFertilizerWithLLM,
   EnhancedMLPredictionInput,
   LLMEnhancedMLResult,
-  CROP_TYPES,
-  SOIL_TYPES
+  CROP_TYPES
 } from './fertilizerMLService';
-import { LocationSoilService, SoilData } from './locationSoilService';
 
 export interface EnhancedRecommendationInput {
   // Basic environmental data
@@ -20,8 +18,7 @@ export interface EnhancedRecommendationInput {
   moisture: number;
   pH?: number;
   
-  // Soil and crop data
-  soilType: string | number;
+  // Crop data
   cropType: string | number;
   
   // Nutrient levels
@@ -92,9 +89,7 @@ export interface LocationBasedRecommendation {
   location_data: {
     latitude: number;
     longitude: number;
-    location_info: any;
   };
-  soil_data: SoilData;
   predictions: Record<string, string>;
   confidences: Record<string, number>;
 }
@@ -105,11 +100,7 @@ export class EnhancedRecommendationService {
    */
   static async getBasicRecommendation(input: EnhancedRecommendationInput): Promise<BasicRecommendation> {
     try {
-      // Convert soil type and crop type to numbers if they're strings
-      const soilTypeNum = typeof input.soilType === 'string' 
-        ? SOIL_TYPES[input.soilType as keyof typeof SOIL_TYPES] || 1 
-        : input.soilType;
-        
+      // Convert crop type to number if it's a string
       const cropTypeNum = typeof input.cropType === 'string' 
         ? CROP_TYPES[input.cropType as keyof typeof CROP_TYPES] || 1 
         : input.cropType;
@@ -118,7 +109,6 @@ export class EnhancedRecommendationService {
         temperature: input.temperature,
         humidity: input.humidity,
         moisture: input.moisture,
-        soilType: soilTypeNum,
         cropType: cropTypeNum,
         nitrogen: input.nitrogen,
         potassium: input.potassium,
@@ -144,11 +134,7 @@ export class EnhancedRecommendationService {
    */
   static async getLLMRecommendation(input: EnhancedRecommendationInput): Promise<LLMRecommendation> {
     try {
-      // Convert soil type and crop type to numbers if they're strings
-      const soilTypeNum = typeof input.soilType === 'string' 
-        ? SOIL_TYPES[input.soilType as keyof typeof SOIL_TYPES] || 1 
-        : input.soilType;
-        
+      // Convert crop type to number if it's a string
       const cropTypeNum = typeof input.cropType === 'string' 
         ? CROP_TYPES[input.cropType as keyof typeof CROP_TYPES] || 1 
         : input.cropType;
@@ -157,7 +143,6 @@ export class EnhancedRecommendationService {
         temperature: input.temperature,
         humidity: input.humidity,
         moisture: input.moisture,
-        soilType: soilTypeNum,
         cropType: cropTypeNum,
         nitrogen: input.nitrogen,
         potassium: input.potassium,
@@ -185,21 +170,12 @@ export class EnhancedRecommendationService {
   static async getLocationBasedRecommendation(
     latitude: number, 
     longitude: number, 
-    input: Omit<EnhancedRecommendationInput, 'latitude' | 'longitude' | 'soilType'>
+    input: EnhancedRecommendationInput
   ): Promise<LocationBasedRecommendation> {
     try {
-      // Get soil data for the location
-      const locationData = { latitude, longitude };
-      const soilData = await LocationSoilService.getSoilDataByLocation(locationData);
-      
-      if (!soilData.success) {
-        throw new Error('Failed to fetch soil data for the location');
-      }
-
-      // Use the detected soil type for prediction
+      // Use the provided soil type for prediction
       const enhancedInput: EnhancedRecommendationInput = {
         ...input,
-        soilType: soilData.soil_type,
         latitude,
         longitude
       };
@@ -209,10 +185,8 @@ export class EnhancedRecommendationService {
       return {
         location_data: {
           latitude,
-          longitude,
-          location_info: soilData.location_info
+          longitude
         },
-        soil_data: soilData,
         predictions: basicRecommendation.predictions,
         confidences: basicRecommendation.confidences
       };
@@ -228,21 +202,12 @@ export class EnhancedRecommendationService {
   static async getComprehensiveLocationRecommendation(
     latitude: number, 
     longitude: number, 
-    input: Omit<EnhancedRecommendationInput, 'latitude' | 'longitude' | 'soilType'>
-  ): Promise<{ location_data: any; soil_data: SoilData; llm_recommendation: LLMRecommendation }> {
+    input: EnhancedRecommendationInput
+  ): Promise<{ location_data: any; llm_recommendation: LLMRecommendation }> {
     try {
-      // Get soil data for the location
-      const locationData = { latitude, longitude };
-      const soilData = await LocationSoilService.getSoilDataByLocation(locationData);
-      
-      if (!soilData.success) {
-        throw new Error('Failed to fetch soil data for the location');
-      }
-
-      // Use the detected soil type for LLM prediction
+      // Use the provided soil type for LLM prediction
       const enhancedInput: EnhancedRecommendationInput = {
         ...input,
-        soilType: soilData.soil_type,
         latitude,
         longitude
       };
@@ -252,10 +217,8 @@ export class EnhancedRecommendationService {
       return {
         location_data: {
           latitude,
-          longitude,
-          location_info: soilData.location_info
+          longitude
         },
-        soil_data: soilData,
         llm_recommendation: llmRecommendation
       };
     } catch (error) {
@@ -380,14 +343,5 @@ export class EnhancedRecommendationService {
     }));
   }
 
-  /**
-   * Get available soil types for frontend dropdowns
-   */
-  static getSoilOptions() {
-    return Object.keys(SOIL_TYPES).map(soil => ({
-      value: soil,
-      label: soil,
-      id: SOIL_TYPES[soil as keyof typeof SOIL_TYPES]
-    }));
-  }
+
 }

@@ -17,8 +17,6 @@ import {
   Plus,
   Edit,
   Trash2,
-  MapPin,
-  Loader2,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
@@ -62,11 +60,6 @@ import { getCropTypeOptions } from "@/services/fertilizerMLService";
 import { useToast } from "@/hooks/use-toast";
 import MLModelStatus from "./MLModelStatus";
 import {
-  LocationSoilService,
-  type SoilData,
-  type LocationData,
-} from "@/services/locationSoilService";
-import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -105,14 +98,9 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
     size: "",
     unit: "hectares",
     cropType: "",
-    soilType: "",
-    location: "",
-    coordinates: null as LocationData | null,
-    soilData: null as SoilData | null,
     sowingDate: "",
   });
   const [saving, setSaving] = useState(false);
-  const [fetchingLocation, setFetchingLocation] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -207,15 +195,11 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
       !newFarm.name ||
       isNaN(sizeNum) ||
       !newFarm.cropType ||
-      !newFarm.soilType ||
-      !newFarm.location ||
-      !newFarm.soilData ||
       !newFarm.sowingDate
     ) {
       toast({
         title: t("common.error"),
-        description:
-          "Please fill in all required fields including location detection and sowing date",
+        description: "Please fill in all required fields",
         variant: "destructive",
       });
       return;
@@ -229,8 +213,6 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
           size: sizeNum,
           unit: newFarm.unit as "hectares" | "acres" | "bigha",
           cropType: newFarm.cropType,
-          soilType: newFarm.soilType,
-          location: newFarm.location || undefined,
           sowingDate: newFarm.sowingDate || undefined,
         };
 
@@ -251,11 +233,6 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
           size: sizeNum,
           unit: newFarm.unit as "hectares" | "acres" | "bigha",
           cropType: newFarm.cropType,
-          soilType: newFarm.soilType,
-          location: newFarm.location,
-          latitude: newFarm.coordinates?.latitude,
-          longitude: newFarm.coordinates?.longitude,
-          soilData: newFarm.soilData,
           sowingDate: newFarm.sowingDate,
         };
 
@@ -313,10 +290,14 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
       size: String(farm.size),
       unit: farm.unit,
       cropType: farm.cropType,
-      soilType: farm.soilType,
       location: farm.location || "",
-      coordinates: null,
-      soilData: null,
+      coordinates:
+        farm.latitude && farm.longitude
+          ? {
+              latitude: farm.latitude,
+              longitude: farm.longitude,
+            }
+          : null,
       sowingDate: farm.sowingDate || "",
     });
     setIsAddOpen(true);
@@ -330,52 +311,8 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
       size: "",
       unit: "hectares",
       cropType: "",
-      soilType: "",
-      location: "",
-      coordinates: null,
-      soilData: null,
       sowingDate: "",
     });
-  };
-
-  const handleGetLocation = async () => {
-    if (!LocationSoilService.isGeolocationSupported()) {
-      toast({
-        title: "Geolocation Not Supported",
-        description: "Your browser does not support location detection",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setFetchingLocation(true);
-    try {
-      const { location, soilData, locationString } =
-        await LocationSoilService.getLocationAndSoilData();
-
-      setNewFarm((prev) => ({
-        ...prev,
-        location: locationString,
-        coordinates: location,
-        soilData: soilData,
-        soilType: soilData.soil_type,
-      }));
-
-      toast({
-        title: "Location Detected!",
-        description: `Found ${soilData.soil_type} soil at ${locationString}`,
-      });
-    } catch (error) {
-      console.error("Error getting location:", error);
-      toast({
-        title: "Location Error",
-        description:
-          error instanceof Error ? error.message : "Failed to get location",
-        variant: "destructive",
-      });
-    } finally {
-      setFetchingLocation(false);
-    }
   };
 
   type NutrientType = "nitrogen" | "phosphorus" | "potassium";
@@ -751,9 +688,6 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                     <Badge variant="secondary" className="text-xs border">
                       {farm.cropType}
                     </Badge>
-                    <Badge variant="outline" className="text-xs">
-                      {farm.soilType}
-                    </Badge>
                   </div>
                   <p className="text-xs sm:text-sm text-gray-600 mb-1">
                     {t("dashboard.size")}: {farm.size} {farm.unit}
@@ -792,8 +726,8 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
             </DialogTitle>
             <DialogDescription>
               {editingFarm
-                ? "Update your farm details and location"
-                : "Add a new farm - all fields are required including location detection and sowing date"}
+                ? "Update your farm details"
+                : "Add a new farm - all fields are required"}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
@@ -846,102 +780,25 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="space-y-2">
-                <Label className="text-sm">{t("form.cropType")} *</Label>
-                <Select
-                  value={newFarm.cropType}
-                  onValueChange={(val) =>
-                    setNewFarm((v) => ({ ...v, cropType: val }))
-                  }
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select crop type *" />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-60">
-                    {getCropTypeOptions().map((opt) => (
-                      <SelectItem key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label className="text-sm">Soil Type (Auto-detected) *</Label>
-                <div className="flex items-center space-x-2">
-                  {newFarm.soilData ? (
-                    <div className="flex-1 p-2 border rounded-md bg-green-50 border-green-200">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-lg">
-                          {LocationSoilService.getSoilTypeEmoji(
-                            newFarm.soilType
-                          )}
-                        </span>
-                        <div>
-                          <div className="font-medium text-green-800">
-                            {newFarm.soilType}
-                          </div>
-                          <div className="text-xs text-green-600"></div>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex-1 p-2 border rounded-md bg-gray-50 border-gray-200">
-                      <div className="text-gray-500 text-sm">
-                        Required: Click "Get Location" to auto-detect soil type
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-
             <div className="space-y-2">
-              <Label className="text-sm">Location & Soil Detection *</Label>
-              <div className="space-y-3">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={handleGetLocation}
-                  disabled={fetchingLocation || saving}
-                  className={`w-full flex items-center justify-center space-x-2 h-10 ${
-                    !newFarm.soilData
-                      ? "border-red-300 bg-red-50"
-                      : "border-green-300 bg-green-50"
-                  }`}
-                >
-                  {fetchingLocation ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
-                    <MapPin className="h-4 w-4" />
-                  )}
-                  <span>
-                    {fetchingLocation
-                      ? "Detecting Location..."
-                      : "Get My Location & Soil Type"}
-                  </span>
-                </Button>
-
-                {newFarm.location && (
-                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-md">
-                    <div className="flex items-start space-x-2">
-                      <MapPin className="h-4 w-4 text-blue-600 mt-0.5" />
-                      <div className="flex-1">
-                        <div className="font-medium text-blue-800 text-sm">
-                          {newFarm.location}
-                        </div>
-                        {newFarm.coordinates && (
-                          <div className="text-xs text-blue-600 mt-1">
-                            {newFarm.coordinates.latitude.toFixed(6)},{" "}
-                            {newFarm.coordinates.longitude.toFixed(6)}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
+              <Label className="text-sm">{t("form.cropType")} *</Label>
+              <Select
+                value={newFarm.cropType}
+                onValueChange={(val) =>
+                  setNewFarm((v) => ({ ...v, cropType: val }))
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select crop type *" />
+                </SelectTrigger>
+                <SelectContent className="max-h-60">
+                  {getCropTypeOptions().map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-2">

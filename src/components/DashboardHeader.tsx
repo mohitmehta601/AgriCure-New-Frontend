@@ -66,7 +66,7 @@ const DashboardHeader = ({
         <div className="container mx-auto px-3 xs:px-4 sm:px-6 py-3 xs:py-4">
           <div className="flex items-center justify-between">
             <Link
-              to="/"
+              to="/dashboard"
               className="flex items-center space-x-1 xs:space-x-2 group transition-all duration-300 hover:scale-105"
             >
               <img

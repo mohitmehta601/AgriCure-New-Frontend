@@ -1,5 +1,5 @@
 import { FertilizerRecommendation } from "@/types/database";
-import { FERTILIZER_INFO, CROP_TYPES, SOIL_TYPES } from "@/services/fertilizerMLService";
+import { FERTILIZER_INFO, CROP_TYPES } from "@/services/fertilizerMLService";
 
 export interface EnhancedRecommendation {
   primaryFertilizer: { name: string; amount: string; reason: string; applicationMethod: string };
@@ -39,14 +39,13 @@ export const buildEnhancedRecommendationFromRecord = (rec: FertilizerRecommendat
   if (potassium < 120) nutrientDeficiency.push('Potassium');
 
   const cropName = Object.keys(CROP_TYPES).find(key => CROP_TYPES[key as keyof typeof CROP_TYPES] === parseInt(rec.crop_type)) || 'Unknown';
-  const soilName = Object.keys(SOIL_TYPES).find(key => SOIL_TYPES[key as keyof typeof SOIL_TYPES] === parseInt(rec.soil_type)) || 'Unknown';
 
   const fertilizerInfo = FERTILIZER_INFO[rec.ml_prediction as keyof typeof FERTILIZER_INFO];
 
   const primaryFertilizer = {
     name: rec.primary_fertilizer || rec.ml_prediction,
     amount: `${Math.round(100 * hectares)} kg`,
-    reason: fertilizerInfo ? fertilizerInfo.description : `ML model recommends this fertilizer for ${cropName} in ${soilName} soil`,
+    reason: fertilizerInfo ? fertilizerInfo.description : `ML model recommends this fertilizer for ${cropName}`,
     applicationMethod: fertilizerInfo ? fertilizerInfo.application : 'Apply as per standard agricultural practices'
   };
 
@@ -123,7 +122,6 @@ export const buildEnhancedRecommendationFromRecord = (rec: FertilizerRecommendat
     nitrogen: String(rec.nitrogen),
     phosphorus: String(rec.phosphorus),
     potassium: String(rec.potassium),
-    soilType: rec.soil_type,
     temperature: String(rec.temperature),
     humidity: String(rec.humidity),
     soilMoisture: String(rec.soil_moisture)

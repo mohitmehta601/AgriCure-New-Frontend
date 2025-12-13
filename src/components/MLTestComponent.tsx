@@ -27,7 +27,6 @@ export const MLTestComponent = () => {
     Temperature: 25,
     Humidity: 70,
     Moisture: 45,
-    Soil_Type: "Loamy",
     Crop_Type: "Wheat",
     Nitrogen: 45,
     Potassium: 30,
@@ -215,27 +214,6 @@ export const MLTestComponent = () => {
                 </h3>
 
                 <div className="space-y-3">
-                  <div>
-                    <Label htmlFor="soilType">Soil Type</Label>
-                    <Select
-                      value={formData.Soil_Type}
-                      onValueChange={(value) =>
-                        handleChange("Soil_Type", value)
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Clayey">Clayey</SelectItem>
-                        <SelectItem value="Loamy">Loamy</SelectItem>
-                        <SelectItem value="Red">Red</SelectItem>
-                        <SelectItem value="Black">Black</SelectItem>
-                        <SelectItem value="Sandy">Sandy</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
                   <div>
                     <Label htmlFor="cropType">Crop Type</Label>
                     <Select

@@ -23,11 +23,9 @@ export interface Farm {
   size: number;
   unit: 'hectares' | 'acres' | 'bigha';
   cropType: string;
-  soilType: string;
   location: string;
   latitude?: number;
   longitude?: number;
-  soilData?: any; // JSON data for soil properties
   sowingDate: string; // ISO date string
   createdAt: string;
   updatedAt: string;
@@ -57,7 +55,6 @@ export interface FertilizerRecommendation {
   fieldSize: number;
   fieldSizeUnit: string;
   cropType: string;
-  soilType: string;
   soilPh: number;
   nitrogen: number;
   phosphorus: number;
@@ -78,17 +75,4 @@ export interface FertilizerRecommendation {
   updatedAt: string;
 }
 
-export interface LocationSoilData {
-  id: string;
-  location: string;
-  latitude: number;
-  longitude: number;
-  soilType: string;
-  avgNitrogen: number;
-  avgPhosphorus: number;
-  avgPotassium: number;
-  avgPh: number;
-  avgMoisture: number;
-  createdAt: string;
-  updatedAt: string;
-}
+// LocationSoilData interface removed - soil type prediction feature removed

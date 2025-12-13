@@ -15,7 +15,6 @@ interface FormData {
   nitrogen: string;
   phosphorus: string;
   potassium: string;
-  soilType: string;
   temperature: string;
   humidity: string;
   soilMoisture: string;

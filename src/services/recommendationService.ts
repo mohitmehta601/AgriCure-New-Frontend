@@ -7,7 +7,6 @@ export interface CreateRecommendationData {
   fieldSize: number;
   fieldSizeUnit: string;
   cropType: string;
-  soilType: string;
   soilPh: number;
   nitrogen: number;
   phosphorus: number;

@@ -4,7 +4,6 @@ export interface MLPredictionInput {
   temperature: number;
   humidity: number;
   moisture: number;
-  soilType: number;
   cropType: number;
   nitrogen: number;
   potassium: number;
@@ -91,13 +90,7 @@ export const CROP_TYPES = {
   'Onion': 15
 };
 
-export const SOIL_TYPES = {
-  'Clayey': 0,
-  'Loamy': 1,
-  'Red': 2,
-  'Black': 3,
-  'Sandy': 4
-};
+
 
 export const FERTILIZER_INFO = {
   'Urea': {
@@ -202,7 +195,7 @@ export const FERTILIZER_INFO = {
 
 // Fallback prediction function for when ML API is not available
 const fallbackPrediction = async (input: MLPredictionInput): Promise<MLPredictionResult> => {
-  const { temperature, humidity, moisture, soilType, cropType, nitrogen, potassium, phosphorus } = input;
+  const { temperature, humidity, moisture, cropType, nitrogen, potassium, phosphorus } = input;
 
   let predictedFertilizer = 'Urea';
   // Hardcoded confidence value - no longer dynamic
@@ -296,16 +289,14 @@ const fallbackPrediction = async (input: MLPredictionInput): Promise<MLPredictio
 
 export const predictFertilizer = async (input: MLPredictionInput): Promise<MLPredictionResult> => {
   try {
-    const { temperature, humidity, moisture, soilType, cropType, nitrogen, potassium, phosphorus, pH } = input;
+    const { temperature, humidity, moisture, cropType, nitrogen, potassium, phosphorus, pH } = input;
     
     const cropName = Object.keys(CROP_TYPES).find(key => CROP_TYPES[key as keyof typeof CROP_TYPES] === cropType) || 'Wheat';
-    const soilName = Object.keys(SOIL_TYPES).find(key => SOIL_TYPES[key as keyof typeof SOIL_TYPES] === soilType) || 'Loamy';
     
     const mlInput = {
       Temperature: temperature,
       Humidity: humidity,
       Moisture: moisture,
-      Soil_Type: soilName,
       Crop_Type: cropName,
       Nitrogen: nitrogen,
       Potassium: potassium,
@@ -327,16 +318,14 @@ export const predictFertilizer = async (input: MLPredictionInput): Promise<MLPre
 
 export const predictFertilizerEnhanced = async (input: MLPredictionInput): Promise<EnhancedMLPredictionResult> => {
   try {
-    const { temperature, humidity, moisture, soilType, cropType, nitrogen, potassium, phosphorus, pH } = input;
+    const { temperature, humidity, moisture, cropType, nitrogen, potassium, phosphorus, pH } = input;
     
     const cropName = Object.keys(CROP_TYPES).find(key => CROP_TYPES[key as keyof typeof CROP_TYPES] === cropType) || 'Wheat';
-    const soilName = Object.keys(SOIL_TYPES).find(key => SOIL_TYPES[key as keyof typeof SOIL_TYPES] === soilType) || 'Loamy';
     
     const mlInput = {
       Temperature: temperature,
       Humidity: humidity,
       Moisture: moisture,
-      Soil_Type: soilName,
       Crop_Type: cropName,
       Nitrogen: nitrogen,
       Potassium: potassium,
@@ -360,19 +349,17 @@ export const predictFertilizerEnhanced = async (input: MLPredictionInput): Promi
 export const predictFertilizerWithLLM = async (input: EnhancedMLPredictionInput): Promise<LLMEnhancedMLResult> => {
   try {
     const { 
-      temperature, humidity, moisture, soilType, cropType, 
+      temperature, humidity, moisture, cropType, 
       nitrogen, potassium, phosphorus, pH,
       sowingDate, fieldSize, fieldUnit, bulkDensity, samplingDepth 
     } = input;
     
     const cropName = Object.keys(CROP_TYPES).find(key => CROP_TYPES[key as keyof typeof CROP_TYPES] === cropType) || 'Wheat';
-    const soilName = Object.keys(SOIL_TYPES).find(key => SOIL_TYPES[key as keyof typeof SOIL_TYPES] === soilType) || 'Loamy';
     
     const enhancedInput: EnhancedFertilizerInput = {
       Temperature: temperature,
       Humidity: humidity,
       Moisture: moisture,
-      Soil_Type: soilName,
       Crop_Type: cropName,
       Nitrogen: nitrogen,
       Potassium: potassium,
@@ -409,9 +396,4 @@ export const getCropTypeOptions = () => {
   }));
 };
 
-export const getSoilTypeOptions = () => {
-  return Object.keys(SOIL_TYPES).map(soil => ({
-    value: soil,
-    label: soil
-  }));
-};
+

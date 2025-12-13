@@ -104,7 +104,6 @@ export class IntegrationTestSuite {
         Temperature: 25.0,
         Humidity: 80.0,
         Moisture: 30.0,
-        Soil_Type: 'Loamy',
         Crop_Type: 'Rice',
         Nitrogen: 85.0,
         Potassium: 45.0,
@@ -142,7 +141,6 @@ export class IntegrationTestSuite {
         Temperature: 25.0,
         Humidity: 80.0,
         Moisture: 30.0,
-        Soil_Type: 'Loamy',
         Crop_Type: 'Rice',
         Nitrogen: 85.0,
         Potassium: 45.0,
@@ -180,7 +178,6 @@ export class IntegrationTestSuite {
         Temperature: 25.0,
         Humidity: 80.0,
         Moisture: 30.0,
-        Soil_Type: 'Loamy',
         Crop_Type: 'Rice',
         Nitrogen: 85.0,
         Potassium: 45.0,
@@ -238,7 +235,6 @@ export class IntegrationTestSuite {
         test: 'Location-based Prediction',
         status: 'success',
         result: {
-          soil_type: result.soil_data?.soil_type,
           predictions_count: Object.keys(result.predictions || {}).length,
           location: result.location
         },

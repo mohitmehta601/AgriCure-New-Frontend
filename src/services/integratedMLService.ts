@@ -1,5 +1,4 @@
 import { mlApiService } from './mlApiService';
-import { LocationSoilService } from './locationSoilService';
 import { authService } from './authService';
 
 export interface IntegratedPredictionInput {
@@ -9,7 +8,6 @@ export interface IntegratedPredictionInput {
   farmSize: number;
   farmUnit: string;
   cropType: string;
-  soilType: string;
   sowingDate?: string;
   
   // Environmental conditions
@@ -58,16 +56,6 @@ export interface IntegratedPredictionOutput {
     meta_info?: any;
   };
   
-  // Soil data (if location provided)
-  soil_data?: {
-    location: any;
-    soil_type: string;
-    soil_properties: any;
-    confidence: number;
-    sources: string[];
-    location_info: any;
-  };
-  
   // Processing metadata
   processing_time: number;
   timestamp: string;
@@ -95,7 +83,6 @@ class IntegratedMLService {
         Temperature: input.temperature,
         Humidity: input.humidity,
         Moisture: input.moisture,
-        Soil_Type: input.soilType,
         Crop_Type: input.cropType,
         Nitrogen: input.nitrogen,
         Potassium: input.potassium,
@@ -115,23 +102,6 @@ class IntegratedMLService {
         timestamp,
         user_id: user?.id
       };
-      
-      // Try to get soil data from location if provided
-      if (input.latitude && input.longitude) {
-        try {
-          const soilData = await LocationSoilService.getSoilDataByLocation({
-            latitude: input.latitude,
-            longitude: input.longitude
-          });
-          result.soil_data = soilData;
-          // Update soil type if location provides better data
-          if (soilData.soil_type) {
-            basePredictionInput.Soil_Type = soilData.soil_type;
-          }
-        } catch (error) {
-          console.warn('Could not fetch soil data from location:', error);
-        }
-      }
       
       // Step 1: Try LLM Enhanced Prediction (most comprehensive)
       try {
@@ -300,7 +270,6 @@ class IntegratedMLService {
     if (!input.farmId) errors.push('Farm ID is required');
     if (!input.farmName) errors.push('Farm name is required');
     if (!input.cropType) errors.push('Crop type is required');
-    if (!input.soilType) errors.push('Soil type is required');
     
     // Numeric validations
     if (input.temperature < -10 || input.temperature > 50) {

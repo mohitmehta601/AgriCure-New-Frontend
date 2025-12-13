@@ -1,42 +1,15 @@
 import apiClient from './apiClient';
 import { Farm } from '../types/database';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-
-export type SoilDataResponse = {
-  location: { latitude: number; longitude: number; timestamp: string };
-  soil_type: "Loamy" | "Sandy" | "Clayey" | "Silty" | "Red" | "Black" | "Laterite" | "Peaty" | "Saline" | "Alkaline";
-  soil_properties: Record<string, number>;
-  confidence: number;
-  sources: string[];
-  success: boolean;
-  location_info?: Record<string, any>;
-};
-
-export async function fetchSoilType(lat: number, lon: number): Promise<SoilDataResponse> {
-  const res = await fetch(`${API_BASE_URL}/soil-data`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ latitude: lat, longitude: lon }),
-  });
-  if (!res.ok) {
-    const t = await res.text();
-    throw new Error(`Soil API failed: ${res.status} ${t}`);
-  }
-  return res.json();
-}
-
 export interface CreateFarmData {
   // Note: userId is set by backend from auth token, not from request body
   name: string;
   size: number;
   unit: 'hectares' | 'acres' | 'bigha';
   cropType: string;
-  soilType: string;
   location: string;
   latitude?: number;
   longitude?: number;
-  soilData?: any; // JSON data for soil properties
   sowingDate: string; // ISO date string (YYYY-MM-DD)
 }
 
@@ -45,11 +18,9 @@ export interface UpdateFarmData {
   size?: number;
   unit?: 'hectares' | 'acres' | 'bigha';
   cropType?: string;
-  soilType?: string;
   location?: string;
   latitude?: number;
   longitude?: number;
-  soilData?: any; // JSON data for soil properties
   sowingDate?: string; // ISO date string (YYYY-MM-DD)
 }
 

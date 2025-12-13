@@ -20,14 +20,13 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { EnhancedRecommendationService } from "@/services/enhancedRecommendationService";
-import { LocationSoilService } from "@/services/locationSoilService";
-import { CROP_TYPES, SOIL_TYPES } from "@/services/fertilizerMLService";
+// LocationSoilService removed - soil type prediction no longer used
+import { CROP_TYPES } from "@/services/fertilizerMLService";
 
 interface FormData {
   temperature: number;
   humidity: number;
   moisture: number;
-  soilType: string;
   cropType: string;
   nitrogen: number;
   potassium: number;
@@ -45,7 +44,6 @@ export const EnhancedMLDemo: React.FC = () => {
     temperature: 25,
     humidity: 80,
     moisture: 30,
-    soilType: "Loamy",
     cropType: "Wheat",
     nitrogen: 85,
     potassium: 45,
@@ -123,8 +121,26 @@ export const EnhancedMLDemo: React.FC = () => {
     setError(null);
 
     try {
-      // Get current location
-      const location = await LocationSoilService.getCurrentLocation();
+      // Get current location using browser geolocation
+      const position = await new Promise<GeolocationPosition>(
+        (resolve, reject) => {
+          if (!navigator.geolocation) {
+            reject(new Error("Geolocation is not supported"));
+            return;
+          }
+          navigator.geolocation.getCurrentPosition(resolve, reject, {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0,
+          });
+        }
+      );
+
+      const location = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      };
+
       const recommendation =
         await EnhancedRecommendationService.getLocationBasedRecommendation(
           location.latitude,
@@ -198,25 +214,6 @@ export const EnhancedMLDemo: React.FC = () => {
                   handleInputChange("moisture", Number(e.target.value))
                 }
               />
-            </div>
-
-            <div>
-              <Label htmlFor="soilType">Soil Type</Label>
-              <Select
-                value={formData.soilType}
-                onValueChange={(value) => handleInputChange("soilType", value)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select soil type" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.keys(SOIL_TYPES).map((soil) => (
-                    <SelectItem key={soil} value={soil}>
-                      {soil}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
             </div>
 
             <div>
@@ -578,16 +575,6 @@ export const EnhancedMLDemo: React.FC = () => {
                             ", "
                           )}
                         </p>
-                      </div>
-
-                      <div>
-                        <h4 className="font-semibold mb-2">Detected Soil:</h4>
-                        <div className="p-3 bg-orange-50 rounded">
-                          <p>
-                            <strong>Type:</strong>{" "}
-                            {locationData.soil_data.soil_type}
-                          </p>
-                        </div>
                       </div>
 
                       <div>

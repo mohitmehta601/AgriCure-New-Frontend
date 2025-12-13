@@ -28,7 +28,6 @@ interface FormData {
   nitrogen: string;
   phosphorus: string;
   potassium: string;
-  soilType: string;
   temperature: string;
   humidity: string;
   soilMoisture: string;
@@ -183,14 +182,6 @@ const DetailedFertilizerRecommendations = ({
                   Wheat
                 </div>
                 <div className="text-xs sm:text-sm text-gray-600">Crop</div>
-              </div>
-              <div className="text-center bg-white p-3 sm:p-4 rounded-lg border">
-                <div className="text-lg sm:text-xl lg:text-2xl font-bold text-amber-600">
-                  Clayey
-                </div>
-                <div className="text-xs sm:text-sm text-gray-600">
-                  Soil Type
-                </div>
               </div>
             </div>
           </CardContent>

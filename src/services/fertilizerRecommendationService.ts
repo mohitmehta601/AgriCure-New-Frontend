@@ -12,7 +12,6 @@ export interface FertilizerFormData {
   // Farm details
   size: number;
   crop: string;
-  soil: string;
   sowingDate: string;
   
   // Soil chemistry
@@ -82,7 +81,6 @@ class FertilizerRecommendationService {
       const requestData = {
         size: formData.size,
         crop: formData.crop,
-        soil: formData.soil,
         sowing_date: formData.sowingDate,
         nitrogen: formData.nitrogen,
         phosphorus: formData.phosphorus,
@@ -127,7 +125,6 @@ class FertilizerRecommendationService {
       const requestData = {
         size: formData.size,
         crop: formData.crop,
-        soil: formData.soil,
         sowing_date: formData.sowingDate,
         nitrogen: formData.nitrogen,
         phosphorus: formData.phosphorus,

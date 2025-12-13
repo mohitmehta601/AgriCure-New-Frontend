@@ -2,7 +2,6 @@ export interface FertilizerPredictionInput {
   Temperature: number;
   Humidity: number;
   Moisture: number;
-  Soil_Type: string;
   Crop_Type: string;
   Nitrogen: number;
   Potassium: number;
@@ -96,7 +95,6 @@ export interface ModelInfo {
 export interface FertilizerRecommendationRequest {
   size: number;
   crop: string;
-  soil: string;
   sowing_date: string;
   nitrogen: number;
   phosphorus: number;

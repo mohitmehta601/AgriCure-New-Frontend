@@ -25,7 +25,6 @@ import {
 } from "lucide-react";
 import { integratedMLService } from "@/services/integratedMLService";
 import { mlApiService } from "@/services/mlApiService";
-import { LocationSoilService } from "@/services/locationSoilService";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 interface TestResult {
@@ -183,7 +182,6 @@ const IntegrationTestDashboard: React.FC = () => {
         Temperature: 25,
         Humidity: 80,
         Moisture: 40,
-        Soil_Type: "Loamy",
         Crop_Type: "Rice",
         Nitrogen: 85,
         Potassium: 45,
@@ -215,7 +213,6 @@ const IntegrationTestDashboard: React.FC = () => {
         Temperature: 25,
         Humidity: 80,
         Moisture: 40,
-        Soil_Type: "Loamy",
         Crop_Type: "Rice",
         Nitrogen: 85,
         Potassium: 45,
@@ -253,7 +250,6 @@ const IntegrationTestDashboard: React.FC = () => {
         Temperature: 25,
         Humidity: 80,
         Moisture: 40,
-        Soil_Type: "Loamy",
         Crop_Type: "Rice",
         Nitrogen: 85,
         Potassium: 45,
@@ -290,7 +286,7 @@ const IntegrationTestDashboard: React.FC = () => {
     try {
       const startTime = Date.now();
 
-      if (LocationSoilService.isGeolocationSupported()) {
+      if (navigator.geolocation) {
         updateTest(5, {
           status: "success",
           message: "Geolocation API is supported",
@@ -310,23 +306,13 @@ const IntegrationTestDashboard: React.FC = () => {
       });
     }
 
-    // Test 7: Soil Data Integration
+    // Test 7: Soil Data Integration (Disabled - soil type prediction removed)
     try {
-      const startTime = Date.now();
-      // Test with sample coordinates (New Delhi, India)
-      const soilData = await LocationSoilService.getSoilDataByLocation({
-        latitude: 28.6139,
-        longitude: 77.209,
-      });
-      const duration = Date.now() - startTime;
-
       updateTest(6, {
-        status: "success",
-        message: `Soil type detected: ${soilData.soil_type}`,
-        details: soilData,
-        duration,
+        status: "warning",
+        message: "Soil type prediction feature has been removed",
+        duration: 0,
       });
-      successCount++;
     } catch (error: any) {
       updateTest(6, {
         status: "failed",
@@ -343,7 +329,6 @@ const IntegrationTestDashboard: React.FC = () => {
         farmSize: 2.5,
         farmUnit: "acres",
         cropType: "Rice",
-        soilType: "Loamy",
         temperature: 28,
         humidity: 75,
         moisture: 45,

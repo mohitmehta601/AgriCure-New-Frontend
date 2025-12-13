@@ -93,7 +93,6 @@ const translations = {
     "dashboard.fieldAnalysisSummary": "Field Analysis Summary",
     "dashboard.recommendationsFor": "Recommendations for",
     "dashboard.cropType": "Crop Type",
-    "dashboard.soilType": "Soil Type",
     "dashboard.soil": "Soil",
     "dashboard.soilConditionAnalysis": "Soil Condition Analysis",
     "dashboard.detailedSoilAnalysis":
@@ -150,7 +149,6 @@ const translations = {
     "form.nitrogen": "Nitrogen (N)",
     "form.phosphorus": "Phosphorus (P)",
     "form.potassium": "Potassium (K)",
-    "form.soilType": "Soil Type",
     "form.temperature": "Temperature",
     "form.humidity": "Humidity",
     "form.soilMoisture": "Soil Moisture",
@@ -311,7 +309,6 @@ const translations = {
     "mlModel.disconnected": "Disconnected",
     "mlModel.refresh": "Refresh",
     "mlModel.supportedCropTypes": "Supported Crop Types",
-    "mlModel.supportedSoilTypes": "Supported Soil Types",
     "mlModel.types": "Types",
     "mlModel.modelType": "Model Type",
     "mlModel.totalFeatures": "Total Features",
@@ -335,18 +332,6 @@ const translations = {
     "crops.sugarcane": "Sugarcane",
     "crops.wheat": "Wheat",
     "crops.coffee": "Coffee",
-
-    // Soil Types
-    "soils.sandy": "Sandy",
-    "soils.silty": "Silty",
-    "soils.laterite": "Laterite",
-    "soils.alkaline": "Alkaline",
-    "soils.black": "Black",
-    "soils.clayey": "Clayey",
-    "soils.saline": "Saline",
-    "soils.loamy": "Loamy",
-    "soils.red": "Red",
-    "soils.peaty": "Peaty",
 
     // Soil Analysis Status
     "soilStatus.acidic": "Acidic",
@@ -480,7 +465,6 @@ const translations = {
     "dashboard.fieldAnalysisSummary": "खेत विश्लेषण सारांश",
     "dashboard.recommendationsFor": "के लिए सिफारिशें",
     "dashboard.cropType": "फसल का प्रकार",
-    "dashboard.soilType": "मिट्टी का प्रकार",
     "dashboard.soil": "मिट्टी",
     "dashboard.soilConditionAnalysis": "मिट्टी की स्थिति विश्लेषण",
     "dashboard.detailedSoilAnalysis":
@@ -538,7 +522,6 @@ const translations = {
     "form.nitrogen": "नाइट्रोजन (N)",
     "form.phosphorus": "फास्फोरस (P)",
     "form.potassium": "पोटैशियम (K)",
-    "form.soilType": "मिट्टी का प्रकार",
     "form.temperature": "तापमान",
     "form.humidity": "आर्द्रता",
     "form.soilMoisture": "मिट्टी की नमी",
@@ -694,7 +677,6 @@ const translations = {
     "mlModel.disconnected": "डिस्कनेक्ट",
     "mlModel.refresh": "रिफ्रेश करें",
     "mlModel.supportedCropTypes": "समर्थित फसल प्रकार",
-    "mlModel.supportedSoilTypes": "समर्थित मिट्टी प्रकार",
     "mlModel.types": "प्रकार",
     "mlModel.modelType": "मॉडल प्रकार",
     "mlModel.totalFeatures": "कुल फीचर्स",
@@ -718,18 +700,6 @@ const translations = {
     "crops.sugarcane": "गन्ना",
     "crops.wheat": "गेहूं",
     "crops.coffee": "कॉफी",
-
-    // Soil Types
-    "soils.sandy": "रेतीली",
-    "soils.silty": "गाद",
-    "soils.laterite": "लैटेराइट",
-    "soils.alkaline": "क्षारीय",
-    "soils.black": "काली",
-    "soils.clayey": "चिकनी",
-    "soils.saline": "लवणीय",
-    "soils.loamy": "दोमट",
-    "soils.red": "लाल",
-    "soils.peaty": "पीट",
 
     // Soil Analysis Status
     "soilStatus.acidic": "अम्लीय",
@@ -863,7 +833,6 @@ const translations = {
     "dashboard.fieldAnalysisSummary": "ਖੇਤ ਵਿਸ਼ਲੇਸ਼ਣ ਸਾਰਾਂਸ਼",
     "dashboard.recommendationsFor": "ਲਈ ਸਿਫਾਰਸ਼ਾਂ",
     "dashboard.cropType": "ਫਸਲ ਦਾ ਕਿਸਮ",
-    "dashboard.soilType": "ਮਿੱਟੀ ਦਾ ਕਿਸਮ",
     "dashboard.soil": "ਮਿੱਟੀ",
     "dashboard.soilConditionAnalysis": "ਮਿੱਟੀ ਦੀ ਸਥਿਤੀ ਵਿਸ਼ਲੇਸ਼ਣ",
     "dashboard.detailedSoilAnalysis":
@@ -921,7 +890,6 @@ const translations = {
     "form.nitrogen": "ਨਾਈਟ੍ਰੋਜਨ (N)",
     "form.phosphorus": "ਫਾਸਫੋਰਸ (P)",
     "form.potassium": "ਪੋਟਾਸ਼ੀਅਮ (K)",
-    "form.soilType": "ਮਿੱਟੀ ਦਾ ਕਿਸਮ",
     "form.temperature": "ਤਾਪਮਾਨ",
     "form.humidity": "ਨਮੀ",
     "form.soilMoisture": "ਮਿੱਟੀ ਦੀ ਨਮੀ",
@@ -1076,7 +1044,6 @@ const translations = {
     "mlModel.disconnected": "ਡਿਸਕਨੈਕਟ",
     "mlModel.refresh": "ਰਿਫਰੈਸ਼ ਕਰੋ",
     "mlModel.supportedCropTypes": "ਸਮਰਥਿਤ ਫਸਲ ਕਿਸਮਾਂ",
-    "mlModel.supportedSoilTypes": "ਸਮਰਥਿਤ ਮਿੱਟੀ ਕਿਸਮਾਂ",
     "mlModel.types": "ਕਿਸਮਾਂ",
     "mlModel.modelType": "ਮਾਡਲ ਕਿਸਮ",
     "mlModel.totalFeatures": "ਕੁੱਲ ਫੀਚਰ",
@@ -1100,18 +1067,6 @@ const translations = {
     "crops.sugarcane": "ਗੰਨਾ",
     "crops.wheat": "ਕਣਕ",
     "crops.coffee": "ਕੌਫੀ",
-
-    // Soil Types
-    "soils.sandy": "ਰੇਤਲੀ",
-    "soils.silty": "ਗਾਦ",
-    "soils.laterite": "ਲੈਟਰਾਇਟ",
-    "soils.alkaline": "ਖਾਰੀ",
-    "soils.black": "ਕਾਲੀ",
-    "soils.clayey": "ਚਿਕਨੀ",
-    "soils.saline": "ਲੂਣੀ",
-    "soils.loamy": "ਦੋਮਟ",
-    "soils.red": "ਲਾਲ",
-    "soils.peaty": "ਪੀਟ",
 
     // Soil Analysis Status
     "soilStatus.acidic": "ਐਸਿਡਿਕ",

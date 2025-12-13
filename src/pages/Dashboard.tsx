@@ -10,7 +10,6 @@ import {
   predictFertilizer,
   FERTILIZER_INFO,
   CROP_TYPES,
-  SOIL_TYPES,
 } from "@/services/fertilizerMLService";
 import { authService } from "@/services/authService";
 import { recommendationService } from "@/services/recommendationService";
@@ -129,7 +128,6 @@ const Dashboard = () => {
     nitrogen: string;
     phosphorus: string;
     potassium: string;
-    soilType: string;
     temperature: string;
     humidity: string;
     soilMoisture: string;
@@ -159,7 +157,6 @@ const Dashboard = () => {
       temperature: parseFloat(data.temperature),
       humidity: parseFloat(data.humidity),
       moisture: parseFloat(data.soilMoisture),
-      soilType: parseInt(data.soilType),
       cropType: parseInt(data.cropType),
       nitrogen: nitrogen,
       potassium: potassium,
@@ -191,11 +188,6 @@ const Dashboard = () => {
         (key) =>
           CROP_TYPES[key as keyof typeof CROP_TYPES] === parseInt(data.cropType)
       ) || t("mlModel.unknown");
-    const soilName =
-      Object.keys(SOIL_TYPES).find(
-        (key) =>
-          SOIL_TYPES[key as keyof typeof SOIL_TYPES] === parseInt(data.soilType)
-      ) || t("mlModel.unknown");
 
     const primaryFertilizerInfo =
       FERTILIZER_INFO[mlPrediction.fertilizer as keyof typeof FERTILIZER_INFO];
@@ -205,7 +197,7 @@ const Dashboard = () => {
       amount: `${Math.round(100 * hectares)} kg`,
       reason: primaryFertilizerInfo
         ? primaryFertilizerInfo.description
-        : `ML model recommends this fertilizer for ${cropName} in ${soilName} soil`,
+        : `ML model recommends this fertilizer for ${cropName}`,
       applicationMethod: primaryFertilizerInfo
         ? primaryFertilizerInfo.application
         : t("fertilizer.standardApplication"),
@@ -317,7 +309,6 @@ const Dashboard = () => {
             fieldSize: data.farm.size,
             fieldSizeUnit: data.farm.unit,
             cropType: data.farm.cropType,
-            soilType: data.farm.soilType,
             soilPh: parseFloat(data.soilPH),
             nitrogen: parseFloat(data.nitrogen),
             phosphorus: parseFloat(data.phosphorus),
@@ -370,7 +361,6 @@ const Dashboard = () => {
           nitrogen: data.nitrogen,
           phosphorus: data.phosphorus,
           potassium: data.potassium,
-          soilType: data.farm.soilType,
           temperature: data.temperature,
           humidity: data.humidity,
           soilMoisture: data.soilMoisture,
@@ -387,7 +377,6 @@ const Dashboard = () => {
             fieldSize: data.farm.size,
             fieldSizeUnit: data.farm.unit,
             cropType: data.farm.cropType,
-            soilType: data.farm.soilType,
             soilPh: parseFloat(data.soilPH),
             nitrogen: parseFloat(data.nitrogen),
             phosphorus: parseFloat(data.phosphorus),

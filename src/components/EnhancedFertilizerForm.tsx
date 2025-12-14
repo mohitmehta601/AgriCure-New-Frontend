@@ -27,6 +27,7 @@ import { Sparkles, Leaf, Zap, Plus, Brain } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useRealTimeData } from "@/contexts/RealTimeDataContext";
 import { farmService, Farm, CreateFarmData } from "@/services/farmService";
+import { recommendationService } from "@/services/recommendationService";
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
@@ -296,6 +297,66 @@ const EnhancedFertilizerForm = ({
           "🌿 Organic Alternatives:",
           recommendation.organic_alternatives
         );
+
+        // Save recommendation to database
+        if (user && user.id) {
+          try {
+            const recommendationData = {
+              userId: user.id,
+              farmId: selectedFarm.id || undefined,
+              fieldName: selectedFarm.name,
+              fieldSize: selectedFarm.size,
+              fieldSizeUnit: selectedFarm.unit || "hectares",
+              cropType: selectedFarm.cropType,
+              soilPh: parseFloat(formData.soilPH) || 0,
+              nitrogen: parseFloat(formData.nitrogen),
+              phosphorus: parseFloat(formData.phosphorus),
+              potassium: parseFloat(formData.potassium),
+              temperature: parseFloat(formData.temperature) || undefined,
+              humidity: undefined,
+              soilMoisture: parseFloat(formData.soilMoisture),
+              electricalConductivity:
+                parseFloat(formData.electricalConductivity) || undefined,
+              soilTemperature:
+                parseFloat(formData.soilTemperature) || undefined,
+              sowingDate: selectedFarm.sowingDate || undefined,
+              primaryFertilizer:
+                recommendation.ml_predictions.Primary_Fertilizer || "Unknown",
+              secondaryFertilizer:
+                recommendation.ml_predictions.Secondary_Fertilizer,
+              mlPrediction:
+                recommendation.ml_predictions.Primary_Fertilizer || "Unknown",
+              confidenceScore: undefined,
+              mlPredictions: recommendation.ml_predictions,
+              costEstimate: recommendation.cost_estimate,
+              applicationTimingData: recommendation.application_timing,
+              organicAlternatives: recommendation.organic_alternatives,
+              enhancedReport: recommendation.enhanced_report,
+              status: "pending" as const,
+            };
+
+            console.log(
+              "💾 Saving/updating recommendation to database:",
+              recommendationData
+            );
+            const saveResult = await recommendationService.upsertRecommendation(
+              recommendationData
+            );
+
+            if (saveResult.error) {
+              console.error("Failed to save recommendation:", saveResult.error);
+              // Continue anyway - don't block user from seeing results
+            } else {
+              console.log(
+                "✅ Recommendation saved/updated successfully:",
+                saveResult.data
+              );
+            }
+          } catch (saveError) {
+            console.error("Error saving recommendation:", saveError);
+            // Continue anyway - don't block user from seeing results
+          }
+        }
 
         const enhancedData = {
           ...formData,

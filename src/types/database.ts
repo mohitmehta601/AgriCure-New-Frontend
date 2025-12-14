@@ -59,18 +59,32 @@ export interface FertilizerRecommendation {
   nitrogen: number;
   phosphorus: number;
   potassium: number;
-  temperature: number;
-  humidity: number;
+  temperature?: number;
+  humidity?: number;
   soilMoisture: number;
+  electricalConductivity?: number;
+  soilTemperature?: number;
+  sowingDate?: string;
   primaryFertilizer: string;
   secondaryFertilizer?: string;
   mlPrediction: string;
-  confidenceScore: number;
-  applicationRate: number;
-  applicationRateUnit: string;
+  confidenceScore?: number;
+  
+  // ML Response Data - complete response from ML model
+  mlPredictions?: any; // Full ML predictions object
+  costEstimate?: any; // Cost estimate details
+  applicationTimingData?: any; // Application timing details
+  organicAlternatives?: any; // Organic alternatives array
+  enhancedReport?: any; // LLM enhanced report
+  
+  // Legacy fields for backward compatibility
+  applicationRate?: number;
+  applicationRateUnit?: string;
   applicationMethod?: string;
   applicationTiming?: string;
   recommendations?: any; // JSON for detailed recommendations
+  
+  status?: 'pending' | 'applied' | 'scheduled';
   createdAt: string;
   updatedAt: string;
 }

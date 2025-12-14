@@ -93,6 +93,9 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [editingFarm, setEditingFarm] = useState<Farm | null>(null);
   const [deletingFarm, setDeletingFarm] = useState<Farm | null>(null);
+  const [selectedFarmForRecs, setSelectedFarmForRecs] = useState<Farm | null>(
+    null
+  );
   const [newFarm, setNewFarm] = useState({
     name: "",
     size: "",
@@ -143,7 +146,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
     if (user) {
       loadRecommendations();
     }
-  }, [user]);
+  }, [user, selectedFarmForRecs]);
 
   const loadFarms = async () => {
     if (!user?.id) {
@@ -176,8 +179,25 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
 
     setRecommendationsLoading(true);
     try {
-      const { data, error } =
-        await recommendationService.getRecentRecommendations(user.id, 5);
+      let data, error;
+
+      // If a farm is selected, load recommendations for that farm
+      if (selectedFarmForRecs && selectedFarmForRecs.id) {
+        const result = await recommendationService.getFarmRecommendations(
+          selectedFarmForRecs.id
+        );
+        data = result.data;
+        error = result.error;
+      } else {
+        // Otherwise, load recent recommendations for the user
+        const result = await recommendationService.getRecentRecommendations(
+          user.id,
+          10
+        );
+        data = result.data;
+        error = result.error;
+      }
+
       if (error) throw error;
       setRecommendations(data || []);
     } catch (error) {
@@ -652,7 +672,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
               {farms.map((farm, index) => (
                 <div
                   key={farm.id}
-                  className="p-4 border border-gray-200 rounded-lg bg-gradient-to-br from-white to-gray-50 hover:shadow-lg transition-all duration-300 hover:scale-105 group"
+                  className="p-4 border border-gray-200 rounded-lg bg-gradient-to-br from-white to-gray-50 hover:shadow-lg transition-all duration-300 group"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="flex items-center justify-between mb-2">
@@ -874,15 +894,34 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
       </AlertDialog>
 
       {/* Recommendation History */}
-      <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card
+        id="recommendation-history"
+        className="border-0 shadow-lg hover:shadow-xl transition-all duration-300"
+      >
         <CardHeader className="px-4 sm:px-6">
-          <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
-            <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-grass-600" />
-            <span>{t("dashboard.recommendationHistory")}</span>
-          </CardTitle>
-          <CardDescription className="text-sm sm:text-base">
-            {t("dashboard.recommendationHistoryDescription")}
-          </CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
+                <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-grass-600" />
+                <span>{t("dashboard.recommendationHistory")}</span>
+              </CardTitle>
+              <CardDescription className="text-sm sm:text-base">
+                {selectedFarmForRecs
+                  ? `Showing recommendations for ${selectedFarmForRecs.name}`
+                  : t("dashboard.recommendationHistoryDescription")}
+              </CardDescription>
+            </div>
+            {selectedFarmForRecs && (
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setSelectedFarmForRecs(null)}
+                className="text-xs"
+              >
+                Show All
+              </Button>
+            )}
+          </div>
         </CardHeader>
         <CardContent className="px-4 sm:px-6">
           {recommendationsLoading ? (
@@ -899,43 +938,75 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                   key={recommendation.id}
                   onClick={() => openFullReport(recommendation)}
                   role="button"
-                  className="flex items-center justify-between p-3 sm:p-4 border border-gray-200 rounded-lg bg-gradient-to-r from-white to-gray-50 hover:shadow-md transition-all duration-300 hover:scale-102 cursor-pointer"
+                  className="flex flex-col p-3 sm:p-4 border border-gray-200 rounded-lg bg-gradient-to-r from-white to-gray-50 hover:shadow-md transition-all duration-300 hover:scale-102 cursor-pointer"
                   style={{ animationDelay: `${index * 150}ms` }}
                 >
-                  <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-2 mb-1">
-                      <h4 className="font-semibold text-sm sm:text-base text-gray-800">
-                        {recommendation.field_name}
-                      </h4>
-                      <Badge
-                        className={`${getStatusColor(
-                          recommendation.status
-                        )} text-xs w-fit border transition-all duration-200 hover:scale-105`}
-                      >
-                        {recommendation.status.charAt(0).toUpperCase() +
-                          recommendation.status.slice(1)}
-                      </Badge>
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-semibold text-sm sm:text-base text-gray-800">
+                      {recommendation.fieldName || recommendation.cropType}
+                    </h4>
+                    <Leaf className="h-4 w-4 sm:h-5 sm:w-5 text-grass-600 animate-pulse" />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 mb-2">
+                    <div className="text-xs sm:text-sm text-gray-600">
+                      <span className="font-medium text-gray-700">Crop:</span>{" "}
+                      {recommendation.cropType}
                     </div>
-                    <p className="text-xs sm:text-sm text-gray-600 mb-1">
-                      {t("dashboard.primary")}:{" "}
-                      <span className="font-medium">
-                        {recommendation.primary_fertilizer}
-                      </span>
-                      {recommendation.secondary_fertilizer && (
+                    <div className="text-xs sm:text-sm text-gray-600">
+                      <span className="font-medium text-gray-700">Size:</span>{" "}
+                      {recommendation.fieldSize} {recommendation.fieldSizeUnit}
+                    </div>
+                  </div>
+
+                  <div className="mb-2">
+                    <p className="text-xs sm:text-sm text-gray-600">
+                      <span className="font-medium text-grass-700">
+                        {t("dashboard.primary")}:
+                      </span>{" "}
+                      {recommendation.primaryFertilizer}
+                      {recommendation.secondaryFertilizer && (
                         <>
                           {" "}
-                          | {t("dashboard.secondary")}:{" "}
-                          <span className="font-medium">
-                            {recommendation.secondary_fertilizer}
-                          </span>
+                          |{" "}
+                          <span className="font-medium text-grass-700">
+                            {t("dashboard.secondary")}:
+                          </span>{" "}
+                          {recommendation.secondaryFertilizer}
                         </>
                       )}
                     </p>
-                    <p className="text-xs text-gray-500">
-                      {new Date(recommendation.created_at).toLocaleString()}
-                    </p>
                   </div>
-                  <Leaf className="h-4 w-4 sm:h-5 sm:w-5 text-grass-600 ml-2 animate-pulse" />
+
+                  {recommendation.mlPredictions && (
+                    <div className="flex items-center space-x-2 mb-2">
+                      {recommendation.mlPredictions.N_Status && (
+                        <Badge variant="outline" className="text-xs bg-blue-50">
+                          N: {recommendation.mlPredictions.N_Status}
+                        </Badge>
+                      )}
+                      {recommendation.mlPredictions.P_Status && (
+                        <Badge
+                          variant="outline"
+                          className="text-xs bg-purple-50"
+                        >
+                          P: {recommendation.mlPredictions.P_Status}
+                        </Badge>
+                      )}
+                      {recommendation.mlPredictions.K_Status && (
+                        <Badge
+                          variant="outline"
+                          className="text-xs bg-orange-50"
+                        >
+                          K: {recommendation.mlPredictions.K_Status}
+                        </Badge>
+                      )}
+                    </div>
+                  )}
+
+                  <p className="text-xs text-gray-500">
+                    {new Date(recommendation.createdAt).toLocaleString()}
+                  </p>
                 </div>
               ))}
             </div>

@@ -957,7 +957,11 @@ const LLMEnhancedFertilizerRecommendations = ({
                               key={index}
                               className="flex justify-between items-center text-sm sm:text-base text-amber-700"
                             >
-                              <span>{option.name}</span>
+                              <span>
+                                {option.name} (
+                                {option.amount_kg || option.quantity_kg || 0}{" "}
+                                kg)
+                              </span>
                               <span className="font-medium text-base sm:text-lg">
                                 ₹{option.cost?.toLocaleString() || "0"}
                               </span>

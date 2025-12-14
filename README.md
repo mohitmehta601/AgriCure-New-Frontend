@@ -1005,6 +1005,48 @@ For issues or questions:
 
 ---
 
+## 📱 Responsive Design
+
+The AgriCure application is **fully responsive** and optimized for all devices:
+
+### Supported Devices
+
+- ✅ **Mobile** (320px - 640px): iPhone, Android phones
+- ✅ **Tablet** (641px - 1024px): iPad, Android tablets
+- ✅ **Desktop** (1025px+): Laptops, desktops, large displays
+
+### Key Features
+
+- **Mobile-first approach**: Core functionality works perfectly on small screens
+- **Touch-friendly**: Minimum 44px tap targets for mobile interactions
+- **Adaptive layouts**: Grid systems that stack appropriately
+- **Responsive typography**: Text scales from mobile to desktop
+- **Optimized forms**: Single-column on mobile, multi-column on desktop
+- **Progressive enhancement**: Desktop gets hover effects and enhanced features
+
+### Breakpoints
+
+| Device        | Breakpoint    | Container Width |
+| ------------- | ------------- | --------------- |
+| Small Mobile  | `xs: 375px`   | Full width      |
+| Mobile        | `sm: 640px`   | Full width      |
+| Tablet        | `md: 768px`   | Full width      |
+| Laptop        | `lg: 1024px`  | 1024px          |
+| Desktop       | `xl: 1280px`  | 1280px          |
+| Large Display | `2xl: 1536px` | 1536px          |
+
+### Accessibility
+
+- ✅ WCAG 2.1 compliant
+- ✅ Keyboard navigation support
+- ✅ Screen reader friendly
+- ✅ Reduced motion support
+- ✅ High contrast mode ready
+
+For detailed responsive design documentation, see [RESPONSIVE_DESIGN.md](./RESPONSIVE_DESIGN.md)
+
+---
+
 ## 💡 Key Benefits
 
 | Feature            | AgriCure Advantage                              |
@@ -1017,6 +1059,7 @@ For issues or questions:
 | **Scalability**    | Independent horizontal scaling with MongoDB     |
 | **Performance**    | Optimized queries with indexing                 |
 | **Security**       | JWT-based authentication with custom middleware |
+| **Responsive**     | Works seamlessly on mobile, tablet, and desktop |
 
 ---
 
@@ -1027,6 +1070,8 @@ For issues or questions:
 - **JWT:** https://jwt.io/introduction
 - **Mongoose:** https://mongoosejs.com/docs/
 - **React:** https://react.dev/
+- **Tailwind CSS:** https://tailwindcss.com/docs
+- **Responsive Design:** https://web.dev/responsive-web-design-basics/
 
 ---
 
@@ -1035,12 +1080,14 @@ For issues or questions:
 - ThingSpeak for IoT platform
 - MongoDB for database
 - React team for amazing framework
+- Tailwind CSS for responsive design utilities
 - All contributors and farmers using this system
 
 ---
 
 **Built with ❤️ for Indian Farmers**
 
-_Last Updated: December 8, 2025_
+_Last Updated: December 13, 2025_
 _Version: 2.0.0_
 _Database: MongoDB with JWT Authentication_
+_Fully Responsive: Mobile, Tablet, Desktop_

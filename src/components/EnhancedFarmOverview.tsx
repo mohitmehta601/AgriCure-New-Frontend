@@ -643,20 +643,20 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
         <CardHeader className="px-3 py-2.5 sm:px-6 sm:py-4">
           <div className="flex items-center justify-between flex-wrap gap-1.5 sm:gap-2">
             <div>
-              <CardTitle className="text-sm sm:text-lg md:text-xl flex items-center space-x-1.5 sm:space-x-2">
-                <BarChart3 className="h-4 w-4 sm:h-5 sm:w-5 text-grass-600" />
+              <CardTitle className="text-lg sm:text-lg md:text-xl flex items-center space-x-2 sm:space-x-2">
+                <BarChart3 className="h-5 w-5 sm:h-5 sm:w-5 text-grass-600" />
                 <span>{t("dashboard.registeredFarms")}</span>
               </CardTitle>
-              <CardDescription className="text-[10px] sm:text-sm md:text-base mt-0.5 sm:mt-1">
+              <CardDescription className="text-xs sm:text-sm md:text-base mt-1 sm:mt-1">
                 {t("dashboard.farmsDescription")}
               </CardDescription>
             </div>
             <Button
               size="sm"
               onClick={() => setIsAddOpen(true)}
-              className="bg-grass-600 hover:bg-grass-700 transition-all duration-300 hover:scale-105 text-[10px] sm:text-sm h-7 sm:h-9 px-2 sm:px-3"
+              className="bg-gradient-to-r from-grass-600 to-green-600 hover:from-grass-700 hover:to-green-700 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 text-[9px] sm:text-sm font-semibold h-6 sm:h-9 px-1.5 sm:px-3 rounded-lg border border-grass-500/20"
             >
-              <Plus className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <Plus className="h-2.5 w-2.5 sm:h-4 sm:w-4 mr-0.5 sm:mr-2" />
               {t("dashboard.addFarm") || "Add Farm"}
             </Button>
           </div>
@@ -676,18 +676,70 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {farms.map((farm, index) => (
                 <div
                   key={farm.id}
-                  className="p-2.5 sm:p-3 md:p-4 border border-gray-200 rounded-lg bg-gradient-to-br from-white to-gray-50 hover:shadow-lg transition-all duration-300 group"
+                  className="relative p-3 sm:p-4 border-2 border-grass-100 sm:border-gray-200 rounded-xl bg-gradient-to-br from-white via-green-50/30 to-grass-50/20 sm:from-white sm:to-gray-50 hover:shadow-xl hover:border-grass-200 transition-all duration-300 group"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="flex items-center justify-between mb-1.5 sm:mb-2">
-                    <h4 className="font-semibold text-xs sm:text-sm md:text-base text-gray-800">
-                      {farm.name}
-                    </h4>
-                    <div className="flex items-center space-x-0.5 sm:space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {/* Decorative corner accent for mobile */}
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-grass-100/40 to-transparent rounded-bl-3xl sm:hidden"></div>
+
+                  <div className="relative flex items-start justify-between gap-2.5 sm:gap-2">
+                    <div className="flex-1 min-w-0">
+                      {/* Farm name and badge */}
+                      <div className="flex items-center gap-2 mb-2 sm:mb-2">
+                        <h4 className="font-bold text-sm sm:text-base md:text-lg text-gray-900 truncate">
+                          {farm.name}
+                        </h4>
+                        <Badge
+                          variant="secondary"
+                          className="text-[10px] sm:text-xs font-semibold bg-grass-100 text-grass-700 border-grass-200 px-2 py-0.5 flex-shrink-0"
+                        >
+                          {farm.cropType}
+                        </Badge>
+                      </div>
+
+                      {/* Farm details */}
+                      <div className="space-y-1.5 sm:space-y-1">
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-1 h-1 rounded-full bg-grass-500 sm:hidden"></div>
+                          <p className="text-xs sm:text-sm font-medium text-gray-700">
+                            {farm.size} {farm.unit}
+                          </p>
+                        </div>
+                        {farm.location && (
+                          <div className="flex items-center gap-1.5">
+                            <div className="w-1 h-1 rounded-full bg-blue-400 sm:hidden"></div>
+                            <p className="text-[11px] sm:text-xs text-gray-600 flex items-center gap-1">
+                              <span className="text-sm">📍</span>
+                              {farm.location}
+                            </p>
+                          </div>
+                        )}
+                        {farm.sowingDate && (
+                          <div className="flex items-center gap-1.5">
+                            <div className="w-1 h-1 rounded-full bg-green-400 sm:hidden"></div>
+                            <p className="text-[11px] sm:text-xs text-gray-600 flex items-center gap-1">
+                              <span className="text-sm">🌱</span>
+                              Sown:{" "}
+                              {new Date(farm.sowingDate).toLocaleDateString()}
+                            </p>
+                          </div>
+                        )}
+                        <div className="flex items-center gap-1.5 pt-0.5">
+                          <div className="w-1 h-1 rounded-full bg-gray-300 sm:hidden"></div>
+                          <p className="text-[10px] sm:text-xs text-gray-400 italic">
+                            Added:{" "}
+                            {new Date(farm.createdAt).toLocaleDateString()}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Action buttons */}
+                    <div className="flex sm:items-center sm:space-x-1 flex-col sm:flex-row gap-1 sm:gap-0 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
                       <Button
                         size="sm"
                         variant="ghost"
@@ -695,9 +747,9 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                           e.stopPropagation();
                           handleEditFarm(farm);
                         }}
-                        className="h-5 w-5 sm:h-6 sm:w-6 p-0 hover:bg-blue-100"
+                        className="h-7 w-7 sm:h-6 sm:w-6 p-0 hover:bg-blue-50 rounded-lg transition-colors"
                       >
-                        <Edit className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-blue-600" />
+                        <Edit className="h-3.5 w-3.5 sm:h-3 sm:w-3 text-blue-600" />
                       </Button>
                       <Button
                         size="sm"
@@ -706,36 +758,12 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                           e.stopPropagation();
                           setDeletingFarm(farm);
                         }}
-                        className="h-5 w-5 sm:h-6 sm:w-6 p-0 hover:bg-red-100"
+                        className="h-7 w-7 sm:h-6 sm:w-6 p-0 hover:bg-red-50 rounded-lg transition-colors"
                       >
-                        <Trash2 className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-red-600" />
+                        <Trash2 className="h-3.5 w-3.5 sm:h-3 sm:w-3 text-red-600" />
                       </Button>
                     </div>
                   </div>
-                  <div className="mb-1.5 sm:mb-2">
-                    <Badge
-                      variant="secondary"
-                      className="text-[9px] sm:text-[10px] md:text-xs border px-1.5 py-0 sm:px-2 sm:py-0.5"
-                    >
-                      {farm.cropType}
-                    </Badge>
-                  </div>
-                  <p className="text-[10px] sm:text-xs md:text-sm text-gray-600 mb-0.5 sm:mb-1">
-                    {t("dashboard.size")}: {farm.size} {farm.unit}
-                  </p>
-                  {farm.location && (
-                    <p className="text-[10px] sm:text-xs text-gray-500 mb-1 sm:mb-2">
-                      📍 {farm.location}
-                    </p>
-                  )}
-                  {farm.sowingDate && (
-                    <p className="text-[10px] sm:text-xs text-gray-500 mb-1 sm:mb-2">
-                      🌱 Sown: {new Date(farm.sowingDate).toLocaleDateString()}
-                    </p>
-                  )}
-                  <p className="text-[9px] sm:text-[10px] md:text-xs text-gray-400">
-                    Added: {new Date(farm.createdAt).toLocaleDateString()}
-                  </p>
                 </div>
               ))}
             </div>
@@ -909,14 +937,14 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
         id="recommendation-history"
         className="border-0 shadow-lg hover:shadow-xl transition-all duration-300"
       >
-        <CardHeader className="px-4 sm:px-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
+        <CardHeader className="px-3 py-2.5 sm:px-6 sm:py-4">
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <div className="flex-1">
+              <CardTitle className="flex items-center space-x-1.5 sm:space-x-2 text-base sm:text-lg md:text-xl">
                 <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-grass-600" />
                 <span>{t("dashboard.recommendationHistory")}</span>
               </CardTitle>
-              <CardDescription className="text-sm sm:text-base">
+              <CardDescription className="text-[11px] sm:text-sm md:text-base mt-0.5 sm:mt-1">
                 {selectedFarmForRecs
                   ? `Showing recommendations for ${selectedFarmForRecs.name}`
                   : t("dashboard.recommendationHistoryDescription")}
@@ -927,14 +955,14 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                 size="sm"
                 variant="outline"
                 onClick={() => setSelectedFarmForRecs(null)}
-                className="text-xs"
+                className="text-[10px] sm:text-xs h-6 sm:h-8 px-2 sm:px-3"
               >
                 Show All
               </Button>
             )}
           </div>
         </CardHeader>
-        <CardContent className="px-4 sm:px-6">
+        <CardContent className="px-3 py-2.5 sm:px-6 sm:py-4">
           {recommendationsLoading ? (
             <div className="flex items-center justify-center py-8">
               <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-grass-600"></div>
@@ -943,35 +971,35 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
               </span>
             </div>
           ) : recommendations.length > 0 ? (
-            <div className="space-y-4">
+            <div className="space-y-2.5 sm:space-y-4">
               {recommendations.map((recommendation, index) => (
                 <div
                   key={recommendation.id}
                   onClick={() => openFullReport(recommendation)}
                   role="button"
-                  className="flex flex-col p-3 sm:p-4 border border-gray-200 rounded-lg bg-gradient-to-r from-white to-gray-50 hover:shadow-md transition-all duration-300 hover:scale-102 cursor-pointer"
+                  className="flex flex-col p-2.5 sm:p-4 border border-gray-200 rounded-lg bg-gradient-to-r from-white to-gray-50 hover:shadow-md transition-all duration-300 hover:scale-102 cursor-pointer"
                   style={{ animationDelay: `${index * 150}ms` }}
                 >
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-semibold text-sm sm:text-base text-gray-800">
+                  <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                    <h4 className="font-semibold text-xs sm:text-sm md:text-base text-gray-800">
                       {recommendation.fieldName || recommendation.cropType}
                     </h4>
                     <Leaf className="h-4 w-4 sm:h-5 sm:w-5 text-grass-600 animate-pulse" />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 mb-2">
-                    <div className="text-xs sm:text-sm text-gray-600">
+                  <div className="grid grid-cols-2 gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                    <div className="text-[10px] sm:text-xs md:text-sm text-gray-600">
                       <span className="font-medium text-gray-700">Crop:</span>{" "}
                       {recommendation.cropType}
                     </div>
-                    <div className="text-xs sm:text-sm text-gray-600">
+                    <div className="text-[10px] sm:text-xs md:text-sm text-gray-600">
                       <span className="font-medium text-gray-700">Size:</span>{" "}
                       {recommendation.fieldSize} {recommendation.fieldSizeUnit}
                     </div>
                   </div>
 
-                  <div className="mb-2">
-                    <p className="text-xs sm:text-sm text-gray-600">
+                  <div className="mb-1.5 sm:mb-2">
+                    <p className="text-[10px] sm:text-xs md:text-sm text-gray-600 leading-tight sm:leading-normal">
                       <span className="font-medium text-grass-700">
                         {t("dashboard.primary")}:
                       </span>{" "}
@@ -990,16 +1018,19 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                   </div>
 
                   {recommendation.mlPredictions && (
-                    <div className="flex items-center space-x-2 mb-2">
+                    <div className="flex items-center flex-wrap gap-1 sm:gap-2 mb-1.5 sm:mb-2">
                       {recommendation.mlPredictions.N_Status && (
-                        <Badge variant="outline" className="text-xs bg-blue-50">
+                        <Badge
+                          variant="outline"
+                          className="text-[9px] sm:text-xs bg-blue-50 px-1.5 py-0 sm:px-2 sm:py-0.5"
+                        >
                           N: {recommendation.mlPredictions.N_Status}
                         </Badge>
                       )}
                       {recommendation.mlPredictions.P_Status && (
                         <Badge
                           variant="outline"
-                          className="text-xs bg-purple-50"
+                          className="text-[9px] sm:text-xs bg-purple-50 px-1.5 py-0 sm:px-2 sm:py-0.5"
                         >
                           P: {recommendation.mlPredictions.P_Status}
                         </Badge>
@@ -1007,7 +1038,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                       {recommendation.mlPredictions.K_Status && (
                         <Badge
                           variant="outline"
-                          className="text-xs bg-orange-50"
+                          className="text-[9px] sm:text-xs bg-orange-50 px-1.5 py-0 sm:px-2 sm:py-0.5"
                         >
                           K: {recommendation.mlPredictions.K_Status}
                         </Badge>
@@ -1015,7 +1046,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                     </div>
                   )}
 
-                  <p className="text-xs text-gray-500">
+                  <p className="text-[9px] sm:text-xs text-gray-500">
                     {new Date(recommendation.createdAt).toLocaleString()}
                   </p>
                 </div>

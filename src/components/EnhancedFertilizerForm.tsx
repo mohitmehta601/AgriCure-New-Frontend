@@ -629,26 +629,6 @@ const EnhancedFertilizerForm = ({
                 </div>
                 <div className="space-y-1 sm:space-y-1.5">
                   <Label
-                    htmlFor="electricalConductivity"
-                    className="text-[11px] sm:text-xs md:text-sm font-medium text-blue-700"
-                  >
-                    Electrical Conductivity (μS/cm) *
-                  </Label>
-                  <Input
-                    id="electricalConductivity"
-                    type="number"
-                    step="0.01"
-                    placeholder="e.g., 0.5"
-                    value={formData.electricalConductivity}
-                    onChange={(e) =>
-                      handleChange("electricalConductivity", e.target.value)
-                    }
-                    required
-                    className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 sm:h-9 text-xs sm:text-sm"
-                  />
-                </div>
-                <div className="space-y-1 sm:space-y-1.5 col-span-2">
-                  <Label
                     htmlFor="soilTemperature"
                     className="text-[11px] sm:text-xs md:text-sm font-medium text-blue-700"
                   >
@@ -662,6 +642,26 @@ const EnhancedFertilizerForm = ({
                     value={formData.soilTemperature}
                     onChange={(e) =>
                       handleChange("soilTemperature", e.target.value)
+                    }
+                    required
+                    className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 sm:h-9 text-xs sm:text-sm"
+                  />
+                </div>
+                <div className="space-y-1 sm:space-y-1.5 col-span-2">
+                  <Label
+                    htmlFor="electricalConductivity"
+                    className="text-[11px] sm:text-xs md:text-sm font-medium text-blue-700"
+                  >
+                    Electrical Conductivity (μS/cm) *
+                  </Label>
+                  <Input
+                    id="electricalConductivity"
+                    type="number"
+                    step="0.01"
+                    placeholder="e.g., 0.5"
+                    value={formData.electricalConductivity}
+                    onChange={(e) =>
+                      handleChange("electricalConductivity", e.target.value)
                     }
                     required
                     className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 sm:h-9 text-xs sm:text-sm"

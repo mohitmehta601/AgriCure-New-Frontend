@@ -143,20 +143,20 @@ const MLModelStatus = () => {
 
             {/* Fertilizer Recommendation Model */}
             {modelStatus.fertilizerRecommendation && (
-              <div className="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg border-2 border-blue-200">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-blue-100 rounded-full">
-                    <FlaskConical className="h-5 w-5 text-blue-700" />
+              <div className="p-3 sm:p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg border-2 border-blue-200">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <div className="p-1.5 sm:p-2 bg-blue-100 rounded-full">
+                    <FlaskConical className="h-4 w-4 sm:h-5 sm:w-5 text-blue-700" />
                   </div>
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-blue-900">
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-semibold text-xs sm:text-sm md:text-base text-blue-900 truncate">
                       Fertilizer Recommendation Model
                     </h4>
-                    <p className="text-xs text-blue-700">
+                    <p className="text-[10px] sm:text-xs text-blue-700">
                       Provides nutrient-based fertilizer recommendations
                     </p>
                   </div>
-                  <CheckCircle className="h-5 w-5 text-blue-600" />
+                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 flex-shrink-0" />
                 </div>
               </div>
             )}

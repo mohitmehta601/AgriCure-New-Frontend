@@ -6,12 +6,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  Leaf,
-  Target,
-  BarChart3,
-  Users,
+  Radio,
+  Brain,
+  PiggyBank,
+  Sprout,
   Smartphone,
-  Shield,
+  Heart,
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -21,45 +21,45 @@ const Features = () => {
   const features = [
     {
       icon: (
-        <Target className="h-5 xs:h-6 sm:h-7 md:h-8 w-5 xs:w-6 sm:w-7 md:w-8 text-grass-600" />
+        <Radio className="h-5 xs:h-6 sm:h-7 md:h-8 w-5 xs:w-6 sm:w-7 md:w-8 text-grass-600" />
       ),
-      title: t("features.preciseAnalysis.title"),
-      description: t("features.preciseAnalysis.description"),
+      title: t("features.sensorDriven.title"),
+      description: t("features.sensorDriven.description"),
     },
     {
       icon: (
-        <Leaf className="h-5 xs:h-6 sm:h-7 md:h-8 w-5 xs:w-6 sm:w-7 md:w-8 text-grass-600" />
+        <Brain className="h-5 xs:h-6 sm:h-7 md:h-8 w-5 xs:w-6 sm:w-7 md:w-8 text-grass-600" />
       ),
-      title: t("features.smartRecommendations.title"),
-      description: t("features.smartRecommendations.description"),
+      title: t("features.aiFertilizer.title"),
+      description: t("features.aiFertilizer.description"),
     },
     {
       icon: (
-        <BarChart3 className="h-5 xs:h-6 sm:h-7 md:h-8 w-5 xs:w-6 sm:w-7 md:w-8 text-grass-600" />
+        <PiggyBank className="h-5 xs:h-6 sm:h-7 md:h-8 w-5 xs:w-6 sm:w-7 md:w-8 text-grass-600" />
       ),
-      title: t("features.yieldTracking.title"),
-      description: t("features.yieldTracking.description"),
+      title: t("features.reduceInputCost.title"),
+      description: t("features.reduceInputCost.description"),
+    },
+    {
+      icon: (
+        <Sprout className="h-5 xs:h-6 sm:h-7 md:h-8 w-5 xs:w-6 sm:w-7 md:w-8 text-grass-600" />
+      ),
+      title: t("features.cropSpecific.title"),
+      description: t("features.cropSpecific.description"),
     },
     {
       icon: (
         <Smartphone className="h-5 xs:h-6 sm:h-7 md:h-8 w-5 xs:w-6 sm:w-7 md:w-8 text-grass-600" />
       ),
-      title: t("features.mobileDesign.title"),
-      description: t("features.mobileDesign.description"),
+      title: t("features.farmerFirst.title"),
+      description: t("features.farmerFirst.description"),
     },
     {
       icon: (
-        <Users className="h-5 xs:h-6 sm:h-7 md:h-8 w-5 xs:w-6 sm:w-7 md:w-8 text-grass-600" />
+        <Heart className="h-5 xs:h-6 sm:h-7 md:h-8 w-5 xs:w-6 sm:w-7 md:w-8 text-grass-600" />
       ),
-      title: t("features.expertSupport.title"),
-      description: t("features.expertSupport.description"),
-    },
-    {
-      icon: (
-        <Shield className="h-5 xs:h-6 sm:h-7 md:h-8 w-5 xs:w-6 sm:w-7 md:w-8 text-grass-600" />
-      ),
-      title: t("features.dataSecurity.title"),
-      description: t("features.dataSecurity.description"),
+      title: t("features.smallFarmers.title"),
+      description: t("features.smallFarmers.description"),
     },
   ];
 
@@ -69,29 +69,29 @@ const Features = () => {
       className="py-8 xs:py-10 sm:py-12 md:py-16 lg:py-20 bg-white"
     >
       <div className="container mx-auto px-3 xs:px-4 sm:px-6">
-        <div className="text-center mb-8 xs:mb-10 sm:mb-12 md:mb-16">
-          <h2 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 xs:mb-4 leading-tight">
+        <div className="text-center mb-6 xs:mb-8 sm:mb-12 md:mb-16">
+          <h2 className="text-lg xs:text-xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 xs:mb-3 leading-tight">
             {t("features.title")}
           </h2>
-          <p className="text-sm xs:text-base sm:text-lg md:text-xl text-gray-600 max-w-sm xs:max-w-lg sm:max-w-xl md:max-w-2xl mx-auto leading-relaxed px-2 xs:px-0">
+          <p className="text-xs xs:text-sm sm:text-lg md:text-xl text-gray-600 max-w-sm xs:max-w-lg sm:max-w-xl md:max-w-2xl mx-auto leading-relaxed px-2 xs:px-0">
             {t("features.subtitle")}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xs:gap-5 sm:gap-6 md:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 xs:gap-3 sm:gap-6 md:gap-8">
           {features.map((feature, index) => (
             <Card
               key={index}
               className="hover:shadow-lg transition-shadow duration-300 border-0 shadow-md h-full hover:scale-105"
             >
-              <CardHeader className="pb-3 xs:pb-4 p-4 xs:p-5 sm:p-6">
-                <div className="mb-3 xs:mb-4">{feature.icon}</div>
-                <CardTitle className="text-base xs:text-lg sm:text-xl text-gray-900 leading-tight">
+              <CardHeader className="pb-2 xs:pb-3 sm:pb-4 p-2.5 xs:p-4 sm:p-6">
+                <div className="mb-2 xs:mb-3">{feature.icon}</div>
+                <CardTitle className="text-xs xs:text-sm sm:text-lg md:text-xl text-gray-900 leading-tight">
                   {feature.title}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="pt-0 p-4 xs:p-5 sm:p-6">
-                <CardDescription className="text-gray-600 text-xs xs:text-sm sm:text-base leading-relaxed">
+              <CardContent className="pt-0 p-2.5 xs:p-4 sm:p-6">
+                <CardDescription className="text-gray-600 text-[10px] xs:text-xs sm:text-sm md:text-base leading-relaxed">
                   {feature.description}
                 </CardDescription>
               </CardContent>

@@ -1,12 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useLanguage();
 
   const scrollToSection = (sectionId: string) => {
@@ -17,7 +14,6 @@ const Navbar = () => {
         block: "start",
       });
     }
-    setIsMenuOpen(false);
   };
 
   return (
@@ -76,6 +72,7 @@ const Navbar = () => {
           </div>
 
           <div className="flex md:hidden items-center space-x-1 xs:space-x-2">
+            <LanguageSwitcher />
             <Button
               asChild
               variant="ghost"
@@ -92,53 +89,7 @@ const Navbar = () => {
               <Link to="/signup">{t("nav.start")}</Link>
             </Button>
           </div>
-
-          <button
-            className="lg:hidden p-1 xs:p-2 ml-1 xs:ml-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle navigation menu"
-          >
-            {isMenuOpen ? (
-              <X className="h-5 xs:h-6 w-5 xs:w-6 text-gray-700" />
-            ) : (
-              <Menu className="h-5 xs:h-6 w-5 xs:w-6 text-gray-700" />
-            )}
-          </button>
         </div>
-
-        {isMenuOpen && (
-          <div className="lg:hidden mt-3 xs:mt-4 pb-3 xs:pb-4 border-t border-gray-200">
-            <div className="flex flex-col space-y-3 xs:space-y-4 pt-3 xs:pt-4">
-              <button
-                onClick={() => scrollToSection("home")}
-                className="text-left text-gray-700 hover:text-grass-600 transition-colors font-medium py-2 text-sm xs:text-base"
-              >
-                {t("nav.home")}
-              </button>
-              <button
-                onClick={() => scrollToSection("features")}
-                className="text-left text-gray-700 hover:text-grass-600 transition-colors font-medium py-2 text-sm xs:text-base"
-              >
-                {t("nav.features")}
-              </button>
-              <button
-                onClick={() => scrollToSection("how-it-works")}
-                className="text-left text-gray-700 hover:text-grass-600 transition-colors font-medium py-2 text-sm xs:text-base"
-              >
-                {t("nav.howItWorks")}
-              </button>
-
-              <div className="pt-2 border-t border-gray-200 md:hidden">
-                <div className="flex items-center justify-between py-2">
-                  <span className="text-xs xs:text-sm font-medium text-gray-700">
-                    {t("language.select")}
-                  </span>
-                  <LanguageSwitcher />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   );

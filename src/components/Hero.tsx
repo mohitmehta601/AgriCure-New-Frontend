@@ -12,28 +12,29 @@ const Hero = () => {
     >
       <div className="container mx-auto px-3 xs:px-4 sm:px-6">
         <div className="text-center animate-fade-in">
-          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-3 xs:mb-4 md:mb-6 leading-tight">
+          <h1 className="text-3xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-gray-900 mb-3 xs:mb-4 md:mb-6 leading-tight">
             {t("hero.title")}
-            <span className="text-grass-600 block xs:block sm:inline">
+            <span className="bg-gradient-to-r from-grass-600 to-green-600 bg-clip-text text-transparent block xs:block sm:inline">
               {" "}
               {t("hero.titleHighlight")}
             </span>
           </h1>
-          <p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 mb-4 xs:mb-6 md:mb-8 max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-2 xs:px-0">
+          <p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-4 xs:mb-6 md:mb-8 max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-2 xs:px-0">
             {t("hero.subtitle")}
           </p>
           <div className="flex flex-col xs:flex-col sm:flex-row gap-3 xs:gap-4 justify-center animate-slide-up max-w-sm xs:max-w-md sm:max-w-none mx-auto">
             <Button
               asChild
               size="lg"
-              className="bg-grass-600 hover:bg-grass-700 text-sm xs:text-base md:text-lg px-4 xs:px-6 md:px-8 py-3 xs:py-4 md:py-6 w-full sm:w-auto"
+              className="bg-gradient-to-r from-grass-600 to-green-600 hover:from-grass-700 hover:to-green-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-sm xs:text-base md:text-lg px-4 xs:px-6 md:px-8 py-3 xs:py-4 md:py-6 w-full sm:w-auto font-semibold"
             >
               <Link to="/signup">{t("hero.startTrial")}</Link>
             </Button>
             <Button
               asChild
               size="lg"
-              className="bg-grass-600 hover:bg-grass-700 text-sm xs:text-base md:text-lg px-4 xs:px-6 md:px-8 py-3 xs:py-4 md:py-6 w-full sm:w-auto"
+              variant="outline"
+              className="border-2 border-grass-600 text-grass-700 hover:bg-grass-50 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 text-sm xs:text-base md:text-lg px-4 xs:px-6 md:px-8 py-3 xs:py-4 md:py-6 w-full sm:w-auto font-semibold"
             >
               <Link to="/video">{t("hero.viewDemo")}</Link>
             </Button>
@@ -41,29 +42,29 @@ const Hero = () => {
         </div>
 
         <div className="mt-8 xs:mt-10 sm:mt-12 md:mt-16 relative">
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl xs:rounded-2xl shadow-xl xs:shadow-2xl p-4 xs:p-6 md:p-8 max-w-xs xs:max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto animate-slide-up">
-            <div className="grid grid-cols-1 xs:grid-cols-3 gap-3 xs:gap-4 md:gap-6 text-center">
-              <div className="p-2 xs:p-3 md:p-4">
-                <div className="text-xl xs:text-2xl md:text-3xl font-bold text-grass-600 mb-1 xs:mb-2">
-                  95%
+          <div className="bg-white rounded-xl xs:rounded-2xl shadow-2xl border border-gray-100 p-4 xs:p-6 md:p-8 max-w-xs xs:max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto animate-slide-up">
+            <div className="grid grid-cols-1 xs:grid-cols-3 gap-4 xs:gap-6 md:gap-8 text-center">
+              <div className="p-3 xs:p-4 md:p-5 rounded-lg bg-gradient-to-br from-grass-50 to-green-50 border border-grass-100 hover:shadow-md transition-all duration-300">
+                <div className="text-3xl xs:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-grass-600 to-green-600 bg-clip-text text-transparent mb-1 xs:mb-2">
+                  100%
                 </div>
-                <div className="text-gray-600 text-xs xs:text-sm md:text-base leading-tight">
-                  {t("hero.accuracyRate")}
+                <div className="text-gray-700 text-xs xs:text-sm md:text-base font-medium leading-tight">
+                  {t("hero.sensorDriven")}
                 </div>
               </div>
-              <div className="p-2 xs:p-3 md:p-4">
-                <div className="text-xl xs:text-2xl md:text-3xl font-bold text-grass-600 mb-1 xs:mb-2">
+              <div className="p-3 xs:p-4 md:p-5 rounded-lg bg-gradient-to-br from-grass-50 to-green-50 border border-grass-100 hover:shadow-md transition-all duration-300">
+                <div className="text-3xl xs:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-grass-600 to-green-600 bg-clip-text text-transparent mb-1 xs:mb-2">
                   25%
                 </div>
-                <div className="text-gray-600 text-xs xs:text-sm md:text-base leading-tight">
+                <div className="text-gray-700 text-xs xs:text-sm md:text-base font-medium leading-tight">
                   {t("hero.yieldIncrease")}
                 </div>
               </div>
-              <div className="p-2 xs:p-3 md:p-4">
-                <div className="text-xl xs:text-2xl md:text-3xl font-bold text-grass-600 mb-1 xs:mb-2">
-                  10+
+              <div className="p-3 xs:p-4 md:p-5 rounded-lg bg-gradient-to-br from-grass-50 to-green-50 border border-grass-100 hover:shadow-md transition-all duration-300">
+                <div className="text-3xl xs:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-grass-600 to-green-600 bg-clip-text text-transparent mb-1 xs:mb-2">
+                  15+
                 </div>
-                <div className="text-gray-600 text-xs xs:text-sm md:text-base leading-tight">
+                <div className="text-gray-700 text-xs xs:text-sm md:text-base font-medium leading-tight">
                   {t("hero.cropTypesSupported")}
                 </div>
               </div>

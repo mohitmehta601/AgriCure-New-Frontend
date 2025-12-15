@@ -680,61 +680,43 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
               {farms.map((farm, index) => (
                 <div
                   key={farm.id}
-                  className="relative p-3 sm:p-4 border-2 border-grass-100 sm:border-gray-200 rounded-xl bg-gradient-to-br from-white via-green-50/30 to-grass-50/20 sm:from-white sm:to-gray-50 hover:shadow-xl hover:border-grass-200 transition-all duration-300 group"
+                  className="p-3 sm:p-4 border border-gray-200 rounded-lg sm:rounded-xl bg-white sm:bg-gradient-to-br sm:from-white sm:to-gray-50 hover:shadow-md sm:hover:shadow-xl hover:border-gray-300 transition-all duration-300 group"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  {/* Decorative corner accent for mobile */}
-                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-grass-100/40 to-transparent rounded-bl-3xl sm:hidden"></div>
-
-                  <div className="relative flex items-start justify-between gap-2.5 sm:gap-2">
+                  <div className="flex items-start justify-between gap-2.5 sm:gap-2">
                     <div className="flex-1 min-w-0">
                       {/* Farm name and badge */}
-                      <div className="flex items-center gap-2 mb-2 sm:mb-2">
-                        <h4 className="font-bold text-sm sm:text-base md:text-lg text-gray-900 truncate">
+                      <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
+                        <h4 className="font-semibold text-sm sm:text-base md:text-lg text-gray-900 truncate">
                           {farm.name}
                         </h4>
                         <Badge
                           variant="secondary"
-                          className="text-[10px] sm:text-xs font-semibold bg-grass-100 text-grass-700 border-grass-200 px-2 py-0.5 flex-shrink-0"
+                          className="text-[10px] sm:text-xs bg-gray-100 text-gray-700 border-gray-200 px-2 py-0.5 flex-shrink-0"
                         >
                           {farm.cropType}
                         </Badge>
                       </div>
 
                       {/* Farm details */}
-                      <div className="space-y-1.5 sm:space-y-1">
-                        <div className="flex items-center gap-1.5">
-                          <div className="w-1 h-1 rounded-full bg-grass-500 sm:hidden"></div>
-                          <p className="text-xs sm:text-sm font-medium text-gray-700">
-                            {farm.size} {farm.unit}
-                          </p>
-                        </div>
+                      <div className="space-y-0.5 sm:space-y-1 text-gray-600">
+                        <p className="text-xs sm:text-sm">
+                          {farm.size} {farm.unit}
+                        </p>
                         {farm.location && (
-                          <div className="flex items-center gap-1.5">
-                            <div className="w-1 h-1 rounded-full bg-blue-400 sm:hidden"></div>
-                            <p className="text-[11px] sm:text-xs text-gray-600 flex items-center gap-1">
-                              <span className="text-sm">📍</span>
-                              {farm.location}
-                            </p>
-                          </div>
+                          <p className="text-[11px] sm:text-xs text-gray-500">
+                            {farm.location}
+                          </p>
                         )}
                         {farm.sowingDate && (
-                          <div className="flex items-center gap-1.5">
-                            <div className="w-1 h-1 rounded-full bg-green-400 sm:hidden"></div>
-                            <p className="text-[11px] sm:text-xs text-gray-600 flex items-center gap-1">
-                              <span className="text-sm">🌱</span>
-                              Sown:{" "}
-                              {new Date(farm.sowingDate).toLocaleDateString()}
-                            </p>
-                          </div>
-                        )}
-                        <div className="flex items-center gap-1.5 pt-0.5">
-                          <div className="w-1 h-1 rounded-full bg-gray-300 sm:hidden"></div>
-                          <p className="text-[10px] sm:text-xs text-gray-400 italic">
-                            Added:{" "}
-                            {new Date(farm.createdAt).toLocaleDateString()}
+                          <p className="text-[11px] sm:text-xs text-gray-500">
+                            Sown:{" "}
+                            {new Date(farm.sowingDate).toLocaleDateString()}
                           </p>
-                        </div>
+                        )}
+                        <p className="text-[10px] sm:text-xs text-gray-400">
+                          Added: {new Date(farm.createdAt).toLocaleDateString()}
+                        </p>
                       </div>
                     </div>
 
@@ -747,9 +729,9 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                           e.stopPropagation();
                           handleEditFarm(farm);
                         }}
-                        className="h-7 w-7 sm:h-6 sm:w-6 p-0 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="h-6 w-6 sm:h-6 sm:w-6 p-0 hover:bg-gray-100 rounded transition-colors"
                       >
-                        <Edit className="h-3.5 w-3.5 sm:h-3 sm:w-3 text-blue-600" />
+                        <Edit className="h-3.5 w-3.5 sm:h-3 sm:w-3 text-gray-600" />
                       </Button>
                       <Button
                         size="sm"
@@ -758,9 +740,9 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                           e.stopPropagation();
                           setDeletingFarm(farm);
                         }}
-                        className="h-7 w-7 sm:h-6 sm:w-6 p-0 hover:bg-red-50 rounded-lg transition-colors"
+                        className="h-6 w-6 sm:h-6 sm:w-6 p-0 hover:bg-gray-100 rounded transition-colors"
                       >
-                        <Trash2 className="h-3.5 w-3.5 sm:h-3 sm:w-3 text-red-600" />
+                        <Trash2 className="h-3.5 w-3.5 sm:h-3 sm:w-3 text-gray-600" />
                       </Button>
                     </div>
                   </div>

@@ -221,7 +221,7 @@ const translations = {
       "Get personalized fertilizer recommendations based on your soil analysis. Maximize your crop yields with data-driven farming decisions.",
     "hero.startTrial": "Start Free Trial",
     "hero.viewDemo": "View Demo",
-    "hero.accuracyRate": "Accuracy Rate",
+    "hero.sensorDriven": "Sensor-Driven Analysis",
     "hero.yieldIncrease": "Yield Increase",
     "hero.cropTypesSupported": "Crop Types Supported",
 
@@ -229,24 +229,30 @@ const translations = {
     "features.title": "Everything You Need for Smart Farming",
     "features.subtitle":
       "Our comprehensive platform provides all the tools and insights you need to optimize your farming operations.",
-    "features.preciseAnalysis.title": "Precise Soil Analysis",
-    "features.preciseAnalysis.description":
-      "Get detailed insights into your soil's pH, nitrogen, phosphorus, potassium, and moisture levels for accurate recommendations.",
-    "features.smartRecommendations.title": "Smart Fertilizer Recommendations",
-    "features.smartRecommendations.description":
-      "Receive personalized fertilizer suggestions based on your specific soil conditions and crop requirements.",
-    "features.yieldTracking.title": "Yield Tracking",
-    "features.yieldTracking.description":
-      "Monitor your crop performance and track improvements over time with our comprehensive analytics dashboard.",
-    "features.mobileDesign.title": "Mobile-First Design",
-    "features.mobileDesign.description":
-      "Access your farm data anywhere, anytime with our responsive design optimized for mobile devices.",
-    "features.expertSupport.title": "Expert Support",
-    "features.expertSupport.description":
-      "Get guidance from agricultural experts and connect with a community of successful farmers.",
-    "features.dataSecurity.title": "Data Security",
-    "features.dataSecurity.description":
-      "Your farm data is protected with enterprise-grade security and privacy measures.",
+    "features.sensorDriven.title": "Sensor-Driven Soil Testing",
+    "features.sensorDriven.description":
+      "AgriCure uses on-field smart sensors (NPK, pH, moisture, temperature) instead of lab reports for real-time soil health data.",
+    "features.aiFertilizer.title": "AI Fertilizer & Nutrient Planning",
+    "features.aiFertilizer.description":
+      "Get exact fertilizer dose, type, and timing (chemical + organic) based on live soil readings and crop needs.",
+    "features.reduceInputCost.title": "Reduce Input Cost, Not Yield",
+    "features.reduceInputCost.description":
+      "Avoid overuse of urea and DAP by applying only what the crop actually needs.",
+    "features.cropSpecific.title": "Crop-Specific Intelligence",
+    "features.cropSpecific.description":
+      "Recommendations automatically adapt to crop type, soil condition, and growth stage.",
+    "features.waterSoilHealth.title": "Water & Soil Health Protection",
+    "features.waterSoilHealth.description":
+      "Balanced nutrient application prevents soil degradation and groundwater pollution.",
+    "features.farmerFirst.title": "Farmer-First Mobile Experience",
+    "features.farmerFirst.description":
+      "Simple, mobile-friendly app with easy insights, built for farmers—not complex dashboards.",
+    "features.smallFarmers.title": "Works Even for Small Farmers",
+    "features.smallFarmers.description":
+      "Designed to support small and marginal farmers with affordable, practical solutions.",
+    "features.dataOwnership.title": "Data You Own, Always",
+    "features.dataOwnership.description":
+      "Farmer data remains private, secure, and is never sold.",
 
     // CTA Section
     "cta.title": "Ready to Transform Your Farming?",
@@ -260,18 +266,18 @@ const translations = {
     "howItWorks.subtitle":
       "From sensor deployment to actionable recommendations in four simple steps",
     "howItWorks.step": "STEP",
-    "howItWorks.deploySensors.title": "Deploy Sensors",
-    "howItWorks.deploySensors.description":
-      "Install IoT sensors across your fields to monitor soil conditions in real-time.",
-    "howItWorks.streamData.title": "Stream Data to Cloud",
-    "howItWorks.streamData.description":
-      "Sensor data is automatically transmitted to our secure cloud platform for processing.",
-    "howItWorks.mlRecommends.title": "ML Recommends Dosage",
-    "howItWorks.mlRecommends.description":
-      "Our AI analyzes your data and generates precise fertilizer recommendations.",
-    "howItWorks.applyDashboard.title": "Apply via Dashboard",
-    "howItWorks.applyDashboard.description":
-      "Receive actionable insights through your dashboard or Variable Rate Application system.",
+    "howItWorks.collectSamples.title": "Collect Soil Samples",
+    "howItWorks.collectSamples.description":
+      "Collect about 1 kg of soil from multiple locations across the field to represent overall soil conditions accurately.",
+    "howItWorks.sensorAnalysis.title": "Sensor-Based Soil Analysis",
+    "howItWorks.sensorAnalysis.description":
+      "The collected soil is analyzed using AgriCure's smart sensors to measure NPK, pH, moisture, temperature, and EC.",
+    "howItWorks.aiProcessing.title": "AI & ML Data Processing",
+    "howItWorks.aiProcessing.description":
+      "AgriCure's AI models analyze soil data along with crop type, soil condition, and growth stage to compute optimal nutrient requirements.",
+    "howItWorks.fertilizerPlan.title": "Get Actionable Fertilizer Plan",
+    "howItWorks.fertilizerPlan.description":
+      "Farmers receive a clear fertilizer plan with recommended fertilizer type, exact dosage, and application timing.",
 
     // Footer
     "footer.tagline":
@@ -594,7 +600,7 @@ const translations = {
       "अपने मिट्टी विश्लेषण के आधार पर व्यक्तिगत उर्वरक सिफारिशें प्राप्त करें। डेटा-संचालित खेती निर्णयों के साथ अपनी फसल की पैदावार को अधिकतम करें।",
     "hero.startTrial": "मुफ्त परीक्षण शुरू करें",
     "hero.viewDemo": "डेमो देखें",
-    "hero.accuracyRate": "सटीकता दर",
+    "hero.sensorDriven": "सेंसर-आधारित विश्लेषण",
     "hero.yieldIncrease": "उपज में वृद्धि",
     "hero.cropTypesSupported": "फसल प्रकार समर्थित",
 
@@ -961,7 +967,7 @@ const translations = {
       "ਆਪਣੇ ਮਿੱਟੀ ਵਿਸ਼ਲੇਸ਼ਣ ਦੇ ਆਧਾਰ ਤੇ ਨਿੱਜੀ ਖਾਦ ਸਿਫਾਰਸ਼ਾਂ ਪ੍ਰਾਪਤ ਕਰੋ। ਡੇਟਾ-ਆਧਾਰਿਤ ਖੇਤੀਬਾੜੀ ਫੈਸਲਿਆਂ ਨਾਲ ਆਪਣੀ ਫਸਲ ਦੀ ਪੈਦਾਵਾਰ ਨੂੰ ਵੱਧ ਤੋਂ ਵੱਧ ਕਰੋ।",
     "hero.startTrial": "ਮੁਫਤ ਟਰਾਇਲ ਸ਼ੁਰੂ ਕਰੋ",
     "hero.viewDemo": "ਡੇਮੋ ਦੇਖੋ",
-    "hero.accuracyRate": "ਸ਼ੁੱਧਤਾ ਦਰ",
+    "hero.sensorDriven": "ਸੈਂਸਰ-ਆਧਾਰਿਤ ਵਿਸ਼ਲੇਸ਼ਣ",
     "hero.yieldIncrease": "ਫਸਲ ਵਾਧਾ",
     "hero.cropTypesSupported": "ਫਸਲ ਦੀਆਂ ਕਿਸਮਾਂ ਸਮਰਥਿਤ",
 

@@ -197,21 +197,26 @@ const DetailedRecommendationsPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8">
         {/* Header */}
-        <div className="mb-6 flex items-center justify-between">
-          <Button
-            variant="outline"
-            onClick={() => navigate(isFromHistory ? "/dashboard" : -1)}
-            className="gap-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to {isFromHistory ? "Dashboard" : "Form"}
-          </Button>
-          <h1 className="text-2xl font-bold text-gray-900">
+        <div className="mb-4 sm:mb-6">
+          <div className="flex items-center justify-between mb-3 sm:mb-0">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate(isFromHistory ? "/dashboard" : -1)}
+              className="gap-1 sm:gap-2 text-xs sm:text-sm"
+            >
+              <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">
+                Back to {isFromHistory ? "Dashboard" : "Form"}
+              </span>
+              <span className="sm:hidden">Back</span>
+            </Button>
+          </div>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 text-center mt-2 sm:mt-0">
             Fertilizer Recommendations
           </h1>
-          <div className="w-[140px]"></div> {/* Spacer for centering */}
         </div>
 
         {/* Full Recommendations */}

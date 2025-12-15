@@ -479,44 +479,44 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
     <div className="space-y-4">
       {/* Current Soil Report Card */}
       <Card className="border-0 shadow-sm bg-white rounded-xl overflow-hidden">
-        <CardHeader className="px-5 py-4 border-b border-gray-100">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-xl font-semibold text-gray-800 flex items-center gap-2">
-              <Activity className="h-6 w-6 text-grass-600" />
+        <CardHeader className="px-3 py-3 sm:px-5 sm:py-4 border-b border-gray-100">
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <CardTitle className="text-base sm:text-xl font-semibold text-gray-800 flex items-center gap-2">
+              <Activity className="h-5 w-5 sm:h-6 sm:w-6 text-grass-600" />
               Current Soil Report
             </CardTitle>
             {soilHealthResult && (
               <Badge
-                className={`${soilHealthResult.categoryColor} text-sm px-3 py-1 font-semibold`}
+                className={`${soilHealthResult.categoryColor} text-xs sm:text-sm px-2 py-0.5 sm:px-3 sm:py-1 font-semibold`}
               >
                 {soilHealthResult.category}
               </Badge>
             )}
           </div>
           {soilData && (
-            <p className="text-xs text-gray-400 flex items-center gap-1 mt-1.5">
+            <p className="text-[10px] sm:text-xs text-gray-400 flex items-center gap-1 mt-1.5">
               <Clock className="h-3 w-3" />
               {new Date(soilData.timestamp).toLocaleString()}
             </p>
           )}
         </CardHeader>
-        <CardContent className="p-5 space-y-4">
+        <CardContent className="p-3 sm:p-5 space-y-3 sm:space-y-4">
           {/* Overall Soil Health */}
           {soilHealthResult && (
-            <div className="bg-gradient-to-br from-grass-50 to-emerald-50 rounded-xl p-4 border border-grass-100">
+            <div className="bg-gradient-to-br from-grass-50 to-emerald-50 rounded-xl p-3 sm:p-4 border border-grass-100">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-base font-semibold text-grass-700">
+                <span className="text-sm sm:text-base font-semibold text-grass-700">
                   Overall Soil Health
                 </span>
-                <span className="text-3xl font-bold text-grass-800">
+                <span className="text-2xl sm:text-3xl font-bold text-grass-800">
                   {soilHealthResult.overallScore}%
                 </span>
               </div>
               <Progress
                 value={soilHealthResult.overallScore}
-                className="h-3 bg-white/50"
+                className="h-2 sm:h-3 bg-white/50"
               />
-              <p className="text-sm text-grass-600 mt-2 leading-relaxed">
+              <p className="text-xs sm:text-sm text-grass-600 mt-2 leading-relaxed">
                 {soilHealthResult.recommendations}
               </p>
             </div>
@@ -531,61 +531,63 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                   Soil Data
                 </h3>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                <div className="bg-green-50/50 rounded-lg p-2.5 border border-green-100 hover:shadow-sm transition-all flex items-center justify-between">
-                  <p className="text-xs font-medium text-green-700">
+              <div className="grid grid-cols-2 gap-2 sm:gap-2.5 md:grid-cols-4">
+                <div className="bg-green-50/50 rounded-lg p-2 sm:p-2.5 border border-green-100 hover:shadow-sm transition-all">
+                  <p className="text-[10px] sm:text-xs font-medium text-green-700 mb-0.5">
                     Nitrogen (N)
                   </p>
-                  <p className="text-lg font-bold text-green-900">
+                  <p className="text-base sm:text-lg font-bold text-green-900">
                     {soilData.nitrogen.toFixed(1)}
                   </p>
                 </div>
-                <div className="bg-blue-50/50 rounded-lg p-2.5 border border-blue-100 hover:shadow-sm transition-all flex items-center justify-between">
-                  <p className="text-xs font-medium text-blue-700">
+                <div className="bg-blue-50/50 rounded-lg p-2 sm:p-2.5 border border-blue-100 hover:shadow-sm transition-all">
+                  <p className="text-[10px] sm:text-xs font-medium text-blue-700 mb-0.5">
                     Phosphorus (P)
                   </p>
-                  <p className="text-lg font-bold text-blue-900">
+                  <p className="text-base sm:text-lg font-bold text-blue-900">
                     {soilData.phosphorus.toFixed(1)}
                   </p>
                 </div>
-                <div className="bg-amber-50/50 rounded-lg p-2.5 border border-amber-100 hover:shadow-sm transition-all flex items-center justify-between">
-                  <p className="text-xs font-medium text-amber-700">
+                <div className="bg-amber-50/50 rounded-lg p-2 sm:p-2.5 border border-amber-100 hover:shadow-sm transition-all">
+                  <p className="text-[10px] sm:text-xs font-medium text-amber-700 mb-0.5">
                     Potassium (K)
                   </p>
-                  <p className="text-lg font-bold text-amber-900">
+                  <p className="text-base sm:text-lg font-bold text-amber-900">
                     {soilData.potassium.toFixed(1)}
                   </p>
                 </div>
-                <div className="bg-purple-50/50 rounded-lg p-2.5 border border-purple-100 hover:shadow-sm transition-all flex items-center justify-between">
-                  <p className="text-xs font-medium text-purple-700">
+                <div className="bg-purple-50/50 rounded-lg p-2 sm:p-2.5 border border-purple-100 hover:shadow-sm transition-all">
+                  <p className="text-[10px] sm:text-xs font-medium text-purple-700 mb-0.5">
                     pH Level
                   </p>
-                  <p className="text-lg font-bold text-purple-900">
+                  <p className="text-base sm:text-lg font-bold text-purple-900">
                     {soilData.pH.toFixed(2)}
                   </p>
                 </div>
-                <div className="bg-cyan-50/50 rounded-lg p-2.5 border border-cyan-100 hover:shadow-sm transition-all flex items-center justify-between">
-                  <p className="text-xs font-medium text-cyan-700">
+                <div className="bg-cyan-50/50 rounded-lg p-2 sm:p-2.5 border border-cyan-100 hover:shadow-sm transition-all">
+                  <p className="text-[10px] sm:text-xs font-medium text-cyan-700 mb-0.5">
                     Electrical Conductivity
                   </p>
-                  <p className="text-lg font-bold text-cyan-900">
+                  <p className="text-base sm:text-lg font-bold text-cyan-900">
                     {soilData.electricalConductivity.toFixed(2)}{" "}
-                    <span className="text-xs font-medium">μS/cm</span>
+                    <span className="text-[10px] sm:text-xs font-medium">
+                      μS/cm
+                    </span>
                   </p>
                 </div>
-                <div className="bg-sky-50/50 rounded-lg p-2.5 border border-sky-100 hover:shadow-sm transition-all flex items-center justify-between">
-                  <p className="text-xs font-medium text-sky-700">
+                <div className="bg-sky-50/50 rounded-lg p-2 sm:p-2.5 border border-sky-100 hover:shadow-sm transition-all">
+                  <p className="text-[10px] sm:text-xs font-medium text-sky-700 mb-0.5">
                     Soil Moisture
                   </p>
-                  <p className="text-lg font-bold text-sky-900">
+                  <p className="text-base sm:text-lg font-bold text-sky-900">
                     {soilData.soilMoisture.toFixed(1)}%
                   </p>
                 </div>
-                <div className="bg-orange-50/50 rounded-lg p-2.5 border border-orange-100 hover:shadow-sm transition-all flex items-center justify-between">
-                  <p className="text-xs font-medium text-orange-700">
+                <div className="bg-orange-50/50 rounded-lg p-2 sm:p-2.5 border border-orange-100 hover:shadow-sm transition-all col-span-2 md:col-span-1">
+                  <p className="text-[10px] sm:text-xs font-medium text-orange-700 mb-0.5">
                     Soil Temperature
                   </p>
-                  <p className="text-lg font-bold text-orange-900">
+                  <p className="text-base sm:text-lg font-bold text-orange-900">
                     {soilData.soilTemperature.toFixed(1)}°C
                   </p>
                 </div>
@@ -602,27 +604,31 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                   Environment Readings
                 </h3>
               </div>
-              <div className="grid grid-cols-3 gap-2.5">
-                <div className="bg-yellow-50/50 rounded-lg p-2.5 border border-yellow-100 hover:shadow-sm transition-all flex items-center justify-between">
-                  <p className="text-xs font-medium text-yellow-700">
+              <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
+                <div className="bg-yellow-50/50 rounded-lg p-2 sm:p-2.5 border border-yellow-100 hover:shadow-sm transition-all">
+                  <p className="text-[10px] sm:text-xs font-medium text-yellow-700 mb-0.5">
                     Sunlight
                   </p>
-                  <p className="text-lg font-bold text-yellow-900">
+                  <p className="text-base sm:text-lg font-bold text-yellow-900">
                     {environmentData.sunlightIntensity.toFixed(0)}{" "}
-                    <span className="text-xs font-medium">lux</span>
+                    <span className="text-[10px] sm:text-xs font-medium">
+                      lux
+                    </span>
                   </p>
                 </div>
-                <div className="bg-red-50/50 rounded-lg p-2.5 border border-red-100 hover:shadow-sm transition-all flex items-center justify-between">
-                  <p className="text-xs font-medium text-red-700">
+                <div className="bg-red-50/50 rounded-lg p-2 sm:p-2.5 border border-red-100 hover:shadow-sm transition-all">
+                  <p className="text-[10px] sm:text-xs font-medium text-red-700 mb-0.5">
                     Temperature
                   </p>
-                  <p className="text-lg font-bold text-red-900">
+                  <p className="text-base sm:text-lg font-bold text-red-900">
                     {environmentData.temperature.toFixed(1)}°C
                   </p>
                 </div>
-                <div className="bg-teal-50/50 rounded-lg p-2.5 border border-teal-100 hover:shadow-sm transition-all flex items-center justify-between">
-                  <p className="text-xs font-medium text-teal-700">Humidity</p>
-                  <p className="text-lg font-bold text-teal-900">
+                <div className="bg-teal-50/50 rounded-lg p-2 sm:p-2.5 border border-teal-100 hover:shadow-sm transition-all">
+                  <p className="text-[10px] sm:text-xs font-medium text-teal-700 mb-0.5">
+                    Humidity
+                  </p>
+                  <p className="text-base sm:text-lg font-bold text-teal-900">
                     {environmentData.humidity.toFixed(1)}%
                   </p>
                 </div>
@@ -634,26 +640,28 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
 
       {/* Registered Farms */}
       <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-        <CardHeader className="px-4 sm:px-6">
-          <CardTitle className="text-lg sm:text-xl flex items-center space-x-2">
-            <BarChart3 className="h-5 w-5 text-grass-600" />
-            <span>{t("dashboard.registeredFarms")}</span>
-          </CardTitle>
-          <div className="flex items-center justify-between">
-            <CardDescription className="text-sm sm:text-base">
-              {t("dashboard.farmsDescription")}
-            </CardDescription>
+        <CardHeader className="px-3 py-2.5 sm:px-6 sm:py-4">
+          <div className="flex items-center justify-between flex-wrap gap-1.5 sm:gap-2">
+            <div>
+              <CardTitle className="text-sm sm:text-lg md:text-xl flex items-center space-x-1.5 sm:space-x-2">
+                <BarChart3 className="h-4 w-4 sm:h-5 sm:w-5 text-grass-600" />
+                <span>{t("dashboard.registeredFarms")}</span>
+              </CardTitle>
+              <CardDescription className="text-[10px] sm:text-sm md:text-base mt-0.5 sm:mt-1">
+                {t("dashboard.farmsDescription")}
+              </CardDescription>
+            </div>
             <Button
               size="sm"
               onClick={() => setIsAddOpen(true)}
-              className="bg-grass-600 hover:bg-grass-700 transition-all duration-300 hover:scale-105"
+              className="bg-grass-600 hover:bg-grass-700 transition-all duration-300 hover:scale-105 text-[10px] sm:text-sm h-7 sm:h-9 px-2 sm:px-3"
             >
-              <Plus className="h-4 w-4 mr-2" />
+              <Plus className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
               {t("dashboard.addFarm") || "Add Farm"}
             </Button>
           </div>
         </CardHeader>
-        <CardContent className="px-4 sm:px-6">
+        <CardContent className="px-3 py-2.5 sm:px-6 sm:py-4">
           {farmsLoading ? (
             <div className="flex items-center justify-center py-8">
               <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-grass-600"></div>
@@ -668,18 +676,18 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4">
               {farms.map((farm, index) => (
                 <div
                   key={farm.id}
-                  className="p-4 border border-gray-200 rounded-lg bg-gradient-to-br from-white to-gray-50 hover:shadow-lg transition-all duration-300 group"
+                  className="p-2.5 sm:p-3 md:p-4 border border-gray-200 rounded-lg bg-gradient-to-br from-white to-gray-50 hover:shadow-lg transition-all duration-300 group"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-semibold text-sm sm:text-base text-gray-800">
+                  <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                    <h4 className="font-semibold text-xs sm:text-sm md:text-base text-gray-800">
                       {farm.name}
                     </h4>
-                    <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="flex items-center space-x-0.5 sm:space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <Button
                         size="sm"
                         variant="ghost"
@@ -687,9 +695,9 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                           e.stopPropagation();
                           handleEditFarm(farm);
                         }}
-                        className="h-6 w-6 p-0 hover:bg-blue-100"
+                        className="h-5 w-5 sm:h-6 sm:w-6 p-0 hover:bg-blue-100"
                       >
-                        <Edit className="h-3 w-3 text-blue-600" />
+                        <Edit className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-blue-600" />
                       </Button>
                       <Button
                         size="sm"
@@ -698,31 +706,34 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                           e.stopPropagation();
                           setDeletingFarm(farm);
                         }}
-                        className="h-6 w-6 p-0 hover:bg-red-100"
+                        className="h-5 w-5 sm:h-6 sm:w-6 p-0 hover:bg-red-100"
                       >
-                        <Trash2 className="h-3 w-3 text-red-600" />
+                        <Trash2 className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-red-600" />
                       </Button>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between mb-2">
-                    <Badge variant="secondary" className="text-xs border">
+                  <div className="mb-1.5 sm:mb-2">
+                    <Badge
+                      variant="secondary"
+                      className="text-[9px] sm:text-[10px] md:text-xs border px-1.5 py-0 sm:px-2 sm:py-0.5"
+                    >
                       {farm.cropType}
                     </Badge>
                   </div>
-                  <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                  <p className="text-[10px] sm:text-xs md:text-sm text-gray-600 mb-0.5 sm:mb-1">
                     {t("dashboard.size")}: {farm.size} {farm.unit}
                   </p>
                   {farm.location && (
-                    <p className="text-xs text-gray-500 mb-2">
+                    <p className="text-[10px] sm:text-xs text-gray-500 mb-1 sm:mb-2">
                       📍 {farm.location}
                     </p>
                   )}
                   {farm.sowingDate && (
-                    <p className="text-xs text-gray-500 mb-2">
+                    <p className="text-[10px] sm:text-xs text-gray-500 mb-1 sm:mb-2">
                       🌱 Sown: {new Date(farm.sowingDate).toLocaleDateString()}
                     </p>
                   )}
-                  <p className="text-xs text-gray-400">
+                  <p className="text-[9px] sm:text-[10px] md:text-xs text-gray-400">
                     Added: {new Date(farm.createdAt).toLocaleDateString()}
                   </p>
                 </div>

@@ -457,42 +457,36 @@ const Dashboard = () => {
         onProfileUpdate={handleProfileUpdate}
       />
 
-      <div className="container mx-auto px-2 xs:px-3 sm:px-4 md:px-6 py-3 xs:py-4 sm:py-6 md:py-8">
-        <div className="mb-3 xs:mb-4 sm:mb-6 md:mb-8">
-          <h1 className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 xs:mb-2 leading-tight">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-6">
+        <div className="mb-3 sm:mb-4 md:mb-6">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 sm:mb-2 leading-tight">
             {t("dashboard.title")}
           </h1>
-          <p className="text-xs xs:text-sm sm:text-base text-gray-600 leading-relaxed">
+          <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed">
             {t("dashboard.subtitle")}
           </p>
         </div>
 
         <Tabs
           defaultValue="overview"
-          className="space-y-3 xs:space-y-4 sm:space-y-6"
+          className="space-y-3 sm:space-y-4 md:space-y-5"
         >
-          <TabsList className="grid w-full grid-cols-3 h-auto gap-0.5 xs:gap-1 sm:gap-2 p-1 bg-gray-100 rounded-lg">
+          <TabsList className="grid w-full grid-cols-3 h-auto gap-1 sm:gap-1.5 p-0.5 sm:p-1 bg-gray-100 rounded-lg">
             <TabsTrigger
               value="overview"
-              className="text-xs xs:text-sm sm:text-base px-1 xs:px-2 sm:px-3 md:px-4 py-2.5 xs:py-3 sm:py-3 font-medium whitespace-nowrap data-[state=active]:bg-grass-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-md transition-all duration-200 hover:bg-grass-50"
+              className="text-xs sm:text-sm md:text-base px-2 sm:px-3 md:px-4 py-2 sm:py-2.5 font-medium data-[state=active]:bg-grass-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-md transition-all duration-200 hover:bg-grass-50"
             >
-              <span className="hidden xs:inline">
-                {t("dashboard.overview")}
-              </span>
-              <span className="xs:hidden">Overview</span>
+              {t("dashboard.overview")}
             </TabsTrigger>
             <TabsTrigger
               value="recommendations"
-              className="text-xs xs:text-sm sm:text-base px-1 xs:px-2 sm:px-3 md:px-4 py-2.5 xs:py-3 sm:py-3 font-medium whitespace-nowrap data-[state=active]:bg-grass-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-md transition-all duration-200 hover:bg-grass-50"
+              className="text-xs sm:text-sm md:text-base px-2 sm:px-3 md:px-4 py-2 sm:py-2.5 font-medium data-[state=active]:bg-grass-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-md transition-all duration-200 hover:bg-grass-50"
             >
-              <span className="hidden xs:inline">
-                {t("dashboard.recommendations")}
-              </span>
-              <span className="xs:hidden">Recs</span>
+              {t("dashboard.recommendations")}
             </TabsTrigger>
             <TabsTrigger
               value="soil-analysis"
-              className="text-xs xs:text-sm sm:text-base px-1 xs:px-2 sm:px-3 md:px-4 py-2.5 xs:py-3 sm:py-3 font-medium whitespace-nowrap data-[state=active]:bg-grass-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-md transition-all duration-200 hover:bg-grass-50"
+              className="text-xs sm:text-sm md:text-base px-2 sm:px-3 md:px-4 py-2 sm:py-2.5 font-medium data-[state=active]:bg-grass-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-md transition-all duration-200 hover:bg-grass-50"
             >
               <span className="hidden sm:inline">Real Time Sensor Data</span>
               <span className="sm:hidden">Sensor Data</span>
@@ -501,14 +495,14 @@ const Dashboard = () => {
 
           <TabsContent
             value="overview"
-            className="space-y-3 xs:space-y-4 sm:space-y-6"
+            className="space-y-3 sm:space-y-4 md:space-y-5"
           >
             <EnhancedFarmOverview user={user} />
           </TabsContent>
 
           <TabsContent
             value="soil-analysis"
-            className="space-y-3 xs:space-y-4 sm:space-y-6"
+            className="space-y-3 sm:space-y-4 md:space-y-5"
           >
             <RealTimeSoilAnalysis />
           </TabsContent>
@@ -517,15 +511,15 @@ const Dashboard = () => {
             value="recommendations"
             className="space-y-2 sm:space-y-3 md:space-y-4"
           >
-            <div className="relative bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 shadow-lg overflow-hidden">
+            <div className="relative bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 rounded-xl p-3 sm:p-4 md:p-5 shadow-lg overflow-hidden">
               {/* Background Decorative Elements */}
-              <div className="absolute top-0 right-0 w-32 h-32 md:w-64 md:h-64 bg-grass-200/20 rounded-full blur-3xl -z-0"></div>
-              <div className="absolute bottom-0 left-0 w-32 h-32 md:w-64 md:h-64 bg-blue-200/20 rounded-full blur-3xl -z-0"></div>
+              <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 bg-grass-200/20 rounded-full blur-3xl -z-0"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 bg-blue-200/20 rounded-full blur-3xl -z-0"></div>
 
               {/* Header Section */}
-              <div className="relative z-10 mb-3 sm:mb-4 md:mb-6">
-                <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-gradient-to-br from-grass-600 to-green-700 flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300">
+              <div className="relative z-10 mb-3 sm:mb-4 md:mb-5">
+                <div className="flex items-center gap-2 sm:gap-2.5 md:gap-3 mb-2 sm:mb-2.5">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-grass-600 to-green-700 flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300">
                     <svg
                       className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white"
                       fill="none"
@@ -541,7 +535,7 @@ const Dashboard = () => {
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-grass-700 via-green-600 to-blue-600 bg-clip-text text-transparent mb-0.5 sm:mb-1">
+                    <h2 className="text-base sm:text-lg md:text-xl font-bold bg-gradient-to-r from-grass-700 via-green-600 to-blue-600 bg-clip-text text-transparent mb-0.5">
                       Explore Smart Agriculture Tools
                     </h2>
                     <p className="text-[10px] sm:text-xs md:text-sm text-gray-600 font-medium hidden sm:block">
@@ -552,23 +546,23 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              <div className="relative z-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
+              <div className="relative z-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
                 {/* Fertilizer Recommendation */}
                 <button
                   onClick={() => navigate("/fertilizer-recommendation")}
-                  className="group relative bg-white rounded-lg md:rounded-xl p-3 sm:p-4 md:p-5 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-green-400 text-left overflow-hidden min-h-[120px] sm:min-h-[140px]"
+                  className="group relative bg-white rounded-lg p-2.5 sm:p-3 md:p-4 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-green-400 text-left overflow-hidden min-h-[110px] sm:min-h-[130px]"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   <div className="relative z-10">
-                    <div className="mb-2 sm:mb-2.5">
-                      <div className="inline-block px-2 py-0.5 sm:px-2 sm:py-1 bg-green-100 text-green-700 text-[10px] sm:text-xs font-semibold rounded-full mb-2">
+                    <div className="mb-1.5 sm:mb-2">
+                      <div className="inline-block px-1.5 py-0.5 sm:px-2 sm:py-1 bg-green-100 text-green-700 text-[9px] sm:text-[10px] md:text-xs font-semibold rounded-full mb-1.5">
                         ML-BASED
                       </div>
                     </div>
-                    <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-green-700 transition-colors leading-tight">
+                    <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 mb-1 sm:mb-1.5 group-hover:text-green-700 transition-colors leading-tight">
                       Fertilizer Recommendation
                     </h3>
-                    <p className="text-[9px] sm:text-xs md:text-sm text-gray-600 leading-relaxed">
+                    <p className="text-[9px] sm:text-[10px] md:text-xs text-gray-600 leading-relaxed">
                       Get ML-powered fertilizer recommendations for optimal crop
                       growth
                     </p>
@@ -578,19 +572,19 @@ const Dashboard = () => {
                 {/* Irrigation Prediction */}
                 <button
                   onClick={() => navigate("/irrigation-prediction")}
-                  className="group relative bg-white rounded-lg md:rounded-xl p-3 sm:p-4 md:p-5 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-blue-400 text-left overflow-hidden min-h-[120px] sm:min-h-[140px]"
+                  className="group relative bg-white rounded-lg p-2.5 sm:p-3 md:p-4 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-blue-400 text-left overflow-hidden min-h-[110px] sm:min-h-[130px]"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   <div className="relative z-10">
-                    <div className="mb-2 sm:mb-2.5">
-                      <div className="inline-block px-2 py-0.5 sm:px-2 sm:py-1 bg-blue-100 text-blue-700 text-[10px] sm:text-xs font-semibold rounded-full mb-2">
+                    <div className="mb-1.5 sm:mb-2">
+                      <div className="inline-block px-1.5 py-0.5 sm:px-2 sm:py-1 bg-blue-100 text-blue-700 text-[9px] sm:text-[10px] md:text-xs font-semibold rounded-full mb-1.5">
                         ML-BASED
                       </div>
                     </div>
-                    <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-blue-700 transition-colors leading-tight">
+                    <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 mb-1 sm:mb-1.5 group-hover:text-blue-700 transition-colors leading-tight">
                       Irrigation Prediction
                     </h3>
-                    <p className="text-[9px] sm:text-xs md:text-sm text-gray-600 leading-relaxed">
+                    <p className="text-[9px] sm:text-[10px] md:text-xs text-gray-600 leading-relaxed">
                       Smart water management with AI-based irrigation
                       predictions
                     </p>

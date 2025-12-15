@@ -96,32 +96,38 @@ const LLMEnhancedFertilizerRecommendations = ({
     <div className="space-y-4 sm:space-y-6">
       {/* ML Model Prediction Header */}
       <Card className="border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-indigo-50">
-        <CardHeader className="px-4 sm:px-6">
-          <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
-            <Brain className="h-5 w-5 sm:h-6 sm:w-6 text-purple-600 animate-pulse" />
-            <span>AI-Powered Analysis</span>
-            <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0">
+        <CardHeader className="px-3 py-3 sm:px-6 sm:py-4">
+          <CardTitle className="flex items-center flex-wrap gap-2 text-base sm:text-lg md:text-xl">
+            <div className="flex items-center space-x-2">
+              <Brain className="h-5 w-5 sm:h-6 sm:w-6 text-purple-600 animate-pulse" />
+              <span>AI-Powered Analysis</span>
+            </div>
+            <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 text-xs sm:text-sm">
               Enhanced ML + LLM
             </Badge>
           </CardTitle>
-          <CardDescription className="text-sm sm:text-base">
+          <CardDescription className="text-xs sm:text-sm md:text-base mt-1.5">
             Advanced machine learning with large language model enhancement for{" "}
             {farm.name}
           </CardDescription>
         </CardHeader>
-        <CardContent className="px-4 sm:px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-            <div className="text-center p-3 bg-white rounded-lg border border-purple-200">
+        <CardContent className="px-3 py-3 sm:px-6 sm:py-4">
+          <div className="grid grid-cols-2 gap-2 sm:gap-4">
+            <div className="text-center p-2.5 sm:p-3 bg-white rounded-lg border border-purple-200">
               <div className="text-base sm:text-lg font-semibold text-gray-800">
                 {farm.size} {farm.unit}
               </div>
-              <div className="text-xs text-gray-500">Field Size</div>
+              <div className="text-[10px] sm:text-xs text-gray-500">
+                Field Size
+              </div>
             </div>
-            <div className="text-center p-3 bg-white rounded-lg border border-purple-200">
+            <div className="text-center p-2.5 sm:p-3 bg-white rounded-lg border border-purple-200">
               <div className="text-base sm:text-lg font-semibold text-gray-800">
                 {farm.crop_type || (farm as any).cropType || "N/A"}
               </div>
-              <div className="text-xs text-gray-500">Crop Type</div>
+              <div className="text-[10px] sm:text-xs text-gray-500">
+                Crop Type
+              </div>
             </div>
           </div>
         </CardContent>
@@ -129,32 +135,36 @@ const LLMEnhancedFertilizerRecommendations = ({
 
       {/* Soil Condition Analysis */}
       <Card>
-        <CardHeader className="px-5 py-3">
-          <CardTitle className="text-base font-semibold">
+        <CardHeader className="px-3 py-2.5 sm:px-5 sm:py-3">
+          <CardTitle className="text-sm sm:text-base font-semibold">
             Soil Analysis
           </CardTitle>
         </CardHeader>
-        <CardContent className="px-5 pb-5">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
-            <div className="p-2 bg-blue-50 rounded">
-              <div className="text-xs text-gray-600 mb-1">pH</div>
+        <CardContent className="px-3 pb-3 sm:px-5 sm:pb-5">
+          <div className="grid grid-cols-2 gap-2 sm:gap-2.5 mb-3 sm:mb-4">
+            <div className="p-2 sm:p-2.5 bg-blue-50 rounded">
+              <div className="text-[10px] sm:text-xs text-gray-600 mb-1">
+                pH
+              </div>
               <Badge
                 variant={
                   soilCondition.ph_status?.toLowerCase() === "optimal"
                     ? "default"
                     : "secondary"
                 }
-                className="text-xs"
+                className="text-[10px] sm:text-xs"
               >
                 {soilCondition.ph_status || phAmendment}
               </Badge>
-              <div className="text-xs font-semibold mt-1">
+              <div className="text-xs sm:text-sm font-semibold mt-1">
                 {result.soil_condition?.soil_test_values?.pH || data.soilPH}
               </div>
             </div>
 
-            <div className="p-2 bg-green-50 rounded">
-              <div className="text-xs text-gray-600 mb-1">Nitrogen</div>
+            <div className="p-2 sm:p-2.5 bg-green-50 rounded">
+              <div className="text-[10px] sm:text-xs text-gray-600 mb-1">
+                Nitrogen
+              </div>
               <Badge
                 variant={
                   soilCondition.n_status?.toLowerCase() === "optimal"
@@ -163,17 +173,19 @@ const LLMEnhancedFertilizerRecommendations = ({
                     ? "destructive"
                     : "secondary"
                 }
-                className="text-xs"
+                className="text-[10px] sm:text-xs"
               >
                 {soilCondition.n_status || "N/A"}
               </Badge>
-              <div className="text-xs font-semibold mt-1">
+              <div className="text-xs sm:text-sm font-semibold mt-1">
                 {data.nitrogen} mg/kg
               </div>
             </div>
 
-            <div className="p-2 bg-purple-50 rounded">
-              <div className="text-xs text-gray-600 mb-1">Phosphorus</div>
+            <div className="p-2 sm:p-2.5 bg-purple-50 rounded">
+              <div className="text-[10px] sm:text-xs text-gray-600 mb-1">
+                Phosphorus
+              </div>
               <Badge
                 variant={
                   soilCondition.p_status?.toLowerCase() === "optimal"
@@ -182,17 +194,19 @@ const LLMEnhancedFertilizerRecommendations = ({
                     ? "destructive"
                     : "secondary"
                 }
-                className="text-xs"
+                className="text-[10px] sm:text-xs"
               >
                 {soilCondition.p_status || "N/A"}
               </Badge>
-              <div className="text-xs font-semibold mt-1">
+              <div className="text-xs sm:text-sm font-semibold mt-1">
                 {data.phosphorus} mg/kg
               </div>
             </div>
 
-            <div className="p-2 bg-orange-50 rounded">
-              <div className="text-xs text-gray-600 mb-1">Potassium</div>
+            <div className="p-2 sm:p-2.5 bg-orange-50 rounded">
+              <div className="text-[10px] sm:text-xs text-gray-600 mb-1">
+                Potassium
+              </div>
               <Badge
                 variant={
                   soilCondition.k_status?.toLowerCase() === "optimal"
@@ -201,11 +215,11 @@ const LLMEnhancedFertilizerRecommendations = ({
                     ? "destructive"
                     : "secondary"
                 }
-                className="text-xs"
+                className="text-[10px] sm:text-xs"
               >
                 {soilCondition.k_status || "N/A"}
               </Badge>
-              <div className="text-xs font-semibold mt-1">
+              <div className="text-xs sm:text-sm font-semibold mt-1">
                 {data.potassium} mg/kg
               </div>
             </div>
@@ -278,114 +292,122 @@ const LLMEnhancedFertilizerRecommendations = ({
             )}
 
           <div>
-            <h4 className="font-medium mb-1.5 text-xs uppercase text-gray-600">
+            <h4 className="font-medium mb-2 sm:mb-1.5 text-[10px] sm:text-xs uppercase text-gray-600">
               Soil Test Results
             </h4>
 
-            <div className="grid grid-cols-2 gap-1.5">
-              <div className="p-1.5 bg-gray-50 rounded">
+            <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
+              <div className="p-1.5 sm:p-2 bg-gray-50 rounded">
                 <div className="flex items-center justify-between mb-0.5">
-                  <span className="text-xs text-gray-600">Nitrogen (N)</span>
+                  <span className="text-[10px] sm:text-xs text-gray-600">
+                    Nitrogen (N)
+                  </span>
                   <Badge
                     variant={
                       soilCondition.n_status?.toLowerCase() === "low"
                         ? "destructive"
                         : "default"
                     }
-                    className="text-xs h-4"
+                    className="text-[9px] sm:text-xs h-3.5 sm:h-4 px-1 sm:px-2"
                   >
                     {soilCondition.n_status}
                   </Badge>
                 </div>
-                <div className="text-xs font-semibold">
+                <div className="text-xs sm:text-sm font-semibold">
                   {data.nitrogen} mg/kg
                 </div>
               </div>
 
-              <div className="p-1.5 bg-gray-50 rounded">
+              <div className="p-1.5 sm:p-2 bg-gray-50 rounded">
                 <div className="flex items-center justify-between mb-0.5">
-                  <span className="text-xs text-gray-600">Phosphorus (P)</span>
+                  <span className="text-[10px] sm:text-xs text-gray-600">
+                    Phosphorus (P)
+                  </span>
                   <Badge
                     variant={
                       soilCondition.p_status?.toLowerCase() === "low"
                         ? "destructive"
                         : "default"
                     }
-                    className="text-xs h-4"
+                    className="text-[9px] sm:text-xs h-3.5 sm:h-4 px-1 sm:px-2"
                   >
                     {soilCondition.p_status}
                   </Badge>
                 </div>
-                <div className="text-xs font-semibold">
+                <div className="text-xs sm:text-sm font-semibold">
                   {data.phosphorus} mg/kg
                 </div>
               </div>
 
-              <div className="p-1.5 bg-gray-50 rounded">
+              <div className="p-1.5 sm:p-2 bg-gray-50 rounded">
                 <div className="flex items-center justify-between mb-0.5">
-                  <span className="text-xs text-gray-600">Potassium (K)</span>
+                  <span className="text-[10px] sm:text-xs text-gray-600">
+                    Potassium (K)
+                  </span>
                   <Badge
                     variant={
                       soilCondition.k_status?.toLowerCase() === "low"
                         ? "destructive"
                         : "default"
                     }
-                    className="text-xs h-4"
+                    className="text-[9px] sm:text-xs h-3.5 sm:h-4 px-1 sm:px-2"
                   >
                     {soilCondition.k_status}
                   </Badge>
                 </div>
-                <div className="text-xs font-semibold">
+                <div className="text-xs sm:text-sm font-semibold">
                   {data.potassium} mg/kg
                 </div>
               </div>
 
-              <div className="p-1.5 bg-gray-50 rounded">
+              <div className="p-1.5 sm:p-2 bg-gray-50 rounded">
                 <div className="flex items-center justify-between mb-0.5">
-                  <span className="text-xs text-gray-600">pH Status</span>
+                  <span className="text-[10px] sm:text-xs text-gray-600">
+                    pH Status
+                  </span>
                   <Badge
                     variant={
                       soilCondition.ph_status?.toLowerCase() === "optimal"
                         ? "default"
                         : "secondary"
                     }
-                    className="text-xs h-4"
+                    className="text-[9px] sm:text-xs h-3.5 sm:h-4 px-1 sm:px-2"
                   >
                     {soilCondition.ph_status || phAmendment}
                   </Badge>
                 </div>
-                <div className="text-xs font-semibold">
+                <div className="text-xs sm:text-sm font-semibold">
                   {result.soil_condition?.soil_test_values?.pH || data.soilPH}
                 </div>
               </div>
 
-              <div className="p-1.5 bg-gray-50 rounded">
-                <div className="text-xs text-gray-600 mb-0.5">
+              <div className="p-1.5 sm:p-2 bg-gray-50 rounded">
+                <div className="text-[10px] sm:text-xs text-gray-600 mb-0.5">
                   Soil Temperature
                 </div>
-                <div className="text-xs font-semibold">
+                <div className="text-xs sm:text-sm font-semibold">
                   {result.soil_condition?.soil_test_values?.soil_temperature ||
                     data.temperature}
                   °C
                 </div>
               </div>
 
-              <div className="p-1.5 bg-gray-50 rounded">
-                <div className="text-xs text-gray-600 mb-0.5">
+              <div className="p-1.5 sm:p-2 bg-gray-50 rounded">
+                <div className="text-[10px] sm:text-xs text-gray-600 mb-0.5">
                   Soil Moisture
                 </div>
-                <div className="text-xs font-semibold">
+                <div className="text-xs sm:text-sm font-semibold">
                   {result.soil_condition?.soil_test_values?.soil_moisture ||
                     data.soilMoisture}
                   %
                 </div>
               </div>
 
-              <div className="p-1.5 bg-gray-50 rounded col-span-2">
-                <div className="text-xs text-gray-600 mb-0.5">
+              <div className="p-1.5 sm:p-2 bg-gray-50 rounded col-span-2">
+                <div className="text-[10px] sm:text-xs text-gray-600 mb-0.5">
                   Electrical Conductivity
                 </div>
-                <div className="text-xs font-semibold">
+                <div className="text-xs sm:text-sm font-semibold">
                   {result.soil_condition?.soil_test_values?.EC_mmhos_cm2 ||
                     data.electricalConductivity}{" "}
                   mmhos/cm²

@@ -26,7 +26,7 @@ const translations = {
     "nav.features": "Features",
     "nav.howItWorks": "How It Works",
     "nav.login": "Login",
-    "nav.signup": "Get Started",
+    "nav.signup": "SignUp",
     "nav.start": "Start",
 
     // Dashboard

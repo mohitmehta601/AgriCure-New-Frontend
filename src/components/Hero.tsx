@@ -42,29 +42,29 @@ const Hero = () => {
         </div>
 
         <div className="mt-8 xs:mt-10 sm:mt-12 md:mt-16 relative">
-          <div className="bg-white rounded-xl xs:rounded-2xl shadow-2xl border border-gray-100 p-4 xs:p-6 md:p-8 max-w-xs xs:max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto animate-slide-up">
-            <div className="grid grid-cols-1 xs:grid-cols-3 gap-4 xs:gap-6 md:gap-8 text-center">
-              <div className="p-3 xs:p-4 md:p-5 rounded-lg bg-gradient-to-br from-grass-50 to-green-50 border border-grass-100 hover:shadow-md transition-all duration-300">
-                <div className="text-3xl xs:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-grass-600 to-green-600 bg-clip-text text-transparent mb-1 xs:mb-2">
+          <div className="bg-white rounded-xl xs:rounded-2xl shadow-2xl border border-gray-100 p-3 xs:p-4 sm:p-6 md:p-8 max-w-xs xs:max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto animate-slide-up">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 xs:gap-4 sm:gap-6 md:gap-8 text-center">
+              <div className="p-2 xs:p-3 sm:p-4 md:p-5 rounded-lg bg-gradient-to-br from-grass-50 to-green-50 border border-grass-100 hover:shadow-md transition-all duration-300">
+                <div className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-grass-600 to-green-600 bg-clip-text text-transparent mb-1 xs:mb-2">
                   100%
                 </div>
-                <div className="text-gray-700 text-xs xs:text-sm md:text-base font-medium leading-tight">
+                <div className="text-gray-700 text-[10px] xs:text-xs sm:text-sm md:text-base font-medium leading-tight">
                   {t("hero.sensorDriven")}
                 </div>
               </div>
-              <div className="p-3 xs:p-4 md:p-5 rounded-lg bg-gradient-to-br from-grass-50 to-green-50 border border-grass-100 hover:shadow-md transition-all duration-300">
-                <div className="text-3xl xs:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-grass-600 to-green-600 bg-clip-text text-transparent mb-1 xs:mb-2">
+              <div className="p-2 xs:p-3 sm:p-4 md:p-5 rounded-lg bg-gradient-to-br from-grass-50 to-green-50 border border-grass-100 hover:shadow-md transition-all duration-300">
+                <div className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-grass-600 to-green-600 bg-clip-text text-transparent mb-1 xs:mb-2">
                   25%
                 </div>
-                <div className="text-gray-700 text-xs xs:text-sm md:text-base font-medium leading-tight">
+                <div className="text-gray-700 text-[10px] xs:text-xs sm:text-sm md:text-base font-medium leading-tight">
                   {t("hero.yieldIncrease")}
                 </div>
               </div>
-              <div className="p-3 xs:p-4 md:p-5 rounded-lg bg-gradient-to-br from-grass-50 to-green-50 border border-grass-100 hover:shadow-md transition-all duration-300">
-                <div className="text-3xl xs:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-grass-600 to-green-600 bg-clip-text text-transparent mb-1 xs:mb-2">
+              <div className="p-2 xs:p-3 sm:p-4 md:p-5 rounded-lg bg-gradient-to-br from-grass-50 to-green-50 border border-grass-100 hover:shadow-md transition-all duration-300">
+                <div className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-grass-600 to-green-600 bg-clip-text text-transparent mb-1 xs:mb-2">
                   15+
                 </div>
-                <div className="text-gray-700 text-xs xs:text-sm md:text-base font-medium leading-tight">
+                <div className="text-gray-700 text-[10px] xs:text-xs sm:text-sm md:text-base font-medium leading-tight">
                   {t("hero.cropTypesSupported")}
                 </div>
               </div>

@@ -56,9 +56,8 @@ const Navbar = () => {
             <LanguageSwitcher />
             <Button
               asChild
-              variant="ghost"
               size="sm"
-              className="text-xs lg:text-sm px-2 lg:px-3"
+              className="bg-grass-600 hover:bg-grass-700 text-xs lg:text-sm px-2 lg:px-3"
             >
               <Link to="/login">{t("nav.login")}</Link>
             </Button>
@@ -75,9 +74,8 @@ const Navbar = () => {
             <LanguageSwitcher />
             <Button
               asChild
-              variant="ghost"
               size="sm"
-              className="text-xs px-2 py-1"
+              className="bg-grass-600 hover:bg-grass-700 text-xs px-2 py-1"
             >
               <Link to="/login">{t("nav.login")}</Link>
             </Button>

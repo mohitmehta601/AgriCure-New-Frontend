@@ -204,7 +204,13 @@ const DetailedRecommendationsPage = () => {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => navigate(isFromHistory ? "/dashboard" : -1)}
+              onClick={() => {
+                if (isFromHistory) {
+                  navigate("/dashboard");
+                } else {
+                  navigate(-1);
+                }
+              }}
               className="gap-1 sm:gap-2 text-xs sm:text-sm"
             >
               <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4" />

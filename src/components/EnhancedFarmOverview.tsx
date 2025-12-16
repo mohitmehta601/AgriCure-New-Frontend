@@ -729,9 +729,9 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                           e.stopPropagation();
                           handleEditFarm(farm);
                         }}
-                        className="h-6 w-6 sm:h-6 sm:w-6 p-0 hover:bg-gray-100 rounded transition-colors"
+                        className="h-6 w-6 sm:h-6 sm:w-6 p-0 hover:bg-blue-100 rounded transition-colors"
                       >
-                        <Edit className="h-3.5 w-3.5 sm:h-3 sm:w-3 text-gray-600" />
+                        <Edit className="h-3.5 w-3.5 sm:h-3 sm:w-3 text-blue-600" />
                       </Button>
                       <Button
                         size="sm"
@@ -740,9 +740,9 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                           e.stopPropagation();
                           setDeletingFarm(farm);
                         }}
-                        className="h-6 w-6 sm:h-6 sm:w-6 p-0 hover:bg-gray-100 rounded transition-colors"
+                        className="h-6 w-6 sm:h-6 sm:w-6 p-0 hover:bg-red-100 rounded transition-colors"
                       >
-                        <Trash2 className="h-3.5 w-3.5 sm:h-3 sm:w-3 text-gray-600" />
+                        <Trash2 className="h-3.5 w-3.5 sm:h-3 sm:w-3 text-red-600" />
                       </Button>
                     </div>
                   </div>

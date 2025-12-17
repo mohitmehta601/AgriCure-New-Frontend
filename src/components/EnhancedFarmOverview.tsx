@@ -33,6 +33,7 @@ import { FertilizerRecommendation } from "@/types/database";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useNavigate } from "react-router-dom";
 import { calculateSoilHealth } from "@/utils/soilHealthCalculator";
+import { getNutrientStatus } from "@/utils/sensorThresholds";
 import {
   Dialog,
   DialogContent,
@@ -333,19 +334,6 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
       cropType: "",
       sowingDate: "",
     });
-  };
-
-  type NutrientType = "nitrogen" | "phosphorus" | "potassium";
-
-  const getNutrientStatus = (type: NutrientType, value: number) => {
-    if (type === "nitrogen") {
-      if (value > 180) return { status: "critical", color: "text-red-600" };
-      if (value >= 81) return { status: "optimal", color: "text-green-600" };
-      return { status: "warning", color: "text-yellow-600" };
-    }
-    if (value > 350) return { status: "critical", color: "text-red-600" };
-    if (value >= 111) return { status: "optimal", color: "text-green-600" };
-    return { status: "warning", color: "text-yellow-600" };
   };
 
   const clampPercent = (percent: number) => Math.max(0, Math.min(100, percent));

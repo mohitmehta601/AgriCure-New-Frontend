@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { useEffect, useState } from "react";
 import EnhancedFertilizerRecommendations from "@/components/EnhancedFertilizerRecommendations";
 import DetailedFertilizerRecommendations from "@/components/DetailedFertilizerRecommendations";
 import LLMEnhancedFertilizerRecommendations from "@/components/LLMEnhancedFertilizerRecommendations";
@@ -112,12 +112,9 @@ const Recommendations = () => {
           <div className="flex items-center space-x-4 mb-4">
             <Button
               onClick={handleBack}
-              variant="outline"
-              size="sm"
-              className="flex items-center space-x-2 bg-white hover:bg-gray-50 border border-gray-200 text-black hover:text-black"
+              className="bg-grass-600 hover:bg-grass-700 text-white px-4 py-2 text-base font-medium rounded-lg"
             >
-              <ArrowLeft className="h-4 w-4" />
-              <span className="whitespace-nowrap">{t("common.back")}</span>
+              <span className="text-lg mr-1">‹</span> Back
             </Button>
           </div>
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { authService, User } from "@/services/authService";
+import { Button } from "@/components/ui/button";
 import EnhancedFertilizerForm from "@/components/EnhancedFertilizerForm";
 import EnhancedFertilizerRecommendations from "@/components/EnhancedFertilizerRecommendations";
 import LLMEnhancedFertilizerRecommendations from "@/components/LLMEnhancedFertilizerRecommendations";
@@ -80,28 +81,12 @@ const FertilizerRecommendation = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 sm:gap-6 lg:gap-8">
               {/* Back Button */}
-              <button
+              <Button
                 onClick={() => navigate("/dashboard")}
-                className="flex items-center gap-1.5 sm:gap-2.5 text-gray-700 hover:text-gray-900 transition-colors group"
+                className="bg-grass-600 hover:bg-grass-700 text-white px-4 py-2 text-base font-medium rounded-lg"
               >
-                <svg
-                  className="w-4 h-4 sm:w-5 sm:h-5 group-hover:-translate-x-0.5 transition-transform duration-200"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                  />
-                </svg>
-                <span className="hidden sm:inline text-sm sm:text-[15px] font-medium">
-                  Back to Dashboard
-                </span>
-                <span className="sm:hidden text-sm font-medium">Back</span>
-              </button>
+                <span className="text-lg mr-1">‹</span> Back
+              </Button>
 
               {/* Vertical Divider */}
               <div className="hidden md:block h-6 w-px bg-gray-300"></div>

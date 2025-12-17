@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { authService } from "@/services/authService";
@@ -163,13 +163,10 @@ const VerifyOTP = ({ email, onBack }: VerifyOTPProps) => {
       {/* Back Button */}
       <div className="absolute top-4 left-4">
         <Button
-          variant="ghost"
-          size="sm"
           onClick={onBack}
-          className="flex items-center space-x-1 text-gray-700 hover:text-grass-600 text-sm bg-white/80 hover:bg-white shadow-sm"
+          className="bg-grass-600 hover:bg-grass-700 text-white px-4 py-2 text-base font-medium rounded-lg"
         >
-          <ArrowLeft className="h-4 w-4" />
-          <span>Back</span>
+          <span className="text-lg mr-1">‹</span> Back
         </Button>
       </div>
 

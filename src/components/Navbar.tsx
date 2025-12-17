@@ -84,7 +84,7 @@ const Navbar = () => {
               size="sm"
               className="bg-grass-600 hover:bg-grass-700 text-xs px-2 py-1"
             >
-              <Link to="/signup">{t("nav.start")}</Link>
+              <Link to="/signup">{t("nav.signup")}</Link>
             </Button>
           </div>
         </div>

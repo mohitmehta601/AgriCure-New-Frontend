@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
 import { recommendationService } from "@/services/recommendationService";
 import { FertilizerRecommendation } from "@/types/database";
 import LLMEnhancedFertilizerRecommendations from "@/components/LLMEnhancedFertilizerRecommendations";
@@ -202,8 +201,6 @@ const DetailedRecommendationsPage = () => {
         <div className="mb-4 sm:mb-6">
           <div className="flex items-center justify-between mb-3 sm:mb-0">
             <Button
-              variant="outline"
-              size="sm"
               onClick={() => {
                 if (isFromHistory) {
                   navigate("/dashboard");
@@ -211,13 +208,9 @@ const DetailedRecommendationsPage = () => {
                   navigate(-1);
                 }
               }}
-              className="gap-1 sm:gap-2 text-xs sm:text-sm"
+              className="bg-grass-600 hover:bg-grass-700 text-white px-4 py-2 text-base font-medium rounded-lg"
             >
-              <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="hidden sm:inline">
-                Back to {isFromHistory ? "Dashboard" : "Form"}
-              </span>
-              <span className="sm:hidden">Back</span>
+              <span className="text-lg mr-1">‹</span> Back
             </Button>
           </div>
           <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 text-center mt-2 sm:mt-0">

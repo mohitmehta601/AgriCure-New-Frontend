@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { authService } from "@/services/authService";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -131,13 +131,10 @@ const Signup = () => {
       {/* Back Button - Top Left Corner */}
       <div className="absolute top-4 left-4">
         <Button
-          variant="ghost"
-          size="sm"
           onClick={handleBack}
-          className="flex items-center space-x-1 text-gray-700 hover:text-grass-600 text-sm bg-white/80 hover:bg-white shadow-sm"
+          className="bg-grass-600 hover:bg-grass-700 text-white px-4 py-2 text-base font-medium rounded-lg"
         >
-          <ArrowLeft className="h-4 w-4" />
-          <span>{t("auth.backToHome")}</span>
+          <span className="text-lg mr-1">‹</span> Back
         </Button>
       </div>
 

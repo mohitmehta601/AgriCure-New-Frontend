@@ -28,6 +28,28 @@ import {
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useRealTimeData } from "@/contexts/RealTimeDataContext";
 import { authService } from "@/services/authService";
+import {
+  getNutrientStatus,
+  getPhStatus,
+  getSoilMoistureStatus,
+  getElectricalConductivityStatus,
+  getSoilTemperatureStatus,
+  getAmbientTemperatureStatus,
+  getHumidityStatus,
+  getSunlightIntensityStatus,
+} from "@/utils/sensorThresholds";
+import {
+  calculateNitrogenProgress,
+  calculatePhosphorusProgress,
+  calculatePotassiumProgress,
+  calculatePhProgress,
+  calculateSoilMoistureProgress,
+  calculateElectricalConductivityProgress,
+  calculateSoilTemperatureProgress,
+  calculateAmbientTemperatureProgress,
+  calculateHumidityProgress,
+  calculateSunlightIntensityProgress,
+} from "@/utils/sensorProgressCalculator";
 
 const RealTimeSoilAnalysis = () => {
   const { t } = useLanguage();
@@ -116,19 +138,6 @@ const RealTimeSoilAnalysis = () => {
     return () => clearInterval(interval);
   }, []);
 
-  type NutrientType = "nitrogen" | "phosphorus" | "potassium";
-
-  const getNutrientStatus = (type: NutrientType, value: number) => {
-    if (type === "nitrogen") {
-      if (value > 180) return { status: "critical", color: "text-red-600" };
-      if (value >= 81) return { status: "optimal", color: "text-green-600" };
-      return { status: "warning", color: "text-yellow-600" };
-    }
-    if (value > 350) return { status: "critical", color: "text-red-600" };
-    if (value >= 111) return { status: "optimal", color: "text-green-600" };
-    return { status: "warning", color: "text-yellow-600" };
-  };
-
   const clampPercent = (percent: number) => Math.max(0, Math.min(100, percent));
 
   if (loading) {
@@ -210,7 +219,7 @@ const RealTimeSoilAnalysis = () => {
                 </span>
               </div>
               <Progress
-                value={clampPercent(((soilData?.nitrogen ?? 0) / 240) * 100)}
+                value={calculateNitrogenProgress(soilData?.nitrogen ?? 0)}
                 className="h-1.5 xs:h-2 mb-2"
               />
               {(() => {
@@ -242,7 +251,7 @@ const RealTimeSoilAnalysis = () => {
                 </span>
               </div>
               <Progress
-                value={clampPercent(((soilData?.phosphorus ?? 0) / 400) * 100)}
+                value={calculatePhosphorusProgress(soilData?.phosphorus ?? 0)}
                 className="h-1.5 xs:h-2 mb-2"
               />
               {(() => {
@@ -274,7 +283,7 @@ const RealTimeSoilAnalysis = () => {
                 </span>
               </div>
               <Progress
-                value={clampPercent(((soilData?.potassium ?? 0) / 400) * 100)}
+                value={calculatePotassiumProgress(soilData?.potassium ?? 0)}
                 className="h-1.5 xs:h-2 mb-2"
               />
               {(() => {
@@ -303,28 +312,14 @@ const RealTimeSoilAnalysis = () => {
                 {(soilData?.pH ?? 0).toFixed(1)}
               </div>
               <Progress
-                value={clampPercent(((soilData?.pH ?? 0) / 14) * 100)}
+                value={calculatePhProgress(soilData?.pH ?? 0)}
                 className="h-1.5 xs:h-2 mb-2"
               />
               {(() => {
-                const value = soilData?.pH ?? 0;
-                const min = 6.0,
-                  max = 7.5;
-                const status =
-                  value >= min && value <= max
-                    ? "optimal"
-                    : value < min * 0.8 || value > max * 1.2
-                    ? "critical"
-                    : "warning";
-                const color =
-                  status === "optimal"
-                    ? "text-green-600"
-                    : status === "critical"
-                    ? "text-red-600"
-                    : "text-yellow-600";
+                const s = getPhStatus(soilData?.pH ?? 0);
                 return (
-                  <div className={`text-xs font-medium ${color}`}>
-                    {status.toUpperCase()}
+                  <div className={`text-xs font-medium ${s.color}`}>
+                    {s.status}
                   </div>
                 );
               })()}
@@ -346,28 +341,16 @@ const RealTimeSoilAnalysis = () => {
                 </span>
               </div>
               <Progress
-                value={clampPercent(soilData?.soilMoisture ?? 0)}
+                value={calculateSoilMoistureProgress(
+                  soilData?.soilMoisture ?? 0
+                )}
                 className="h-1.5 xs:h-2 mb-2"
               />
               {(() => {
-                const value = soilData?.soilMoisture ?? 0;
-                const min = 40,
-                  max = 80;
-                const status =
-                  value >= min && value <= max
-                    ? "optimal"
-                    : value < min * 0.8 || value > max * 1.2
-                    ? "critical"
-                    : "warning";
-                const color =
-                  status === "optimal"
-                    ? "text-green-600"
-                    : status === "critical"
-                    ? "text-red-600"
-                    : "text-yellow-600";
+                const s = getSoilMoistureStatus(soilData?.soilMoisture ?? 0);
                 return (
-                  <div className={`text-xs font-medium ${color}`}>
-                    {status.toUpperCase()}
+                  <div className={`text-xs font-medium ${s.color}`}>
+                    {s.status}
                   </div>
                 );
               })()}
@@ -389,30 +372,18 @@ const RealTimeSoilAnalysis = () => {
                 </span>
               </div>
               <Progress
-                value={clampPercent(
-                  ((soilData?.electricalConductivity ?? 0) / 2) * 100
+                value={calculateElectricalConductivityProgress(
+                  soilData?.electricalConductivity ?? 0
                 )}
                 className="h-1.5 xs:h-2 mb-2"
               />
               {(() => {
-                const value = soilData?.electricalConductivity ?? 0;
-                const min = 0.4,
-                  max = 1.5;
-                const status =
-                  value >= min && value <= max
-                    ? "optimal"
-                    : value < min * 0.8 || value > max * 1.2
-                    ? "critical"
-                    : "warning";
-                const color =
-                  status === "optimal"
-                    ? "text-green-600"
-                    : status === "critical"
-                    ? "text-red-600"
-                    : "text-yellow-600";
+                const s = getElectricalConductivityStatus(
+                  soilData?.electricalConductivity ?? 0
+                );
                 return (
-                  <div className={`text-xs font-medium ${color}`}>
-                    {status.toUpperCase()}
+                  <div className={`text-xs font-medium ${s.color}`}>
+                    {s.status}
                   </div>
                 );
               })()}
@@ -434,30 +405,18 @@ const RealTimeSoilAnalysis = () => {
                 </span>
               </div>
               <Progress
-                value={clampPercent(
-                  ((soilData?.soilTemperature ?? 0) / 50) * 100
+                value={calculateSoilTemperatureProgress(
+                  soilData?.soilTemperature ?? 0
                 )}
                 className="h-1.5 xs:h-2 mb-2"
               />
               {(() => {
-                const value = soilData?.soilTemperature ?? 0;
-                const min = 15,
-                  max = 35;
-                const status =
-                  value >= min && value <= max
-                    ? "optimal"
-                    : value < min * 0.8 || value > max * 1.2
-                    ? "critical"
-                    : "warning";
-                const color =
-                  status === "optimal"
-                    ? "text-green-600"
-                    : status === "critical"
-                    ? "text-red-600"
-                    : "text-yellow-600";
+                const s = getSoilTemperatureStatus(
+                  soilData?.soilTemperature ?? 0
+                );
                 return (
-                  <div className={`text-xs font-medium ${color}`}>
-                    {status.toUpperCase()}
+                  <div className={`text-xs font-medium ${s.color}`}>
+                    {s.status}
                   </div>
                 );
               })()}
@@ -509,30 +468,18 @@ const RealTimeSoilAnalysis = () => {
                 </span>
               </div>
               <Progress
-                value={clampPercent(
-                  ((environmentData?.sunlightIntensity ?? 0) / 100000) * 100
+                value={calculateSunlightIntensityProgress(
+                  environmentData?.sunlightIntensity ?? 0
                 )}
                 className="h-1.5 xs:h-2 mb-2"
               />
               {(() => {
-                const value = environmentData?.sunlightIntensity ?? 0;
-                const min = 20000,
-                  max = 70000;
-                const status =
-                  value >= min && value <= max
-                    ? "optimal"
-                    : value < min * 0.8 || value > max * 1.2
-                    ? "critical"
-                    : "warning";
-                const color =
-                  status === "optimal"
-                    ? "text-green-600"
-                    : status === "critical"
-                    ? "text-red-600"
-                    : "text-yellow-600";
+                const s = getSunlightIntensityStatus(
+                  environmentData?.sunlightIntensity ?? 0
+                );
                 return (
-                  <div className={`text-xs font-medium ${color}`}>
-                    {status.toUpperCase()}
+                  <div className={`text-xs font-medium ${s.color}`}>
+                    {s.status}
                   </div>
                 );
               })()}
@@ -554,30 +501,18 @@ const RealTimeSoilAnalysis = () => {
                 </span>
               </div>
               <Progress
-                value={clampPercent(
-                  ((environmentData?.temperature ?? 0) / 50) * 100
+                value={calculateAmbientTemperatureProgress(
+                  environmentData?.temperature ?? 0
                 )}
                 className="h-1.5 xs:h-2 mb-2"
               />
               {(() => {
-                const value = environmentData?.temperature ?? 0;
-                const min = 20,
-                  max = 35;
-                const status =
-                  value >= min && value <= max
-                    ? "optimal"
-                    : value < min * 0.8 || value > max * 1.2
-                    ? "critical"
-                    : "warning";
-                const color =
-                  status === "optimal"
-                    ? "text-green-600"
-                    : status === "critical"
-                    ? "text-red-600"
-                    : "text-yellow-600";
+                const s = getAmbientTemperatureStatus(
+                  environmentData?.temperature ?? 0
+                );
                 return (
-                  <div className={`text-xs font-medium ${color}`}>
-                    {status.toUpperCase()}
+                  <div className={`text-xs font-medium ${s.color}`}>
+                    {s.status}
                   </div>
                 );
               })()}
@@ -599,28 +534,16 @@ const RealTimeSoilAnalysis = () => {
                 </span>
               </div>
               <Progress
-                value={clampPercent(environmentData?.humidity ?? 0)}
+                value={calculateHumidityProgress(
+                  environmentData?.humidity ?? 0
+                )}
                 className="h-1.5 xs:h-2 mb-2"
               />
               {(() => {
-                const value = environmentData?.humidity ?? 0;
-                const min = 50,
-                  max = 80;
-                const status =
-                  value >= min && value <= max
-                    ? "optimal"
-                    : value < min * 0.8 || value > max * 1.2
-                    ? "critical"
-                    : "warning";
-                const color =
-                  status === "optimal"
-                    ? "text-green-600"
-                    : status === "critical"
-                    ? "text-red-600"
-                    : "text-yellow-600";
+                const s = getHumidityStatus(environmentData?.humidity ?? 0);
                 return (
-                  <div className={`text-xs font-medium ${color}`}>
-                    {status.toUpperCase()}
+                  <div className={`text-xs font-medium ${s.color}`}>
+                    {s.status}
                   </div>
                 );
               })()}

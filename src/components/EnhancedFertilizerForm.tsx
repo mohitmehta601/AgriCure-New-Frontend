@@ -435,16 +435,16 @@ const EnhancedFertilizerForm = ({
             className="space-y-3 sm:space-y-4 md:space-y-5"
           >
             {/* Farm Selection */}
-            <div className="space-y-2 sm:space-y-3">
-              <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-800 flex items-center space-x-1.5 sm:space-x-2">
-                <Leaf className="h-4 w-4 sm:h-5 sm:w-5 text-grass-600" />
+            <div className="space-y-2">
+              <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-1.5">
+                <Leaf className="h-4 w-4 text-grass-600" />
                 <span>Farm Selection</span>
               </h3>
-              <div className="flex flex-col space-y-2">
-                <div className="flex-1">
+              <div className="space-y-1.5">
+                <div>
                   <Label
                     htmlFor="farmSelect"
-                    className="text-xs sm:text-sm md:text-base font-medium text-gray-700 mb-1.5 block"
+                    className="text-xs font-medium text-gray-700 mb-1 block"
                   >
                     Select Farm *
                   </Label>
@@ -453,7 +453,7 @@ const EnhancedFertilizerForm = ({
                     value={formData.selectedFarmId}
                     disabled={farmsLoading}
                   >
-                    <SelectTrigger className="transition-all duration-300 focus:ring-2 focus:ring-grass-500 focus:border-grass-500 hover:border-grass-300 h-9 sm:h-10 text-xs sm:text-sm">
+                    <SelectTrigger className="transition-all focus:ring-2 focus:ring-grass-500 focus:border-grass-500 hover:border-grass-400 h-9 text-sm">
                       <SelectValue
                         placeholder={
                           farmsLoading ? "Loading farms..." : "Choose a farm"
@@ -465,13 +465,13 @@ const EnhancedFertilizerForm = ({
                         <SelectItem
                           key={farm.id}
                           value={farm.id}
-                          className="hover:bg-grass-50 transition-colors duration-200"
+                          className="hover:bg-grass-50 transition-colors"
                         >
-                          <div className="flex flex-col">
+                          <div className="flex flex-col py-0.5">
                             <span className="font-medium text-sm">
                               {farm.name}
                             </span>
-                            <span className="text-[10px] sm:text-xs text-gray-500">
+                            <span className="text-xs text-gray-500">
                               {farm.size} {farm.unit} • {farm.cropType}
                             </span>
                           </div>
@@ -484,36 +484,37 @@ const EnhancedFertilizerForm = ({
                   type="button"
                   onClick={() => setIsAddFarmOpen(true)}
                   variant="outline"
-                  size="sm"
-                  className="w-full sm:w-auto bg-grass-50 border-grass-200 hover:bg-grass-100 text-grass-700 hover:text-grass-800 transition-all duration-300 text-xs sm:text-sm h-9 sm:h-10"
+                  className="w-full bg-white border-grass-300 hover:bg-grass-50 text-grass-700 hover:text-grass-800 h-8 text-xs font-medium"
                 >
-                  <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5" />
+                  <Plus className="h-3.5 w-3.5 mr-1.5" />
                   Add Farm
                 </Button>
               </div>
 
               {selectedFarm && (
-                <div className="p-3 sm:p-4 bg-gradient-to-r from-grass-50 to-green-50 rounded-lg border border-grass-200">
-                  <h4 className="font-semibold text-grass-800 mb-2 text-sm sm:text-base">
+                <div className="px-4 py-2.5 bg-gradient-to-br from-grass-50 to-green-50 rounded-lg border border-grass-200">
+                  <h4 className="font-semibold text-grass-800 mb-1.5 text-xs">
                     Selected Farm Details
                   </h4>
-                  <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
+                  <div className="flex items-center justify-between text-xs">
                     <div>
-                      <span className="text-gray-600">Size:</span>
-                      <span className="ml-1 font-medium">
+                      <span className="text-gray-600 font-medium">Size:</span>
+                      <span className="ml-1 text-gray-900 font-semibold">
                         {selectedFarm.size} {selectedFarm.unit}
                       </span>
                     </div>
                     <div>
-                      <span className="text-gray-600">Crop:</span>
-                      <span className="ml-1 font-medium">
+                      <span className="text-gray-600 font-medium">Crop:</span>
+                      <span className="ml-1 text-gray-900 font-semibold">
                         {selectedFarm.cropType}
                       </span>
                     </div>
                     {selectedFarm.sowingDate && (
-                      <div className="col-span-2">
-                        <span className="text-gray-600">Sowing Date:</span>
-                        <span className="ml-1 font-medium">
+                      <div>
+                        <span className="text-gray-600 font-medium">
+                          Sowing Date:
+                        </span>
+                        <span className="ml-1 text-gray-900 font-semibold">
                           {new Date(selectedFarm.sowingDate).toLocaleDateString(
                             "en-GB"
                           )}
@@ -526,15 +527,15 @@ const EnhancedFertilizerForm = ({
             </div>
 
             {/* Soil Chemistry */}
-            <div className="space-y-2 sm:space-y-3 p-2.5 sm:p-3 md:p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
-              <h3 className="text-sm sm:text-base md:text-lg font-semibold text-blue-800">
+            <div className="space-y-2 p-2.5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+              <h3 className="text-sm font-semibold text-blue-800">
                 Soil Chemistry
               </h3>
-              <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
-                <div className="space-y-1 sm:space-y-1.5">
+              <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-1">
                   <Label
                     htmlFor="nitrogen"
-                    className="text-[11px] sm:text-xs md:text-sm font-medium text-blue-700"
+                    className="text-xs font-medium text-blue-700"
                   >
                     Nitrogen (mg/kg) *
                   </Label>
@@ -546,13 +547,13 @@ const EnhancedFertilizerForm = ({
                     value={formData.nitrogen}
                     onChange={(e) => handleChange("nitrogen", e.target.value)}
                     required
-                    className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 sm:h-9 text-xs sm:text-sm"
+                    className="transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 text-xs"
                   />
                 </div>
-                <div className="space-y-1 sm:space-y-1.5">
+                <div className="space-y-1">
                   <Label
                     htmlFor="phosphorus"
-                    className="text-[11px] sm:text-xs md:text-sm font-medium text-blue-700"
+                    className="text-xs font-medium text-blue-700"
                   >
                     Phosphorus (mg/kg) *
                   </Label>
@@ -564,13 +565,13 @@ const EnhancedFertilizerForm = ({
                     value={formData.phosphorus}
                     onChange={(e) => handleChange("phosphorus", e.target.value)}
                     required
-                    className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 sm:h-9 text-xs sm:text-sm"
+                    className="transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 text-xs"
                   />
                 </div>
-                <div className="space-y-1 sm:space-y-1.5">
+                <div className="space-y-1">
                   <Label
                     htmlFor="potassium"
-                    className="text-[11px] sm:text-xs md:text-sm font-medium text-blue-700"
+                    className="text-xs font-medium text-blue-700"
                   >
                     Potassium (mg/kg) *
                   </Label>
@@ -582,13 +583,13 @@ const EnhancedFertilizerForm = ({
                     value={formData.potassium}
                     onChange={(e) => handleChange("potassium", e.target.value)}
                     required
-                    className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 sm:h-9 text-xs sm:text-sm"
+                    className="transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 text-xs"
                   />
                 </div>
-                <div className="space-y-1 sm:space-y-1.5">
+                <div className="space-y-1">
                   <Label
                     htmlFor="soilPH"
-                    className="text-[11px] sm:text-xs md:text-sm font-medium text-blue-700"
+                    className="text-xs font-medium text-blue-700"
                   >
                     Soil pH *
                   </Label>
@@ -602,13 +603,13 @@ const EnhancedFertilizerForm = ({
                     value={formData.soilPH}
                     onChange={(e) => handleChange("soilPH", e.target.value)}
                     required
-                    className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 sm:h-9 text-xs sm:text-sm"
+                    className="transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 text-xs"
                   />
                 </div>
-                <div className="space-y-1 sm:space-y-1.5">
+                <div className="space-y-1">
                   <Label
                     htmlFor="soilMoisture"
-                    className="text-[11px] sm:text-xs md:text-sm font-medium text-blue-700"
+                    className="text-xs font-medium text-blue-700"
                   >
                     Soil Moisture (%) *
                   </Label>
@@ -624,13 +625,13 @@ const EnhancedFertilizerForm = ({
                       handleChange("soilMoisture", e.target.value)
                     }
                     required
-                    className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 sm:h-9 text-xs sm:text-sm"
+                    className="transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 text-xs"
                   />
                 </div>
-                <div className="space-y-1 sm:space-y-1.5">
+                <div className="space-y-1">
                   <Label
                     htmlFor="soilTemperature"
-                    className="text-[11px] sm:text-xs md:text-sm font-medium text-blue-700"
+                    className="text-xs font-medium text-blue-700"
                   >
                     Soil Temperature (°C) *
                   </Label>
@@ -644,13 +645,13 @@ const EnhancedFertilizerForm = ({
                       handleChange("soilTemperature", e.target.value)
                     }
                     required
-                    className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 sm:h-9 text-xs sm:text-sm"
+                    className="transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 text-xs"
                   />
                 </div>
-                <div className="space-y-1 sm:space-y-1.5 col-span-2">
+                <div className="space-y-1 col-span-2">
                   <Label
                     htmlFor="electricalConductivity"
-                    className="text-[11px] sm:text-xs md:text-sm font-medium text-blue-700"
+                    className="text-xs font-medium text-blue-700"
                   >
                     Electrical Conductivity (μS/cm) *
                   </Label>
@@ -664,28 +665,28 @@ const EnhancedFertilizerForm = ({
                       handleChange("electricalConductivity", e.target.value)
                     }
                     required
-                    className="transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 sm:h-9 text-xs sm:text-sm"
+                    className="transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 h-8 text-xs"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-2 sm:pt-3">
+            <div className="flex flex-col sm:flex-row gap-2 pt-2">
               <Button
                 type="submit"
-                className="flex-1 bg-gradient-to-r from-grass-600 to-green-600 hover:from-grass-700 hover:to-green-700 text-xs sm:text-sm md:text-base py-2.5 sm:py-3 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl h-10 sm:h-11"
+                className="flex-1 bg-gradient-to-r from-grass-600 to-green-600 hover:from-grass-700 hover:to-green-700 text-sm py-2 transition-all hover:scale-105 shadow-lg h-9"
                 disabled={isLoading || !selectedFarm}
               >
                 {isLoading ? (
                   <div className="flex items-center space-x-2">
-                    <div className="animate-spin rounded-full h-3.5 w-3.5 sm:h-4 sm:w-4 border-b-2 border-white"></div>
-                    <span className="text-xs sm:text-sm">
+                    <div className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-white"></div>
+                    <span className="text-xs">
                       Getting AI Recommendations...
                     </span>
                   </div>
                 ) : (
                   <div className="flex items-center space-x-2">
-                    <Brain className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    <Brain className="h-3.5 w-3.5" />
                     <span>Get ML Recommendations</span>
                   </div>
                 )}
@@ -693,7 +694,7 @@ const EnhancedFertilizerForm = ({
               <Button
                 type="reset"
                 variant="outline"
-                className="sm:flex-none text-xs sm:text-sm md:text-base py-2.5 sm:py-3 transition-all duration-300 hover:scale-105 border-grass-300 hover:bg-grass-50 h-10 sm:h-11"
+                className="sm:flex-none text-sm py-2 transition-all hover:scale-105 border-grass-300 hover:bg-grass-50 h-9"
                 onClick={() =>
                   setFormData({
                     selectedFarmId: "",

@@ -64,6 +64,9 @@ const translations = {
     "dashboard.oneHourAgo": "1 hour ago",
     "dashboard.health": "Health",
     "dashboard.size": "Size",
+    "dashboard.sown": "Sown",
+    "dashboard.added": "Added",
+    "dashboard.crop": "Crop",
     "dashboard.recommendationHistory": "Fertilizer Recommendation History",
     "dashboard.recommendationHistoryDescription":
       "Past recommendations and their application status",
@@ -102,6 +105,13 @@ const translations = {
     "dashboard.moistureStatus": "Moisture Status",
     "dashboard.nutrientDeficiencies": "Nutrient Deficiencies",
     "dashboard.noneDetected": "None detected",
+    "dashboard.currentSoilReport": "Current Soil Report",
+    "dashboard.soilData": "Soil Data",
+    "dashboard.phLevel": "pH Level",
+    "dashboard.electricalConductivity": "Electrical Conductivity",
+    "dashboard.soilTemperature": "Soil Temperature",
+    "dashboard.environmentReadings": "Environment Readings",
+    "dashboard.sunlight": "Sunlight",
     "dashboard.primaryFertilizer": "Primary Fertilizer",
     "dashboard.secondaryFertilizer": "Secondary Fertilizer",
     "dashboard.reason": "Reason",
@@ -219,7 +229,7 @@ const translations = {
     "hero.titleHighlight": "Better Yields",
     "hero.subtitle":
       "Get personalized fertilizer recommendations based on your soil analysis. Maximize your crop yields with data-driven farming decisions.",
-    "hero.startTrial": "Start Free Trial",
+    "hero.startTrial": "Start Trial",
     "hero.viewDemo": "View Demo",
     "hero.sensorDriven": "Sensor-Driven Analysis",
     "hero.yieldIncrease": "Yield Increase",
@@ -325,6 +335,10 @@ const translations = {
     "mlModel.fallbackDescription":
       "The ML model is unavailable. Predictions are using rule-based algorithms with reduced accuracy.",
     "mlModel.lastChecked": "Last checked",
+    "mlModel.fertilizerRecommendationModel": "Fertilizer Recommendation Model",
+    "mlModel.fertilizerRecommendationDesc":
+      "Provides nutrient-based fertilizer recommendations",
+    "form.farmName": "Farm Name",
 
     // Crop Types
     "crops.tea": "Tea",
@@ -405,7 +419,7 @@ const translations = {
     "nav.features": "विशेषताएं",
     "nav.howItWorks": "कैसे काम करता है",
     "nav.login": "लॉगिन",
-    "nav.signup": "शुरू करें",
+    "nav.signup": "साइन अप",
     "nav.start": "शुरू",
 
     // Dashboard
@@ -443,6 +457,9 @@ const translations = {
     "dashboard.oneHourAgo": "1 घंटे पहले",
     "dashboard.health": "स्वास्थ्य",
     "dashboard.size": "आकार",
+    "dashboard.sown": "बुवाई",
+    "dashboard.added": "जोड़ा गया",
+    "dashboard.crop": "फसल",
     "dashboard.recommendationHistory": "उर्वरक सिफारिश इतिहास",
     "dashboard.recommendationHistoryDescription":
       "पिछली सिफारिशें और उनकी अनुप्रयोग स्थिति",
@@ -480,6 +497,13 @@ const translations = {
     "dashboard.moistureStatus": "नमी स्थिति",
     "dashboard.nutrientDeficiencies": "पोषक तत्व की कमी",
     "dashboard.noneDetected": "कोई नहीं मिला",
+    "dashboard.currentSoilReport": "वर्तमान मिट्टी रिपोर्ट",
+    "dashboard.soilData": "मिट्टी डेटा",
+    "dashboard.phLevel": "pH स्तर",
+    "dashboard.electricalConductivity": "विद्युत चालकता",
+    "dashboard.soilTemperature": "मिट्टी का तापमान",
+    "dashboard.environmentReadings": "पर्यावरण रीडिंग",
+    "dashboard.sunlight": "सूर्य प्रकाश",
     "dashboard.primaryFertilizer": "प्राथमिक उर्वरक",
     "dashboard.secondaryFertilizer": "द्वितीयक उर्वरक",
     "dashboard.reason": "कारण",
@@ -598,7 +622,7 @@ const translations = {
     "hero.titleHighlight": "स्मार्ट खेती",
     "hero.subtitle":
       "अपने मिट्टी विश्लेषण के आधार पर व्यक्तिगत उर्वरक सिफारिशें प्राप्त करें। डेटा-संचालित खेती निर्णयों के साथ अपनी फसल की पैदावार को अधिकतम करें।",
-    "hero.startTrial": "मुफ्त परीक्षण शुरू करें",
+    "hero.startTrial": "परीक्षण शुरू करें",
     "hero.viewDemo": "डेमो देखें",
     "hero.sensorDriven": "सेंसर-आधारित विश्लेषण",
     "hero.yieldIncrease": "उपज में वृद्धि",
@@ -608,24 +632,30 @@ const translations = {
     "features.title": "स्मार्ट खेती के लिए आपको जो कुछ चाहिए",
     "features.subtitle":
       "हमारा व्यापक प्लेटफॉर्म आपको अपने खेती संचालन को अनुकूलित करने के लिए आवश्यक सभी उपकरण और अंतर्दृष्टि प्रदान करता है।",
-    "features.preciseAnalysis.title": "सटीक मिट्टी विश्लेषण",
-    "features.preciseAnalysis.description":
-      "सटीक सिफारिशों के लिए अपनी मिट्टी के pH, नाइट्रोजन, फास्फोरस, पोटैशियम और नमी के स्तर के बारे में विस्तृत जानकारी प्राप्त करें।",
-    "features.smartRecommendations.title": "स्मार्ट उर्वरक सिफारिशें",
-    "features.smartRecommendations.description":
-      "अपनी विशिष्ट मिट्टी की स्थिति और फसल आवश्यकताओं के आधार पर व्यक्तिगत उर्वरक सुझाव प्राप्त करें।",
-    "features.yieldTracking.title": "उपज ट्रैकिंग",
-    "features.yieldTracking.description":
-      "हमारे व्यापक विश्लेषण डैशबोर्ड के साथ अपने फसल प्रदर्शन की निगरानी करें और समय के साथ सुधार को ट्रैक करें।",
-    "features.mobileDesign.title": "मोबाइल-फर्स्ट डिज़ाइन",
-    "features.mobileDesign.description":
-      "मोबाइल उपकरणों के लिए अनुकूलित हमारे रेस्पॉन्सिव डिज़ाइन के साथ कहीं भी, कभी भी अपने खेत के डेटा तक पहुंचें।",
-    "features.expertSupport.title": "विशेषज्ञ समर्थन",
-    "features.expertSupport.description":
-      "कृषि विशेषज्ञों से मार्गदर्शन प्राप्त करें और सफल किसानों के समुदाय से जुड़ें।",
-    "features.dataSecurity.title": "डेटा सुरक्षा",
-    "features.dataSecurity.description":
-      "आपका खेत डेटा एंटरप्राइज-ग्रेड सुरक्षा और गोपनीयता उपायों के साथ संरक्षित है।",
+    "features.sensorDriven.title": "सेंसर-आधारित मिट्टी परीक्षण",
+    "features.sensorDriven.description":
+      "AgriCure रीयल-टाइम मिट्टी स्वास्थ्य डेटा के लिए लैब रिपोर्ट के बजाय ऑन-फील्ड स्मार्ट सेंसर (NPK, pH, नमी, तापमान) का उपयोग करता है।",
+    "features.aiFertilizer.title": "AI उर्वरक और पोषक तत्व योजना",
+    "features.aiFertilizer.description":
+      "लाइव मिट्टी रीडिंग और फसल की जरूरतों के आधार पर सटीक उर्वरक खुराक, प्रकार और समय (रासायनिक + जैविक) प्राप्त करें।",
+    "features.reduceInputCost.title": "इनपुट लागत कम करें, उपज नहीं",
+    "features.reduceInputCost.description":
+      "केवल वही लगाकर यूरिया और डीएपी के अत्यधिक उपयोग से बचें जो फसल को वास्तव में चाहिए।",
+    "features.cropSpecific.title": "फसल-विशिष्ट बुद्धिमत्ता",
+    "features.cropSpecific.description":
+      "सिफारिशें फसल के प्रकार, मिट्टी की स्थिति और विकास चरण के अनुसार स्वचालित रूप से अनुकूलित होती हैं।",
+    "features.waterSoilHealth.title": "जल और मिट्टी स्वास्थ्य संरक्षण",
+    "features.waterSoilHealth.description":
+      "संतुलित पोषक तत्व अनुप्रयोग मिट्टी के क्षरण और भूजल प्रदूषण को रोकता है।",
+    "features.farmerFirst.title": "किसान-प्रथम मोबाइल अनुभव",
+    "features.farmerFirst.description":
+      "आसान अंतर्दृष्टि के साथ सरल, मोबाइल-फ्रेंडली ऐप, किसानों के लिए बनाया गया—जटिल डैशबोर्ड नहीं।",
+    "features.smallFarmers.title": "छोटे किसानों के लिए भी काम करता है",
+    "features.smallFarmers.description":
+      "किफायती, व्यावहारिक समाधानों के साथ छोटे और सीमांत किसानों का समर्थन करने के लिए डिज़ाइन किया गया।",
+    "features.dataOwnership.title": "डेटा जो आपका है, हमेशा",
+    "features.dataOwnership.description":
+      "किसान का डेटा निजी, सुरक्षित रहता है और कभी बेचा नहीं जाता।",
 
     // CTA Section
     "cta.title": "अपनी खेती को बदलने के लिए तैयार हैं?",
@@ -639,18 +669,19 @@ const translations = {
     "howItWorks.subtitle":
       "सेंसर तैनाती से लेकर कार्रवाई योग्य सिफारिशों तक चार सरल चरणों में",
     "howItWorks.step": "चरण",
-    "howItWorks.deploySensors.title": "सेंसर तैनात करें",
-    "howItWorks.deploySensors.description":
-      "रीयल-टाइम में मिट्टी की स्थिति की निगरानी के लिए अपने खेतों में IoT सेंसर स्थापित करें।",
-    "howItWorks.streamData.title": "डेटा को क्लाउड में स्ट्रीम करें",
-    "howItWorks.streamData.description":
-      "सेंसर डेटा स्वचालित रूप से प्रसंस्करण के लिए हमारे सुरक्षित क्लाउड प्लेटफॉर्म पर प्रेषित किया जाता है।",
-    "howItWorks.mlRecommends.title": "ML खुराक की सिफारिश करता है",
-    "howItWorks.mlRecommends.description":
-      "हमारा AI आपके डेटा का विश्लेषण करता है और सटीक उर्वरक सिफारिशें उत्पन्न करता है।",
-    "howItWorks.applyDashboard.title": "डैशबोर्ड के माध्यम से लागू करें",
-    "howItWorks.applyDashboard.description":
-      "अपने डैशबोर्ड या Variable Rate Application सिस्टम के माध्यम से कार्रवाई योग्य अंतर्दृष्टि प्राप्त करें।",
+    "howItWorks.collectSamples.title": "मिट्टी के नमूने एकत्र करें",
+    "howItWorks.collectSamples.description":
+      "समग्र मिट्टी की स्थिति का सटीक प्रतिनिधित्व करने के लिए खेत में कई स्थानों से लगभग 1 किलो मिट्टी एकत्र करें।",
+    "howItWorks.sensorAnalysis.title": "सेंसर-आधारित मिट्टी विश्लेषण",
+    "howItWorks.sensorAnalysis.description":
+      "एकत्रित मिट्टी का विश्लेषण AgriCure के स्मार्ट सेंसर का उपयोग करके NPK, pH, नमी, तापमान और EC को मापने के लिए किया जाता है।",
+    "howItWorks.aiProcessing.title": "AI और ML डेटा प्रोसेसिंग",
+    "howItWorks.aiProcessing.description":
+      "AgriCure के AI मॉडल इष्टतम पोषक तत्व आवश्यकताओं की गणना के लिए फसल के प्रकार, मिट्टी की स्थिति और विकास चरण के साथ मिट्टी के डेटा का विश्लेषण करते हैं।",
+    "howItWorks.fertilizerPlan.title":
+      "कार्रवाई योग्य उर्वरक योजना प्राप्त करें",
+    "howItWorks.fertilizerPlan.description":
+      "किसानों को अनुशंसित उर्वरक प्रकार, सटीक खुराक और अनुप्रयोग समय के साथ एक स्पष्ट उर्वरक योजना प्राप्त होती है।",
 
     // Footer
     "footer.tagline":
@@ -693,6 +724,10 @@ const translations = {
     "mlModel.fallbackDescription":
       "एमएल मॉडल उपलब्ध नहीं है। भविष्यवाणियां कम सटीकता के साथ नियम-आधारित एल्गोरिदम का उपयोग कर रही हैं।",
     "mlModel.lastChecked": "अंतिम जांच",
+    "mlModel.fertilizerRecommendationModel": "उर्वरक सिफारिश मॉडल",
+    "mlModel.fertilizerRecommendationDesc":
+      "पोषक तत्व-आधारित उर्वरक सिफारिशें प्रदान करता है",
+    "form.farmName": "खेत का नाम",
 
     // Crop Types
     "crops.tea": "चाय",
@@ -773,7 +808,7 @@ const translations = {
     "nav.features": "ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ",
     "nav.howItWorks": "ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",
     "nav.login": "ਲੌਗਿਨ",
-    "nav.signup": "ਸ਼ੁਰੂ ਕਰੋ",
+    "nav.signup": "ਸਾਈਨ ਅੱਪ",
     "nav.start": "ਸ਼ੁਰੂ",
 
     // Dashboard
@@ -811,6 +846,9 @@ const translations = {
     "dashboard.oneHourAgo": "1 ਘੰਟਾ ਪਹਿਲਾਂ",
     "dashboard.health": "ਸਿਹਤ",
     "dashboard.size": "ਆਕਾਰ",
+    "dashboard.sown": "ਬੀਜੀ",
+    "dashboard.added": "ਸ਼ਾਮਲ ਕੀਤਾ",
+    "dashboard.crop": "ਫਸਲ",
     "dashboard.recommendationHistory": "ਖਾਦ ਸਿਫਾਰਸ਼ ਇਤਿਹਾਸ",
     "dashboard.recommendationHistoryDescription":
       "ਪਿਛਲੀਆਂ ਸਿਫਾਰਸ਼ਾਂ ਅਤੇ ਉਹਨਾਂ ਦੀ ਐਪਲੀਕੇਸ਼ਨ ਸਥਿਤੀ",
@@ -848,6 +886,13 @@ const translations = {
     "dashboard.moistureStatus": "ਨਮੀ ਸਥਿਤੀ",
     "dashboard.nutrientDeficiencies": "ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੀ ਕਮੀ",
     "dashboard.noneDetected": "ਕੋਈ ਨਹੀਂ ਮਿਲਿਆ",
+    "dashboard.currentSoilReport": "ਮੌਜੂਦਾ ਮਿੱਟੀ ਰਿਪੋਰਟ",
+    "dashboard.soilData": "ਮਿੱਟੀ ਡੇਟਾ",
+    "dashboard.phLevel": "pH ਸਤਰ",
+    "dashboard.electricalConductivity": "ਬਿਜਲੀ ਚਾਲਕਤਾ",
+    "dashboard.soilTemperature": "ਮਿੱਟੀ ਦਾ ਤਾਪਮਾਨ",
+    "dashboard.environmentReadings": "ਪਰਿਆਵਰਣ ਰੀਡਿੰਗ",
+    "dashboard.sunlight": "ਸੂਰਜ ਦੀ ਰੌਸ਼ਨੀ",
     "dashboard.primaryFertilizer": "ਪ੍ਰਾਇਮਰੀ ਖਾਦ",
     "dashboard.secondaryFertilizer": "ਸੈਕੰਡਰੀ ਖਾਦ",
     "dashboard.reason": "ਕਾਰਨ",
@@ -965,7 +1010,7 @@ const translations = {
     "hero.titleHighlight": "ਸਮਾਰਟ ਖੇਤੀਬਾੜੀ",
     "hero.subtitle":
       "ਆਪਣੇ ਮਿੱਟੀ ਵਿਸ਼ਲੇਸ਼ਣ ਦੇ ਆਧਾਰ ਤੇ ਨਿੱਜੀ ਖਾਦ ਸਿਫਾਰਸ਼ਾਂ ਪ੍ਰਾਪਤ ਕਰੋ। ਡੇਟਾ-ਆਧਾਰਿਤ ਖੇਤੀਬਾੜੀ ਫੈਸਲਿਆਂ ਨਾਲ ਆਪਣੀ ਫਸਲ ਦੀ ਪੈਦਾਵਾਰ ਨੂੰ ਵੱਧ ਤੋਂ ਵੱਧ ਕਰੋ।",
-    "hero.startTrial": "ਮੁਫਤ ਟਰਾਇਲ ਸ਼ੁਰੂ ਕਰੋ",
+    "hero.startTrial": "ਟਰਾਇਲ ਸ਼ੁਰੂ ਕਰੋ",
     "hero.viewDemo": "ਡੇਮੋ ਦੇਖੋ",
     "hero.sensorDriven": "ਸੈਂਸਰ-ਆਧਾਰਿਤ ਵਿਸ਼ਲੇਸ਼ਣ",
     "hero.yieldIncrease": "ਫਸਲ ਵਾਧਾ",
@@ -975,24 +1020,30 @@ const translations = {
     "features.title": "ਸਮਾਰਟ ਖੇਤੀਬਾੜੀ ਲਈ ਤੁਹਾਨੂੰ ਜੋ ਕੁਝ ਚਾਹੀਦਾ ਹੈ",
     "features.subtitle":
       "ਸਾਡਾ ਵਿਆਪਕ ਪਲੇਟਫਾਰਮ ਤੁਹਾਨੂੰ ਆਪਣੇ ਖੇਤੀਬਾੜੀ ਕਾਰਜਾਂ ਨੂੰ ਅਨੁਕੂਲ ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੇ ਸਾਰੇ ਟੂਲ ਅਤੇ ਸੂਝ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ।",
-    "features.preciseAnalysis.title": "ਸ਼ੁੱਧ ਮਿੱਟੀ ਵਿਸ਼ਲੇਸ਼ਣ",
-    "features.preciseAnalysis.description":
-      "ਸ਼ੁੱਧ ਸਿਫਾਰਸ਼ਾਂ ਲਈ ਆਪਣੀ ਮਿੱਟੀ ਦੇ pH, ਨਾਈਟ੍ਰੋਜਨ, ਫਾਸਫੋਰਸ, ਪੋਟਾਸ਼ੀਅਮ ਅਤੇ ਨਮੀ ਦੇ ਪੱਧਰਾਂ ਬਾਰੇ ਵਿਸਤ੍ਰਿਤ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰੋ।",
-    "features.smartRecommendations.title": "ਸਮਾਰਟ ਖਾਦ ਸਿਫਾਰਸ਼ਾਂ",
-    "features.smartRecommendations.description":
-      "ਆਪਣੀਆਂ ਵਿਸ਼ੇਸ਼ ਮਿੱਟੀ ਦੀਆਂ ਸਥਿਤੀਆਂ ਅਤੇ ਫਸਲ ਦੀਆਂ ਲੋੜਾਂ ਦੇ ਆਧਾਰ ਤੇ ਨਿੱਜੀ ਖਾਦ ਸੁਝਾਅ ਪ੍ਰਾਪਤ ਕਰੋ।",
-    "features.yieldTracking.title": "ਫਸਲ ਟਰੈਕਿੰਗ",
-    "features.yieldTracking.description":
-      "ਸਾਡੇ ਵਿਆਪਕ ਵਿਸ਼ਲੇਸ਼ਣ ਡੈਸ਼ਬੋਰਡ ਨਾਲ ਆਪਣੇ ਫਸਲ ਦੇ ਪ੍ਰਦਰਸ਼ਨ ਦੀ ਨਿਗਰਾਨੀ ਕਰੋ ਅਤੇ ਸਮੇਂ ਦੇ ਨਾਲ ਸੁਧਾਰਾਂ ਨੂੰ ਟਰੈਕ ਕਰੋ।",
-    "features.mobileDesign.title": "ਮੋਬਾਇਲ-ਫਰਸਟ ਡਿਜ਼ਾਈਨ",
-    "features.mobileDesign.description":
-      "ਮੋਬਾਇਲ ਡਿਵਾਈਸਾਂ ਲਈ ਅਨੁਕੂਲਿਤ ਸਾਡੇ ਰਿਸਪਾਂਸਿਵ ਡਿਜ਼ਾਈਨ ਨਾਲ ਕਿਤੇ ਵੀ, ਕਦੇ ਵੀ ਆਪਣੇ ਖੇਤ ਦੇ ਡੇਟਾ ਤੱਕ ਪਹੁੰਚ ਕਰੋ।",
-    "features.expertSupport.title": "ਵਿਸ਼ੇਸ਼ਜ ਸਹਾਇਤਾ",
-    "features.expertSupport.description":
-      "ਖੇਤੀਬਾੜੀ ਵਿਸ਼ੇਸ਼ਜਾਂ ਤੋਂ ਮਾਰਗਦਰਸ਼ਨ ਪ੍ਰਾਪਤ ਕਰੋ ਅਤੇ ਸਫਲ ਕਿਸਾਨਾਂ ਦੇ ਭਾਈਚਾਰੇ ਨਾਲ ਜੁੜੋ।",
-    "features.dataSecurity.title": "ਡੇਟਾ ਸੁਰੱਖਿਆ",
-    "features.dataSecurity.description":
-      "ਤੁਹਾਡਾ ਖੇਤ ਡੇਟਾ ਐਂਟਰਪ੍ਰਾਈਜ਼-ਗ੍ਰੇਡ ਸੁਰੱਖਿਆ ਅਤੇ ਗੋਪਨੀਯਤਾ ਉਪਾਵਾਂ ਨਾਲ ਸੁਰੱਖਿਅਤ ਹੈ।",
+    "features.sensorDriven.title": "ਸੈਂਸਰ-ਆਧਾਰਿਤ ਮਿੱਟੀ ਟੈਸਟਿੰਗ",
+    "features.sensorDriven.description":
+      "AgriCure ਰੀਅਲ-ਟਾਈਮ ਮਿੱਟੀ ਸਿਹਤ ਡੇਟਾ ਲਈ ਲੈਬ ਰਿਪੋਰਟਾਂ ਦੀ ਬਜਾਏ ਆਨ-ਫੀਲਡ ਸਮਾਰਟ ਸੈਂਸਰ (NPK, pH, ਨਮੀ, ਤਾਪਮਾਨ) ਦੀ ਵਰਤੋਂ ਕਰਦਾ ਹੈ।",
+    "features.aiFertilizer.title": "AI ਖਾਦ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤ ਯੋਜਨਾ",
+    "features.aiFertilizer.description":
+      "ਲਾਈਵ ਮਿੱਟੀ ਰੀਡਿੰਗ ਅਤੇ ਫਸਲ ਦੀਆਂ ਲੋੜਾਂ ਦੇ ਆਧਾਰ ਤੇ ਸਹੀ ਖਾਦ ਖੁਰਾਕ, ਕਿਸਮ ਅਤੇ ਸਮਾਂ (ਰਸਾਇਣਕ + ਜੈਵਿਕ) ਪ੍ਰਾਪਤ ਕਰੋ।",
+    "features.reduceInputCost.title": "ਇਨਪੁੱਟ ਲਾਗਤ ਘਟਾਓ, ਫਸਲ ਨਹੀਂ",
+    "features.reduceInputCost.description":
+      "ਸਿਰਫ਼ ਉਹੀ ਲਾਗੂ ਕਰਕੇ ਯੂਰੀਆ ਅਤੇ ਡੀਏਪੀ ਦੀ ਜ਼ਿਆਦਾ ਵਰਤੋਂ ਤੋਂ ਬਚੋ ਜੋ ਫਸਲ ਨੂੰ ਅਸਲ ਵਿੱਚ ਲੋੜੀਂਦਾ ਹੈ।",
+    "features.cropSpecific.title": "ਫਸਲ-ਵਿਸ਼ੇਸ਼ ਬੁੱਧੀ",
+    "features.cropSpecific.description":
+      "ਸਿਫਾਰਸ਼ਾਂ ਆਪਣੇ ਆਪ ਫਸਲ ਦੀ ਕਿਸਮ, ਮਿੱਟੀ ਦੀ ਸਥਿਤੀ ਅਤੇ ਵਿਕਾਸ ਪੜਾਅ ਦੇ ਅਨੁਸਾਰ ਅਨੁਕੂਲ ਹੁੰਦੀਆਂ ਹਨ।",
+    "features.waterSoilHealth.title": "ਪਾਣੀ ਅਤੇ ਮਿੱਟੀ ਸਿਹਤ ਸੁਰੱਖਿਆ",
+    "features.waterSoilHealth.description":
+      "ਸੰਤੁਲਿਤ ਪੋਸ਼ਕ ਤੱਤ ਅਨੁਪ੍ਰਯੋਗ ਮਿੱਟੀ ਦੇ ਵਿਗਾੜ ਅਤੇ ਭੂਮੀਗਤ ਪਾਣੀ ਪ੍ਰਦੂਸ਼ਣ ਨੂੰ ਰੋਕਦਾ ਹੈ।",
+    "features.farmerFirst.title": "ਕਿਸਾਨ-ਪਹਿਲਾਂ ਮੋਬਾਇਲ ਤਜਰਬਾ",
+    "features.farmerFirst.description":
+      "ਆਸਾਨ ਸੂਝਾਂ ਦੇ ਨਾਲ ਸਰਲ, ਮੋਬਾਇਲ-ਫ੍ਰੈਂਡਲੀ ਐਪ, ਕਿਸਾਨਾਂ ਲਈ ਬਣਾਇਆ ਗਿਆ—ਗੁੰਝਲਦਾਰ ਡੈਸ਼ਬੋਰਡ ਨਹੀਂ।",
+    "features.smallFarmers.title": "ਛੋਟੇ ਕਿਸਾਨਾਂ ਲਈ ਵੀ ਕੰਮ ਕਰਦਾ ਹੈ",
+    "features.smallFarmers.description":
+      "ਕਿਫਾਇਤੀ, ਵਿਹਾਰਕ ਹੱਲਾਂ ਨਾਲ ਛੋਟੇ ਅਤੇ ਸੀਮਾਂਤ ਕਿਸਾਨਾਂ ਦਾ ਸਮਰਥਨ ਕਰਨ ਲਈ ਡਿਜ਼ਾਈਨ ਕੀਤਾ ਗਿਆ।",
+    "features.dataOwnership.title": "ਡੇਟਾ ਜੋ ਤੁਹਾਡਾ ਹੈ, ਹਮੇਸ਼ਾਂ",
+    "features.dataOwnership.description":
+      "ਕਿਸਾਨ ਦਾ ਡੇਟਾ ਨਿੱਜੀ, ਸੁਰੱਖਿਅਤ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਕਦੇ ਵੇਚਿਆ ਨਹੀਂ ਜਾਂਦਾ।",
 
     // CTA Section
     "cta.title": "ਆਪਣੀ ਖੇਤੀਬਾੜੀ ਨੂੰ ਬਦਲਣ ਲਈ ਤਿਆਰ ਹੋ?",
@@ -1006,18 +1057,18 @@ const translations = {
     "howItWorks.subtitle":
       "ਸੈਂਸਰ ਤੈਨਾਤੀ ਤੋਂ ਕਾਰਵਾਈ ਯੋਗ ਸਿਫਾਰਸ਼ਾਂ ਤੱਕ ਚਾਰ ਸਧਾਰਨ ਕਦਮਾਂ ਵਿੱਚ",
     "howItWorks.step": "ਕਦਮ",
-    "howItWorks.deploySensors.title": "ਸੈਂਸਰ ਤੈਨਾਤ ਕਰੋ",
-    "howItWorks.deploySensors.description":
-      "ਰੀਅਲ-ਟਾਈਮ ਵਿੱਚ ਮਿੱਟੀ ਦੀਆਂ ਸਥਿਤੀਆਂ ਦੀ ਨਿਗਰਾਨੀ ਲਈ ਆਪਣੇ ਖੇਤਾਂ ਵਿੱਚ IoT ਸੈਂਸਰ ਸਥਾਪਤ ਕਰੋ।",
-    "howItWorks.streamData.title": "ਡੇਟਾ ਨੂੰ ਕਲਾਊਡ ਵਿੱਚ ਸਟ੍ਰੀਮ ਕਰੋ",
-    "howItWorks.streamData.description":
-      "ਸੈਂਸਰ ਡੇਟਾ ਆਪਣੇ ਆਪ ਸੁਰੱਖਿਅਤ ਕਲਾਊਡ ਪਲੇਟਫਾਰਮ ਤੇ ਪ੍ਰੋਸੈਸਿੰਗ ਲਈ ਭੇਜਿਆ ਜਾਂਦਾ ਹੈ।",
-    "howItWorks.mlRecommends.title": "ML ਖੁਰਾਕ ਦੀ ਸਿਫਾਰਸ਼ ਕਰਦਾ ਹੈ",
-    "howItWorks.mlRecommends.description":
-      "ਸਾਡਾ AI ਤੁਹਾਡੇ ਡੇਟਾ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰਦਾ ਹੈ ਅਤੇ ਸ਼ੁੱਧ ਖਾਦ ਸਿਫਾਰਸ਼ਾਂ ਤਿਆਰ ਕਰਦਾ ਹੈ।",
-    "howItWorks.applyDashboard.title": "ਡੈਸ਼ਬੋਰਡ ਰਾਹੀਂ ਲਾਗੂ ਕਰੋ",
-    "howItWorks.applyDashboard.description":
-      "ਆਪਣੇ ਡੈਸ਼ਬੋਰਡ ਜਾਂ Variable Rate Application ਸਿਸਟਮ ਰਾਹੀਂ ਕਾਰਵਾਈ ਯੋਗ ਸੂਝਾਂ ਪ੍ਰਾਪਤ ਕਰੋ।",
+    "howItWorks.collectSamples.title": "ਮਿੱਟੀ ਦੇ ਨਮੂਨੇ ਇਕੱਠੇ ਕਰੋ",
+    "howItWorks.collectSamples.description":
+      "ਸਮੁੱਚੀ ਮਿੱਟੀ ਦੀਆਂ ਸਥਿਤੀਆਂ ਦਾ ਸਹੀ ਪ੍ਰਤੀਨਿਧਤਾ ਕਰਨ ਲਈ ਖੇਤ ਵਿੱਚ ਕਈ ਸਥਾਨਾਂ ਤੋਂ ਲਗਭਗ 1 ਕਿਲੋ ਮਿੱਟੀ ਇਕੱਠੀ ਕਰੋ।",
+    "howItWorks.sensorAnalysis.title": "ਸੈਂਸਰ-ਆਧਾਰਿਤ ਮਿੱਟੀ ਵਿਸ਼ਲੇਸ਼ਣ",
+    "howItWorks.sensorAnalysis.description":
+      "ਇਕੱਠੀ ਕੀਤੀ ਮਿੱਟੀ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ AgriCure ਦੇ ਸਮਾਰਟ ਸੈਂਸਰਾਂ ਦੀ ਵਰਤੋਂ ਕਰਕੇ NPK, pH, ਨਮੀ, ਤਾਪਮਾਨ ਅਤੇ EC ਨੂੰ ਮਾਪਣ ਲਈ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।",
+    "howItWorks.aiProcessing.title": "AI ਅਤੇ ML ਡੇਟਾ ਪ੍ਰੋਸੈਸਿੰਗ",
+    "howItWorks.aiProcessing.description":
+      "AgriCure ਦੇ AI ਮਾਡਲ ਸਰਵੋਤਮ ਪੋਸ਼ਕ ਤੱਤ ਲੋੜਾਂ ਦੀ ਗਣਨਾ ਕਰਨ ਲਈ ਫਸਲ ਦੀ ਕਿਸਮ, ਮਿੱਟੀ ਦੀ ਸਥਿਤੀ ਅਤੇ ਵਿਕਾਸ ਪੜਾਅ ਦੇ ਨਾਲ ਮਿੱਟੀ ਦੇ ਡੇਟਾ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰਦੇ ਹਨ।",
+    "howItWorks.fertilizerPlan.title": "ਕਾਰਵਾਈ ਯੋਗ ਖਾਦ ਯੋਜਨਾ ਪ੍ਰਾਪਤ ਕਰੋ",
+    "howItWorks.fertilizerPlan.description":
+      "ਕਿਸਾਨਾਂ ਨੂੰ ਸਿਫਾਰਸ਼ ਕੀਤੀ ਖਾਦ ਕਿਸਮ, ਸਹੀ ਖੁਰਾਕ ਅਤੇ ਅਨੁਪ੍ਰਯੋਗ ਸਮੇਂ ਦੇ ਨਾਲ ਇੱਕ ਸਪਸ਼ਟ ਖਾਦ ਯੋਜਨਾ ਪ੍ਰਾਪਤ ਹੁੰਦੀ ਹੈ।",
 
     // Footer
     "footer.tagline":
@@ -1060,6 +1111,10 @@ const translations = {
     "mlModel.fallbackDescription":
       "ਐਮਐਲ ਮਾਡਲ ਉਪਲਬਧ ਨਹੀਂ ਹੈ। ਭਵਿੱਖਬਾਣੀਆਂ ਘੱਟ ਸ਼ੁੱਧਤਾ ਦੇ ਨਾਲ ਨਿਯਮ-ਆਧਾਰਿਤ ਐਲਗੋਰਿਦਮ ਦੀ ਵਰਤੋਂ ਕਰ ਰਹੀਆਂ ਹਨ।",
     "mlModel.lastChecked": "ਆਖਰੀ ਜਾਂਚ",
+    "mlModel.fertilizerRecommendationModel": "ਖਾਦ ਸਿਫਾਰਸ਼ ਮਾਡਲ",
+    "mlModel.fertilizerRecommendationDesc":
+      "ਪੋਸ਼ਕ ਤੱਤ-ਆਧਾਰਿਤ ਖਾਦ ਸਿਫਾਰਸ਼ਾਂ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ",
+    "form.farmName": "ਖੇਤ ਦਾ ਨਾਮ",
 
     // Crop Types
     "crops.tea": "ਚਾਹ",

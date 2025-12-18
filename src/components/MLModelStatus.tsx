@@ -150,10 +150,10 @@ const MLModelStatus = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <h4 className="font-semibold text-xs sm:text-sm md:text-base text-blue-900 truncate">
-                      Fertilizer Recommendation Model
+                      {t("mlModel.fertilizerRecommendationModel")}
                     </h4>
                     <p className="text-[10px] sm:text-xs text-blue-700">
-                      Provides nutrient-based fertilizer recommendations
+                      {t("mlModel.fertilizerRecommendationDesc")}
                     </p>
                   </div>
                   <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 flex-shrink-0" />

@@ -102,6 +102,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
     size: "",
     unit: "hectares",
     cropType: "",
+    location: "",
     sowingDate: "",
   });
   const [saving, setSaving] = useState(false);
@@ -254,6 +255,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
           size: sizeNum,
           unit: newFarm.unit as "hectares" | "acres" | "bigha",
           cropType: newFarm.cropType,
+          location: newFarm.location,
           sowingDate: newFarm.sowingDate,
         };
 
@@ -471,7 +473,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
           <div className="flex items-center justify-between flex-wrap gap-2">
             <CardTitle className="text-base sm:text-xl font-semibold text-gray-800 flex items-center gap-2">
               <Activity className="h-5 w-5 sm:h-6 sm:w-6 text-grass-600" />
-              Current Soil Report
+              {t("dashboard.currentSoilReport")}
             </CardTitle>
             {soilHealthResult && (
               <Badge
@@ -494,7 +496,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
             <div className="bg-gradient-to-br from-grass-50 to-emerald-50 rounded-xl p-3 sm:p-4 border border-grass-100">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm sm:text-base font-semibold text-grass-700">
-                  Overall Soil Health
+                  {t("dashboard.overallSoilHealth")}
                 </span>
                 <span className="text-2xl sm:text-3xl font-bold text-grass-800">
                   {soilHealthResult.overallScore}%
@@ -516,13 +518,13 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
               <div className="flex items-center gap-1.5 mb-2.5">
                 <Leaf className="h-4 w-4 text-grass-600" />
                 <h3 className="text-sm font-semibold text-gray-700">
-                  Soil Data
+                  {t("dashboard.soilData")}
                 </h3>
               </div>
               <div className="grid grid-cols-2 gap-2 sm:gap-2.5 md:grid-cols-4">
                 <div className="bg-green-50/50 rounded-lg p-2 sm:p-2.5 border border-green-100 hover:shadow-sm transition-all">
                   <p className="text-[10px] sm:text-xs font-medium text-green-700 mb-0.5">
-                    Nitrogen (N)
+                    {t("dashboard.nitrogen")}
                   </p>
                   <p className="text-base sm:text-lg font-bold text-green-900">
                     {soilData.nitrogen.toFixed(1)}
@@ -530,7 +532,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                 </div>
                 <div className="bg-blue-50/50 rounded-lg p-2 sm:p-2.5 border border-blue-100 hover:shadow-sm transition-all">
                   <p className="text-[10px] sm:text-xs font-medium text-blue-700 mb-0.5">
-                    Phosphorus (P)
+                    {t("dashboard.phosphorus")}
                   </p>
                   <p className="text-base sm:text-lg font-bold text-blue-900">
                     {soilData.phosphorus.toFixed(1)}
@@ -538,7 +540,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                 </div>
                 <div className="bg-amber-50/50 rounded-lg p-2 sm:p-2.5 border border-amber-100 hover:shadow-sm transition-all">
                   <p className="text-[10px] sm:text-xs font-medium text-amber-700 mb-0.5">
-                    Potassium (K)
+                    {t("dashboard.potassium")}
                   </p>
                   <p className="text-base sm:text-lg font-bold text-amber-900">
                     {soilData.potassium.toFixed(1)}
@@ -546,7 +548,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                 </div>
                 <div className="bg-purple-50/50 rounded-lg p-2 sm:p-2.5 border border-purple-100 hover:shadow-sm transition-all">
                   <p className="text-[10px] sm:text-xs font-medium text-purple-700 mb-0.5">
-                    pH Level
+                    {t("dashboard.phLevel")}
                   </p>
                   <p className="text-base sm:text-lg font-bold text-purple-900">
                     {soilData.pH.toFixed(2)}
@@ -554,7 +556,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                 </div>
                 <div className="bg-cyan-50/50 rounded-lg p-2 sm:p-2.5 border border-cyan-100 hover:shadow-sm transition-all">
                   <p className="text-[10px] sm:text-xs font-medium text-cyan-700 mb-0.5">
-                    Electrical Conductivity
+                    {t("dashboard.electricalConductivity")}
                   </p>
                   <p className="text-base sm:text-lg font-bold text-cyan-900">
                     {soilData.electricalConductivity.toFixed(2)}{" "}
@@ -565,7 +567,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                 </div>
                 <div className="bg-sky-50/50 rounded-lg p-2 sm:p-2.5 border border-sky-100 hover:shadow-sm transition-all">
                   <p className="text-[10px] sm:text-xs font-medium text-sky-700 mb-0.5">
-                    Soil Moisture
+                    {t("dashboard.soilMoisture")}
                   </p>
                   <p className="text-base sm:text-lg font-bold text-sky-900">
                     {soilData.soilMoisture.toFixed(1)}%
@@ -573,7 +575,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                 </div>
                 <div className="bg-orange-50/50 rounded-lg p-2 sm:p-2.5 border border-orange-100 hover:shadow-sm transition-all col-span-2 md:col-span-1">
                   <p className="text-[10px] sm:text-xs font-medium text-orange-700 mb-0.5">
-                    Soil Temperature
+                    {t("dashboard.soilTemperature")}
                   </p>
                   <p className="text-base sm:text-lg font-bold text-orange-900">
                     {soilData.soilTemperature.toFixed(1)}°C
@@ -589,13 +591,13 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
               <div className="flex items-center gap-1.5 mb-2.5">
                 <Thermometer className="h-4 w-4 text-orange-600" />
                 <h3 className="text-sm font-semibold text-gray-700">
-                  Environment Readings
+                  {t("dashboard.environmentReadings")}
                 </h3>
               </div>
               <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
                 <div className="bg-yellow-50/50 rounded-lg p-2 sm:p-2.5 border border-yellow-100 hover:shadow-sm transition-all">
                   <p className="text-[10px] sm:text-xs font-medium text-yellow-700 mb-0.5">
-                    Sunlight
+                    {t("dashboard.sunlight")}
                   </p>
                   <p className="text-base sm:text-lg font-bold text-yellow-900">
                     {environmentData.sunlightIntensity.toFixed(0)}{" "}
@@ -606,7 +608,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                 </div>
                 <div className="bg-red-50/50 rounded-lg p-2 sm:p-2.5 border border-red-100 hover:shadow-sm transition-all">
                   <p className="text-[10px] sm:text-xs font-medium text-red-700 mb-0.5">
-                    Temperature
+                    {t("dashboard.temperature")}
                   </p>
                   <p className="text-base sm:text-lg font-bold text-red-900">
                     {environmentData.temperature.toFixed(1)}°C
@@ -614,7 +616,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                 </div>
                 <div className="bg-teal-50/50 rounded-lg p-2 sm:p-2.5 border border-teal-100 hover:shadow-sm transition-all">
                   <p className="text-[10px] sm:text-xs font-medium text-teal-700 mb-0.5">
-                    Humidity
+                    {t("dashboard.humidity")}
                   </p>
                   <p className="text-base sm:text-lg font-bold text-teal-900">
                     {environmentData.humidity.toFixed(1)}%
@@ -698,12 +700,13 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
                         )}
                         {farm.sowingDate && (
                           <p className="text-[11px] sm:text-xs text-gray-500">
-                            Sown:{" "}
+                            {t("dashboard.sown")}:{" "}
                             {new Date(farm.sowingDate).toLocaleDateString()}
                           </p>
                         )}
                         <p className="text-[10px] sm:text-xs text-gray-400">
-                          Added: {new Date(farm.createdAt).toLocaleDateString()}
+                          {t("dashboard.added")}:{" "}
+                          {new Date(farm.createdAt).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
@@ -761,7 +764,7 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label className="text-sm">{t("form.fieldName")} *</Label>
+              <Label className="text-sm">{t("form.farmName")} *</Label>
               <Input
                 value={newFarm.name}
                 onChange={(e) =>
@@ -959,11 +962,15 @@ const EnhancedFarmOverview = ({ user }: EnhancedFarmOverviewProps) => {
 
                   <div className="grid grid-cols-2 gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
                     <div className="text-[10px] sm:text-xs md:text-sm text-gray-600">
-                      <span className="font-medium text-gray-700">Crop:</span>{" "}
+                      <span className="font-medium text-gray-700">
+                        {t("dashboard.crop")}:
+                      </span>{" "}
                       {recommendation.cropType}
                     </div>
                     <div className="text-[10px] sm:text-xs md:text-sm text-gray-600">
-                      <span className="font-medium text-gray-700">Size:</span>{" "}
+                      <span className="font-medium text-gray-700">
+                        {t("dashboard.size")}:
+                      </span>{" "}
                       {recommendation.fieldSize} {recommendation.fieldSizeUnit}
                     </div>
                   </div>

@@ -24,6 +24,9 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
+  PieChart,
+  Pie,
+  Cell,
 } from "recharts";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useRealTimeData } from "@/contexts/RealTimeDataContext";
@@ -619,47 +622,199 @@ const RealTimeSoilAnalysis = () => {
           </CardContent>
         </Card>
 
-        {/* Environment Chart */}
+        {/* Environment Pie Chart */}
         <Card>
-          <CardHeader className="px-4 sm:px-6">
-            <CardTitle className="text-lg sm:text-xl">
-              Environmental Conditions Trend
+          <CardHeader className="px-3 sm:px-4 md:px-6 py-3 sm:py-4">
+            <CardTitle className="text-base sm:text-lg md:text-xl">
+              Environmental Conditions Distribution
             </CardTitle>
-            <CardDescription className="text-sm sm:text-base">
-              Temperature, Humidity & Sunlight (Last 24 Hours)
+            <CardDescription className="text-xs sm:text-sm md:text-base">
+              Current Temperature, Humidity & Sunlight Levels
             </CardDescription>
           </CardHeader>
-          <CardContent className="px-4 sm:px-6">
-            <ResponsiveContainer width="100%" height={250}>
-              <LineChart data={environmentHistoricalData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="time" fontSize={12} />
-                <YAxis fontSize={12} />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="temperature"
-                  stroke="#ef4444"
-                  strokeWidth={2}
-                  name="Temperature °C"
-                />
-                <Line
-                  type="monotone"
-                  dataKey="humidity"
-                  stroke="#06b6d4"
-                  strokeWidth={2}
-                  name="Humidity %"
-                />
-                <Line
-                  type="monotone"
-                  dataKey="sunlightIntensity"
-                  stroke="#fbbf24"
-                  strokeWidth={2}
-                  name="Sunlight (lux)"
-                />
-              </LineChart>
-            </ResponsiveContainer>
+          <CardContent className="px-2 sm:px-4 md:px-6">
+            {/* Mobile View - Stacked Layout */}
+            <div className="block md:hidden">
+              <div className="space-y-4">
+                {/* Mini Pie Chart for Mobile */}
+                <ResponsiveContainer width="100%" height={220}>
+                  <PieChart>
+                    <Pie
+                      data={[
+                        {
+                          name: "Temperature",
+                          value: environmentData?.temperature ?? 0,
+                          fill: "#ef4444",
+                          unit: "°C",
+                        },
+                        {
+                          name: "Humidity",
+                          value: environmentData?.humidity ?? 0,
+                          fill: "#06b6d4",
+                          unit: "%",
+                        },
+                        {
+                          name: "Sunlight",
+                          value: Math.round(
+                            (environmentData?.sunlightIntensity ?? 0) / 100
+                          ),
+                          fill: "#fbbf24",
+                          unit: "×100 lux",
+                        },
+                      ]}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={false}
+                      outerRadius={60}
+                      dataKey="value"
+                    >
+                      <Cell fill="#ef4444" />
+                      <Cell fill="#06b6d4" />
+                      <Cell fill="#fbbf24" />
+                    </Pie>
+                    <Tooltip
+                      formatter={(value: number, name: string, props: any) => [
+                        `${value.toFixed(1)}${props.payload.unit}`,
+                        name,
+                      ]}
+                    />
+                    <Legend wrapperStyle={{ fontSize: "12px" }} iconSize={10} />
+                  </PieChart>
+                </ResponsiveContainer>
+
+                {/* Value Cards for Mobile */}
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-2 text-center">
+                    <div className="text-xs text-red-600 font-medium">Temp</div>
+                    <div className="text-sm font-bold text-red-700">
+                      {(environmentData?.temperature ?? 0).toFixed(1)}°C
+                    </div>
+                  </div>
+                  <div className="bg-cyan-50 border border-cyan-200 rounded-lg p-2 text-center">
+                    <div className="text-xs text-cyan-600 font-medium">
+                      Humidity
+                    </div>
+                    <div className="text-sm font-bold text-cyan-700">
+                      {(environmentData?.humidity ?? 0).toFixed(1)}%
+                    </div>
+                  </div>
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-2 text-center">
+                    <div className="text-xs text-yellow-600 font-medium">
+                      Sunlight
+                    </div>
+                    <div className="text-sm font-bold text-yellow-700">
+                      {Math.round(
+                        (environmentData?.sunlightIntensity ?? 0) / 100
+                      )}
+                      <span className="text-xs">×100</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Tablet View */}
+            <div className="hidden md:block lg:hidden">
+              <ResponsiveContainer width="100%" height={280}>
+                <PieChart>
+                  <Pie
+                    data={[
+                      {
+                        name: "Temperature",
+                        value: environmentData?.temperature ?? 0,
+                        fill: "#ef4444",
+                        unit: "°C",
+                      },
+                      {
+                        name: "Humidity",
+                        value: environmentData?.humidity ?? 0,
+                        fill: "#06b6d4",
+                        unit: "%",
+                      },
+                      {
+                        name: "Sunlight",
+                        value: Math.round(
+                          (environmentData?.sunlightIntensity ?? 0) / 100
+                        ),
+                        fill: "#fbbf24",
+                        unit: "×100 lux",
+                      },
+                    ]}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={true}
+                    label={({ name, value, unit }) =>
+                      `${name}: ${value.toFixed(1)}${unit}`
+                    }
+                    outerRadius={70}
+                    dataKey="value"
+                  >
+                    <Cell fill="#ef4444" />
+                    <Cell fill="#06b6d4" />
+                    <Cell fill="#fbbf24" />
+                  </Pie>
+                  <Tooltip
+                    formatter={(value: number, name: string, props: any) => [
+                      `${value.toFixed(1)}${props.payload.unit}`,
+                      name,
+                    ]}
+                  />
+                  <Legend wrapperStyle={{ fontSize: "13px" }} />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Desktop/PC View */}
+            <div className="hidden lg:block">
+              <ResponsiveContainer width="100%" height={320}>
+                <PieChart>
+                  <Pie
+                    data={[
+                      {
+                        name: "Temperature",
+                        value: environmentData?.temperature ?? 0,
+                        fill: "#ef4444",
+                        unit: "°C",
+                      },
+                      {
+                        name: "Humidity",
+                        value: environmentData?.humidity ?? 0,
+                        fill: "#06b6d4",
+                        unit: "%",
+                      },
+                      {
+                        name: "Sunlight",
+                        value: Math.round(
+                          (environmentData?.sunlightIntensity ?? 0) / 100
+                        ),
+                        fill: "#fbbf24",
+                        unit: "×100 lux",
+                      },
+                    ]}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={true}
+                    label={({ name, value, unit }) =>
+                      `${name}: ${value.toFixed(1)}${unit}`
+                    }
+                    outerRadius={90}
+                    dataKey="value"
+                  >
+                    <Cell fill="#ef4444" />
+                    <Cell fill="#06b6d4" />
+                    <Cell fill="#fbbf24" />
+                  </Pie>
+                  <Tooltip
+                    formatter={(value: number, name: string, props: any) => [
+                      `${value.toFixed(1)}${props.payload.unit}`,
+                      name,
+                    ]}
+                  />
+                  <Legend wrapperStyle={{ fontSize: "14px" }} />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </CardContent>
         </Card>
       </div>

@@ -414,6 +414,15 @@ const EnhancedFertilizerRecommendations = ({
                   {recommendations.costEstimate.secondary}
                 </span>
               </div>
+              {recommendations.costEstimate.phAmendment &&
+                recommendations.costEstimate.phAmendment !== "₹0" && (
+                  <div className="flex flex-col xs:flex-row justify-between gap-1">
+                    <span className="text-xs sm:text-sm">pH Amendment:</span>
+                    <span className="font-medium text-sm sm:text-base">
+                      {recommendations.costEstimate.phAmendment}
+                    </span>
+                  </div>
+                )}
               <div className="flex flex-col xs:flex-row justify-between gap-1">
                 <span className="text-xs sm:text-sm">
                   {t("dashboard.organicOptions")}:

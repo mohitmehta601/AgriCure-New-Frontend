@@ -92,6 +92,15 @@ const LLMEnhancedFertilizerRecommendations = ({
     k_status: mlPredictions.K_Status || "Optimal",
   };
 
+  // Helper function to get badge variant based on severity
+  const getSeverityVariant = (status: string) => {
+    const statusLower = status?.toLowerCase();
+    if (statusLower === "optimal") return "default"; // green
+    if (statusLower === "severe") return "destructive"; // red
+    if (statusLower === "mild") return "warning"; // yellow
+    return "secondary";
+  };
+
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* ML Model Prediction Header */}
@@ -147,11 +156,7 @@ const LLMEnhancedFertilizerRecommendations = ({
                 pH
               </div>
               <Badge
-                variant={
-                  soilCondition.ph_status?.toLowerCase() === "optimal"
-                    ? "default"
-                    : "secondary"
-                }
+                variant={getSeverityVariant(soilCondition.ph_status)}
                 className="text-[10px] sm:text-xs"
               >
                 {soilCondition.ph_status || phAmendment}
@@ -166,13 +171,7 @@ const LLMEnhancedFertilizerRecommendations = ({
                 Nitrogen
               </div>
               <Badge
-                variant={
-                  soilCondition.n_status?.toLowerCase() === "optimal"
-                    ? "default"
-                    : soilCondition.n_status?.toLowerCase() === "low"
-                    ? "destructive"
-                    : "secondary"
-                }
+                variant={getSeverityVariant(soilCondition.n_status)}
                 className="text-[10px] sm:text-xs"
               >
                 {soilCondition.n_status || "N/A"}
@@ -187,13 +186,7 @@ const LLMEnhancedFertilizerRecommendations = ({
                 Phosphorus
               </div>
               <Badge
-                variant={
-                  soilCondition.p_status?.toLowerCase() === "optimal"
-                    ? "default"
-                    : soilCondition.p_status?.toLowerCase() === "low"
-                    ? "destructive"
-                    : "secondary"
-                }
+                variant={getSeverityVariant(soilCondition.p_status)}
                 className="text-[10px] sm:text-xs"
               >
                 {soilCondition.p_status || "N/A"}
@@ -208,13 +201,7 @@ const LLMEnhancedFertilizerRecommendations = ({
                 Potassium
               </div>
               <Badge
-                variant={
-                  soilCondition.k_status?.toLowerCase() === "optimal"
-                    ? "default"
-                    : soilCondition.k_status?.toLowerCase() === "low"
-                    ? "destructive"
-                    : "secondary"
-                }
+                variant={getSeverityVariant(soilCondition.k_status)}
                 className="text-[10px] sm:text-xs"
               >
                 {soilCondition.k_status || "N/A"}
@@ -303,11 +290,7 @@ const LLMEnhancedFertilizerRecommendations = ({
                     Nitrogen (N)
                   </span>
                   <Badge
-                    variant={
-                      soilCondition.n_status?.toLowerCase() === "low"
-                        ? "destructive"
-                        : "default"
-                    }
+                    variant={getSeverityVariant(soilCondition.n_status)}
                     className="text-[9px] sm:text-xs h-3.5 sm:h-4 px-1 sm:px-2"
                   >
                     {soilCondition.n_status}
@@ -324,11 +307,7 @@ const LLMEnhancedFertilizerRecommendations = ({
                     Phosphorus (P)
                   </span>
                   <Badge
-                    variant={
-                      soilCondition.p_status?.toLowerCase() === "low"
-                        ? "destructive"
-                        : "default"
-                    }
+                    variant={getSeverityVariant(soilCondition.p_status)}
                     className="text-[9px] sm:text-xs h-3.5 sm:h-4 px-1 sm:px-2"
                   >
                     {soilCondition.p_status}
@@ -345,11 +324,7 @@ const LLMEnhancedFertilizerRecommendations = ({
                     Potassium (K)
                   </span>
                   <Badge
-                    variant={
-                      soilCondition.k_status?.toLowerCase() === "low"
-                        ? "destructive"
-                        : "default"
-                    }
+                    variant={getSeverityVariant(soilCondition.k_status)}
                     className="text-[9px] sm:text-xs h-3.5 sm:h-4 px-1 sm:px-2"
                   >
                     {soilCondition.k_status}
@@ -366,11 +341,7 @@ const LLMEnhancedFertilizerRecommendations = ({
                     pH Status
                   </span>
                   <Badge
-                    variant={
-                      soilCondition.ph_status?.toLowerCase() === "optimal"
-                        ? "default"
-                        : "secondary"
-                    }
+                    variant={getSeverityVariant(soilCondition.ph_status)}
                     className="text-[9px] sm:text-xs h-3.5 sm:h-4 px-1 sm:px-2"
                   >
                     {soilCondition.ph_status || phAmendment}
@@ -896,25 +867,61 @@ const LLMEnhancedFertilizerRecommendations = ({
                               ""
                             ) ||
                             "0"
-                        )
+                        ) +
+                        (result.cost_estimate?.breakdown?.ph_amendment
+                          ?.fertilizer &&
+                        result.cost_estimate.breakdown.ph_amendment
+                          .fertilizer !== "None" &&
+                        result.cost_estimate.breakdown.ph_amendment
+                          .fertilizer !== "—"
+                          ? parseInt(
+                              result.cost_estimate.ph_amendment?.replace(
+                                /[₹,]/g,
+                                ""
+                              ) || "0"
+                            )
+                          : 0)
                       ).toLocaleString()}
                     </span>
                   </div>
                   <div className="space-y-2 pt-3 border-t border-green-300">
                     {/* Primary Fertilizer */}
-                    <div className="flex justify-between items-center text-sm sm:text-base text-green-700">
-                      <span>
-                        Primary Fertilizer [
-                        {result.cost_estimate?.breakdown?.primary?.fertilizer ||
-                          result.primary_fertilizer?.name ||
-                          "Primary Fertilizer"}
-                        ]
-                      </span>
-                      <span className="font-medium text-base sm:text-lg">
-                        {result.cost_estimate.primary_fertilizer ||
-                          result.cost_estimate.primary ||
-                          "₹0"}
-                      </span>
+                    <div className="space-y-1">
+                      <div className="flex justify-between items-center text-sm sm:text-base text-green-700">
+                        <span>
+                          Primary Fertilizer [
+                          {result.cost_estimate?.breakdown?.primary
+                            ?.fertilizer ||
+                            result.primary_fertilizer?.name ||
+                            "Primary Fertilizer"}
+                          ]
+                        </span>
+                        <span className="font-medium text-base sm:text-lg">
+                          {result.cost_estimate.primary_fertilizer ||
+                            result.cost_estimate.primary ||
+                            "₹0"}
+                        </span>
+                      </div>
+                      {/* Show component breakdown if available */}
+                      {result.cost_estimate?.breakdown?.primary?.components &&
+                        result.cost_estimate.breakdown.primary.components
+                          .length > 0 && (
+                          <div className="ml-4 space-y-1 text-xs sm:text-sm text-green-600">
+                            {result.cost_estimate.breakdown.primary.components.map(
+                              (comp: any, idx: number) => (
+                                <div
+                                  key={idx}
+                                  className="flex justify-between items-center"
+                                >
+                                  <span>
+                                    • {comp.name} ({comp.quantity_kg} kg)
+                                  </span>
+                                  <span>{comp.cost}</span>
+                                </div>
+                              )
+                            )}
+                          </div>
+                        )}
                     </div>
                     {/* Secondary Fertilizer */}
                     <div className="space-y-1">
@@ -954,6 +961,50 @@ const LLMEnhancedFertilizerRecommendations = ({
                           </div>
                         )}
                     </div>
+                    {/* pH Amendment */}
+                    {result.cost_estimate?.ph_amendment &&
+                      result.cost_estimate.ph_amendment !== "₹0" &&
+                      result.cost_estimate?.breakdown?.ph_amendment
+                        ?.fertilizer &&
+                      result.cost_estimate.breakdown.ph_amendment.fertilizer !==
+                        "None" &&
+                      result.cost_estimate.breakdown.ph_amendment.fertilizer !==
+                        "—" && (
+                        <div className="space-y-1">
+                          <div className="flex justify-between items-center text-sm sm:text-base text-green-700">
+                            <span>
+                              pH Amendment [
+                              {result.cost_estimate?.breakdown?.ph_amendment
+                                ?.fertilizer || "pH Amendment"}
+                              ]
+                            </span>
+                            <span className="font-medium text-base sm:text-lg">
+                              {result.cost_estimate.ph_amendment}
+                            </span>
+                          </div>
+                          {/* Show component breakdown if available */}
+                          {result.cost_estimate?.breakdown?.ph_amendment
+                            ?.components &&
+                            result.cost_estimate.breakdown.ph_amendment
+                              .components.length > 0 && (
+                              <div className="ml-4 space-y-1 text-xs sm:text-sm text-green-600">
+                                {result.cost_estimate.breakdown.ph_amendment.components.map(
+                                  (comp: any, idx: number) => (
+                                    <div
+                                      key={idx}
+                                      className="flex justify-between items-center"
+                                    >
+                                      <span>
+                                        • {comp.name} ({comp.quantity_kg} kg)
+                                      </span>
+                                      <span>{comp.cost}</span>
+                                    </div>
+                                  )
+                                )}
+                              </div>
+                            )}
+                        </div>
+                      )}
                   </div>
                 </div>
 
